@@ -1,0 +1,79 @@
+// router.tsx
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import ProductSpec from "../components/product-specification";
+import Collections from "../pages/collections";
+import ProductDetailsPage from "../pages/product-details-page";
+import Cart from "../pages/shopping-cart";
+import Checkout from "../pages/checkout";
+import HeroSection from "../components/hero-section"
+import LandingPage from "../pages/landing-page";
+import ProductListingPage from "../pages/product-listing-page";
+import SignIn from "../pages/sign-in";
+import SignUp from "../pages/signup";
+import NotFoundPage from "../pages/not-found-page";
+import ProtectedRoutes from "../components/protected-routes";
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <App />,
+        children: [
+            {
+                index: true,
+                element: <LandingPage />
+            },
+            {
+                path: 'product-specification',
+                element: <ProductSpec />
+            },
+            {
+                path: 'collections',
+                element: <Collections />
+            },
+            {
+                path: 'product-details-page/:productId',
+                element: <ProductDetailsPage />,
+            },
+            {
+                path: 'cart',
+                element: (
+                    <ProtectedRoutes>
+                        <Cart />
+                    </ProtectedRoutes>
+                )
+            },
+            {
+                path: 'checkout',
+                element: (
+                    <ProtectedRoutes>
+                        <Checkout />
+                    </ProtectedRoutes>
+                )
+            },
+            {
+                path: 'hero-section',
+                element: <HeroSection />
+            },
+            {
+                path: 'product-listing-page',
+                element: <ProductListingPage />
+            },
+            {
+                path: 'sign-in',
+                element: <SignIn />
+            },
+            {
+                path: 'sign-up',
+                element: <SignUp />
+            },
+        ]
+    },
+    {
+        path: '*',
+        element: <NotFoundPage />
+    }
+]);
+
+
+export default router;
