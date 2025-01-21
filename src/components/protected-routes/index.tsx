@@ -9,7 +9,7 @@ function ProtectedRoutes({children}: { children: React.ReactNode}) {
         return <Navigate to="/sign-in" state={{ from: location}} replace />
     }
 
-    return <div>{children}</div>
+    return <>{children}</>
 }
 
 export default ProtectedRoutes

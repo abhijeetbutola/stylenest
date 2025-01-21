@@ -83,16 +83,14 @@ function Checkout() {
     };
     
     return (
-        <div className="max-w-[1408px] mx-4 flex-1">
-            <div className="bg-white p-24 flex-grow flex flex-col gap-8">
+        <div className="bg-white p-24 flex-1 max-w-[1408px] mx-4 rounded-t-lg">
+            <div className="flex flex-col gap-8 mx-4">
                 <div className="text-sm font-medium text-indigo-700 hover:text-indigo-500">
                     <Link to={'/cart'}>
                         &#8249; Back to Shopping Cart
                     </Link>
                 </div>
-                <div className="text-4xl font-semibold text-neutral-900">
-                        Checkout
-                </div>
+                <div className="text-4xl font-semibold text-neutral-900">Checkout</div>
                 <div className="flex gap-8">
                     <form
                         className="flex-1 flex flex-col gap-6">
@@ -248,7 +246,7 @@ function Checkout() {
                                         <div className="flex-1 flex flex-col gap-2">
                                             <div className="font-medium text-xl text-neutral-900">{item.name}</div>
                                             <div className="font-medium text-base text-neutral-600">
-                                                {item.size ? <span>{item.color[0].toUpperCase() + item.color.slice(1)}&#183;{String(item.size).toUpperCase()}</span> : <span>{item.color[0].toUpperCase() + item.color.slice(1)}</span>}
+                                                {item.size ? <span>{item.color[0].toUpperCase() + item.color.slice(1)}{item.size !== "N/A" && " · " + String(item.size).toUpperCase()}</span> : <span>{item.color[0].toUpperCase() + item.color.slice(1)}</span>}
                                             </div>
                                             <div className="font-medium text-base text-neutral-600">Quantity: {item.quantity}</div>
                                         </div>

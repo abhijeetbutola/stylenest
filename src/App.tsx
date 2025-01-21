@@ -22,7 +22,7 @@ function App() {
   const isNotFoundPage = location.pathname === "/not-found-page"
 
   return (
-    <div className='flex flex-col min-h-screen justify-center items-center'>
+    <div className='flex flex-col min-h-screen w-full justify-center items-center'>
       {!isNotFoundPage && <Navbar />}  
       <div className='flex-1 flex w-full justify-center items-center'>
         <Outlet />
