@@ -27,13 +27,15 @@ function ProductCard({ item }: ProductCardProps) {
         (details) => details.color === productColor
     );
 
+    const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor)
+
     const ImageSection = isHovering ? (
         <Link to={`/product-details-page/${item.product_id}`}>
-            <ImageCarousel images={item.images} />
+            <ImageCarousel images={itemHoverImagesByColor} />
         </Link>
     ) : (
         <Link to={`/product-details-page/${item.product_id}`}>
-            <img className="object-cover aspect-[14/15]" src={imageUrl} alt={item.name} />
+            <img className="object-cover aspect-[14/15] max-w-[280px]" src={imageUrl} alt={item.name} />
         </Link>
     );
 

@@ -43,13 +43,13 @@ function Collections() {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-start gap-8 rounded-lg p-6 md:p-24 text-black w-full">
+    <div className="flex-1 flex flex-col justify-center items-start gap-8 rounded-lg ;g:p-24 sm:p-4 text-black w-full">
       <div>
         <p className="text-black font-semibold text-3xl">Our Collections</p>
       </div>
       <div className="flex gap-7 flex-wrap w-full">
         {/* First image */}
-        <div className="relative flex-1 rounded-lg overflow-hidden">
+        <div className="relative lg:flex-1 flex rounded-lg overflow-hidden">
           <img
             className="w-full aspect-[1024/1000] object-cover"
             src={collectionData?.[0]?.image_url}
@@ -61,7 +61,7 @@ function Collections() {
           </div>
         </div>
         {/* Second and Third images */}
-        <div className="flex flex-col gap-7 flex-1">
+        <div className="flex flex-col gap-7 lg:flex-1">
           <div className="relative rounded-lg overflow-hidden">
             <img
               className="w-full aspect-[2152/1000] object-cover"

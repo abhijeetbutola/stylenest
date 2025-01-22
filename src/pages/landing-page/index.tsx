@@ -20,8 +20,8 @@ function LandingPage() {
     return (
         <div className="bg-white flex-1 flex flex-col max-w-[1408px] mx-4 rounded-t-lg w-full">
             <HeroSection />
-            <div className="flex flex-col gap-8 px-24 pt-24">
-                <div className="flex justify-between font-semibold">
+            <div className="flex flex-col gap-8 lg:px-24 sm:px-4 pt-24">
+                <div className="flex justify-between font-semibold flex-wrap">
                     <p className="text-3xl text-neutral-900">
                         Latest Arrivals    
                     </p>
@@ -44,6 +44,7 @@ function LandingPage() {
 
                 {/* Render the product grid only if the data is available */}
                 {fetchedProductsStatus === 'succeeded' && <ProductGrid products={products} />}
+             
             </div>
             <Collections />
             <Commitment />

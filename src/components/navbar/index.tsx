@@ -43,7 +43,7 @@ function Navbar() {
                         </div>
                     </div>
                     <div className="flex gap-8">
-                        <div className="font-medium text-base text-neutral-600">
+                        <div className="font-medium text    -base text-neutral-600">
                             <Button className="font-medium text-base text-neutral-600" onClick={handleLoginClick}>{isAuth ? "Logout" : "Login"}</Button>
                         </div>
                         <div className="relative">

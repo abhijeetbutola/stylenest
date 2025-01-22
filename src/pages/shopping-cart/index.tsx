@@ -44,12 +44,12 @@ function Cart() {
             <div className="bg-white flex-1 flex flex-col gap-16 p-24 rounded-t-lg w-full">
                 <div className="font-semibold text-5xl text-neutral-900">Shopping Cart</div>
 
-                <div className="flex-1 flex gap-8 w-full">
+                <div className="flex gap-8 w-full">
                     {/* Cart Items Section */}
                     <div className="flex flex-col gap-8">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex flex-col gap-8">
-                                <div className="flex gap-8 max-h-[200px]">
+                                <div className="flex gap-8 min-h-[200px]">
                                     <img
                                         src={item.images[0].image_url}
                                         alt=""
@@ -104,56 +104,55 @@ function Cart() {
 
                     {/* Order Summary Section */}
                     <div>
-                        
-                    </div>
-                    <div className="sticky top-10 border-2 border-neutral-200 rounded-lg p-8 flex flex-col w-[384px] gap-8">
-                        <div className="text-2xl text-neutral-900 font-semibold">Order Summary</div>
+                        <div className="sticky top-10 border-2 border-neutral-200 rounded-lg p-8 flex flex-col w-[384px] gap-8">
+                            <div className="text-2xl text-neutral-900 font-semibold">Order Summary</div>
 
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-1 justify-between items-center">
-                                <span className="text-base font-normal text-neutral-600">Subtotal</span>
-                                <span className="font-semibold text-lg text-neutral-900">${totalAmount}</span>
-                            </div>
-                            <div className="flex flex-1 justify-between items-center">
-                                <span className="text-base font-normal text-neutral-600">Shipping</span>
-                                <span className="font-semibold text-lg text-neutral-900">FREE</span>
-                            </div>
+                            <div className="flex flex-col gap-4">
+                                <div className="flex flex-1 justify-between items-center">
+                                    <span className="text-base font-normal text-neutral-600">Subtotal</span>
+                                    <span className="font-semibold text-lg text-neutral-900">${totalAmount}</span>
+                                </div>
+                                <div className="flex flex-1 justify-between items-center">
+                                    <span className="text-base font-normal text-neutral-600">Shipping</span>
+                                    <span className="font-semibold text-lg text-neutral-900">FREE</span>
+                                </div>
 
-                            {couponState ? (
-                                <div className="flex flex-col gap-1.5">
-                                    <div className="font-medium text-sm text-neutral-700">Coupon Code</div>
-                                    <div className="flex gap-2">
-                                        <input
-                                            type="text"
-                                            placeholder="Enter coupon code"
-                                            className="flex-1 bg-neutral-50 border-2 border-neutral-200 rounded-[4px] text-sm py-2.5 px-3.5"
-                                        />
-                                        <Button className="border-2 border-neutral-200 rounded-[4px] py-2.5 px-5">
-                                            Apply
-                                        </Button>
+                                {couponState ? (
+                                    <div className="flex flex-col gap-1.5">
+                                        <div className="font-medium text-sm text-neutral-700">Coupon Code</div>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="Enter coupon code"
+                                                className="flex-1 bg-neutral-50 border-2 border-neutral-200 rounded-[4px] text-sm py-2.5 px-3.5"
+                                            />
+                                            <Button className="border-2 border-neutral-200 rounded-[4px] py-2.5 px-5">
+                                                Apply
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="flex gap-2 text-indigo-700 font-medium text-base ml-auto">
-                                    <img src={couponCodeIcon} alt="" />
-                                    <Button onClick={handleCouponState}>Add coupon code</Button>
-                                </div>
-                            )}
-                        </div>
+                                ) : (
+                                    <div className="flex gap-2 text-indigo-700 font-medium text-base ml-auto">
+                                        <img src={couponCodeIcon} alt="" />
+                                        <Button onClick={handleCouponState}>Add coupon code</Button>
+                                    </div>
+                                )}
+                            </div>
 
-                        <hr className="border-t-2 border-neutral-300 border-dotted" />
+                            <hr className="border-t-2 border-neutral-300 border-dotted" />
 
-                        <div className="flex justify-between items-center">
-                            <span className="text-neutral-900 text-2xl font-medium">Total</span>
-                            <span className="font-semibold text-4xl text-neutral-900">${totalAmount}</span>
-                        </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-neutral-900 text-2xl font-medium">Total</span>
+                                <span className="font-semibold text-4xl text-neutral-900">${totalAmount}</span>
+                            </div>
 
-                        <div className="w-full">
-                            <Link to="/checkout" className="">
-                                <Button className="w-full text-medium text-lg text-white rounded-[4px] bg-indigo-700 hover:bg-indigo-800 p-4">
-                                    Checkout
-                                </Button>
-                            </Link>
+                            <div className="w-full">
+                                <Link to="/checkout" className="">
+                                    <Button className="w-full text-medium text-lg text-white rounded-[4px] bg-indigo-700 hover:bg-indigo-800 p-4">
+                                        Checkout
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

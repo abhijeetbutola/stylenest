@@ -29,10 +29,12 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
   const handleColorClick = (colorName: string) => {    
     setSelectedColor(colorName);
     setSelectedImage(0);
+    setQuantity(1);
   };
 
   const handleSizeSelect = (sizeValue: string) => {
     setSelectedSize(sizeValue);
+    setQuantity(1);
   };
 
   const handleQuantityButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
