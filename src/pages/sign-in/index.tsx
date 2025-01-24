@@ -6,13 +6,13 @@ import { ChangeEvent, useState } from "react"
 import { saveAuthToLocalStorage } from "../../utils/authLocalStorageUtils"
 import { login } from "../../redux/slices/authSlice"
 import { useDispatch } from "react-redux"
+import { toast } from "react-toastify"
 
 function SignIn() {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
-    console.log(formData);
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -41,15 +41,17 @@ function SignIn() {
             })
 
             if(response.ok) {
-                console.log("Login successful");
                 const userData = await response.json()
                 console.log(userData);
                 saveAuthToLocalStorage(userData)
                 dispatch(login(userData))
-                alert("Login successful!")
+                toast.success('Login successful!', {
+                    className: "toast-class",
+                    delay: 500,
+                })
                 navigate(from, { replace: true })
             } else {
-                alert("Login failed!")
+                toast.error("Login failed!")
             }
         } catch(error) {
             console.error("Login error: ", error);
@@ -57,20 +59,28 @@ function SignIn() {
     }
 
     return (
-        <div className="bg-white w-full max-w-[1408px] py-8 px-24 mx-4">
-            <div className="flex justify-center items-center">
-                <div className="flex-1 flex justify-center items-center px-[104px]">
-                    <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-6 max-w-[384px]">
-                        <div className="text-3xl font-semibold text-neutral-900">
-                            Login to your account
-                        </div>
-                        <Input id="email-input" type="email" name="email" label="Email" value={formData.email} placeholder="john@example.com" className="bg-neutral-50 border-[1px] border-neutral-200 w-full" autoComplete="email" onChange={handleInputChange} required />
-                        <Input id="password-input" type="password" name="password" label="Password" value={formData.password} placeholder="Password" className="bg-neutral-50 border-[1px] border-neutral-200 w-full" autoComplete="current-password" onChange={handleInputChange} required />
-                        <Button type="submit" className="bg-indigo-700 py-2.5 font-medium text-sm text-white rounded hover:bg-indigo-800">Submit</Button>
-                    </form>
-                </div>
-                <div className="flex-1">
-                    <img src={signinpic} alt="" />
+        <div className="bg-white max-w-[1408px] w-full rounded-t-lg mx-4">
+            <div className="py-8 px-4 sm:max-lg:px-[140px] lg:p-24">
+                <div className="flex justify-center items-center gap-8">
+                    <div className="self-stretch flex justify-center items-center lg:px-[104px]">
+                        <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-6">
+                            <div className="text-3xl font-semibold text-neutral-900">
+                                Login to your account
+                            </div>
+                            <div>
+                                <label htmlFor="email" className="font-medium text-sm text-neutral-700">Email</label>
+                                <Input id="email-input" type="email" name="email" value={formData.email} placeholder="john@example.com" className="bg-neutral-50 border-[1px] border-neutral-200 w-full rounded-[4px] text-sm text-neutral-900 px-[14px] py-2.5" autoComplete="email" onChange={handleInputChange} required />
+                            </div>
+                            <div>
+                                <label htmlFor="password" className="font-medium text-sm text-neutral-700">Password</label>
+                                <Input id="password-input" type="password" name="password" value={formData.password} placeholder="Password" className="bg-neutral-50 border-[1px] border-neutral-200 w-full h-10 rounded-[4px] text-sm text-neutral-900 px-[14px] py-2.5" autoComplete="current-password" onChange={handleInputChange} required />
+                            </div>
+                            <Button type="submit" className="bg-indigo-700 py-2.5 font-medium text-sm text-white rounded hover:bg-indigo-800">Submit</Button>
+                        </form>
+                    </div>
+                    <div className=" hidden lg:block">
+                        <img src={signinpic} alt="" />
+                    </div>
                 </div>
             </div>
         </div>

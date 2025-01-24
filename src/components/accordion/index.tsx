@@ -11,9 +11,6 @@ type AccordionProps = {
 function Accordion({ data }: AccordionProps) {
     const [open, setOpen] = useState<number[]>([])
 
-    // console.log(data);
-    
-
     const handleAccordionButtonClick = (value: number) => {
         const temp = new Set(open)
         if(temp.has(value)) {
@@ -30,7 +27,7 @@ function Accordion({ data }: AccordionProps) {
             {
                 data?.map((infoItem, index) => (
                     <div key={index} className="flex flex-col gap-2">
-                        <div className="flex justify-between items-center" onClick={() => handleAccordionButtonClick(index)}>
+                        <div className="flex justify-between items-center cursor-pointer hover:underline" onClick={() => handleAccordionButtonClick(index)}>
                             <span className="text-lg font-medium text-neutral-900">{infoItem.title}</span>
                             <Button><img src={open.includes(index) ? collapse : expand} alt="" /></Button>
                         </div>

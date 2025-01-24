@@ -1,1 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.toast-class {
+    background: rgb(124, 123, 123);
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}

@@ -38,8 +38,10 @@ function ProductListingPage() {
 
   useEffect(() => {
     return () => {
-      dispatch(resetCollection());
-      dispatch(resetGender());
+      if (window.location.pathname !== "/product-listing-page") {
+        dispatch(resetCollection());
+        dispatch(resetGender());
+      }
     };
   }, [dispatch]);
 
@@ -62,7 +64,7 @@ function ProductListingPage() {
   }, [dispatch, filters]);
 
   return (
-    <div className="bg-white flex-1 flex gap-8 max-w-[1408px] self-stretch p-24">
+    <div className="bg-white flex-1 flex gap-8 max-w-[1408px] self-stretch lg:p-24 max-md:p-4">
       <div className="w-[248px] pt-4 pr-4">
         <FilterSection data={accObj} />
       </div>

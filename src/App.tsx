@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { rehydrate } from './redux/slices/authSlice';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, Zoom } from 'react-toastify';
 
 function App() {
   const dispatch = useDispatch()
@@ -22,10 +23,11 @@ function App() {
   const isNotFoundPage = location.pathname === "/not-found-page"
 
   return (
-    <div className='flex flex-col min-h-screen w-full justify-center items-center'>
+    <div className='flex flex-col min-h-screen justify-center items-center'>
       {!isNotFoundPage && <Navbar />}  
-      <div className='flex-1 flex w-full justify-center items-center'>
+      <div className='self-stretch flex justify-center rounded-t-lg'>
         <Outlet />
+        <ToastContainer position='bottom-center' transition={Zoom} closeButton={false} hideProgressBar stacked />
       </div>
       {!isNotFoundPage && <div className='w-full flex justify-center items-start'>
         <Footer />

@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../hooks";
+import { toggleCollection } from "../../redux/slices/collectionsSlice";
 
 type Data = {
   collection_id: string;
@@ -12,6 +15,8 @@ function Collections() {
   const [collectionData, setCollectionData] = useState<Data[] | null>([]);
   const [loading, setLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,29 +47,36 @@ function Collections() {
     return <div>Error: {error}</div>;
   }
 
+  const handleCollectionClick = (collection: string) => {
+    dispatch(toggleCollection(collection))
+  }
+
   return (
-    <div className="flex-1 flex flex-col justify-center items-start gap-8 rounded-lg ;g:p-24 sm:p-4 text-black w-full">
+    <div className="h-[500px] flex-1 flex flex-col justify-center items-start gap-8 rounded-lg lg:p-24 max-lg:p-4 text-black w-full">
       <div>
         <p className="text-black font-semibold text-3xl">Our Collections</p>
       </div>
-      <div className="flex gap-7 flex-wrap w-full">
+      <div className="flex max-sm:flex-col gap-7 w-full">
         {/* First image */}
-        <div className="relative lg:flex-1 flex rounded-lg overflow-hidden">
-          <img
-            className="w-full aspect-[1024/1000] object-cover"
-            src={collectionData?.[0]?.image_url}
-            alt=""
-          />
-          <div className="absolute bottom-4 left-4 text-white">
-            <p className="font-normal text-sm">{collectionData?.[0]?.name}</p>
-            <p className="font-medium text-base">{collectionData?.[0]?.description}</p>
-          </div>
-        </div>
-        {/* Second and Third images */}
-        <div className="flex flex-col gap-7 lg:flex-1">
-          <div className="relative rounded-lg overflow-hidden">
+        <Link to="/product-listing-page" onClick={() => handleCollectionClick("cozy")}>
+          <div className="relative max-h-[580px] flex basis-1/2 w-full rounded-lg overflow-hidden">
             <img
-              className="w-full aspect-[2152/1000] object-cover"
+              className="w-full object-cover"
+              src={collectionData?.[0]?.image_url}
+              alt=""
+            />
+            <div className="absolute bottom-4 left-4 text-white">
+              <p className="font-normal text-sm">{collectionData?.[0]?.name}</p>
+              <p className="font-medium text-base">{collectionData?.[0]?.description}</p>
+            </div>
+          </div>
+        </Link>
+        {/* Second and Third images */}
+        <div className="flex max-h-[580px] basis-1/2 flex-col gap-7">
+        <Link to="/product-listing-page" onClick={() => handleCollectionClick("urban")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
+          <div className="flex">
+            <img
+              className="w-full object-cover"
               src={collectionData?.[1]?.image_url}
               alt=""
             />
@@ -73,9 +85,11 @@ function Collections() {
               <p className="font-medium text-base">{collectionData?.[1]?.description}</p>
             </div>
           </div>
-          <div className="relative rounded-lg overflow-hidden">
+        </Link>
+        <Link to="/product-listing-page" onClick={() => handleCollectionClick("fresh")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
+          <div className="flex">
             <img
-              className="w-full aspect-[2152/1000] object-cover"
+              className="w-full object-none"
               src={collectionData?.[2]?.image_url}
               alt=""
             />
@@ -84,6 +98,7 @@ function Collections() {
               <p className="font-medium text-base">{collectionData?.[2]?.description}</p>
             </div>
           </div>
+        </Link>
         </div>
       </div>
     </div>

@@ -3,20 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/authSlice";
 import { clearCart } from "../../redux/slices/cartSlice"
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { toast } from "react-toastify";
+import hamburgerIcon from "../../assets/hamburgericon.svg"
 
 function Navbar() {
     const dispatch = useAppDispatch()
-    const cartItems = useAppSelector((state) => state.cartItems.items)
-    console.log(cartItems);
+    const cartItemsCount = useAppSelector((state) => state.cartItems.items.length)
+    // console.log(cartItems);
     
     const isAuth = useAppSelector((state) => state.auths.isAuthenticated)
     const navigate = useNavigate()
-    // console.log(isAuth);
     
-    const handleLoginClick = () => {
+    const handleAuthAction = () => {
         if(isAuth){
             dispatch(logout())
             dispatch(clearCart())
+            toast.success("You have been logged out.", {
+                className: "toast-class",
+                delay: 500,
+            });
+            navigate('/')
         } else {
             navigate('/sign-in')
         }
@@ -27,6 +33,7 @@ function Navbar() {
             <div className="flex flex-1 h-14 items-center">
                 <div className="flex grow justify-between items-center">
                     <div className="flex grow gap-14">
+                        {/* Logo Section */}
                         <div>
                             <Link to="/">
                                 <svg width="105" height="32" viewBox="0 0 105 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,26 +42,33 @@ function Navbar() {
                                 </svg>
                             </Link>
                         </div>
-                        <div className="flex grow gap-8 items-center">
-                            <Button className="font-medium text-base text-neutral-600">Shop all</Button>
-                            <Link to={'/product-listing-page'}>
-                                <Button className="font-medium text-base text-neutral-600">Latest arrivals</Button>
-                            </Link>
+
+                        {/* Desktop Buttons */}
+                        <div className="hidden lg:flex grow gap-8 items-center ">
+                            <Link to="/product-listing-page" className="font-medium text-base text-neutral-600">Shop all</Link>
+                            <Link to="/latest-arrivals-page" className="font-medium text-base text-neutral-600">Latest arrivals</Link>
                         </div>
                     </div>
                     <div className="flex gap-8">
-                        <div className="font-medium text    -base text-neutral-600">
-                            <Button className="font-medium text-base text-neutral-600" onClick={handleLoginClick}>{isAuth ? "Logout" : "Login"}</Button>
+
+                        {/* Desktop Button */}
+                        <div className="hidden lg:block font-medium text-base text-neutral-600">
+                            <Button className="font-medium text-base text-neutral-600" onClick={handleAuthAction}>{isAuth ? "Logout" : "Login"}</Button>
                         </div>
                         <div className="relative">
-                            <Link to="/cart">
-                                <Button className="font-medium text-base text-neutral-600">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.50488 2H17.5049C17.8196 2 18.116 2.14819 18.3049 2.4L21.0049 6V21C21.0049 21.5523 20.5572 22 20.0049 22H4.00488C3.4526 22 3.00488 21.5523 3.00488 21V6L5.70488 2.4C5.89374 2.14819 6.19013 2 6.50488 2ZM19.0049 8H5.00488V20H19.0049V8ZM18.5049 6L17.0049 4H7.00488L5.50488 6H18.5049ZM9.00488 10V12C9.00488 13.6569 10.348 15 12.0049 15C13.6617 15 15.0049 13.6569 15.0049 12V10H17.0049V12C17.0049 14.7614 14.7663 17 12.0049 17C9.24346 17 7.00488 14.7614 7.00488 12V10H9.00488Z" fill="#525252"/>
-                                    </svg>
-                                </Button>
+                            <Link to="/cart" className="font-medium text-base text-neutral-600">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.50488 2H17.5049C17.8196 2 18.116 2.14819 18.3049 2.4L21.0049 6V21C21.0049 21.5523 20.5572 22 20.0049 22H4.00488C3.4526 22 3.00488 21.5523 3.00488 21V6L5.70488 2.4C5.89374 2.14819 6.19013 2 6.50488 2ZM19.0049 8H5.00488V20H19.0049V8ZM18.5049 6L17.0049 4H7.00488L5.50488 6H18.5049ZM9.00488 10V12C9.00488 13.6569 10.348 15 12.0049 15C13.6617 15 15.0049 13.6569 15.0049 12V10H17.0049V12C17.0049 14.7614 14.7663 17 12.0049 17C9.24346 17 7.00488 14.7614 7.00488 12V10H9.00488Z" fill="#525252"/>
+                                </svg>
                             </Link>
-                            {cartItems.length > 0 && <div className="absolute w-[18px] h-[18px] bg-indigo-700 rounded-full top-[-8px] right-[-10px] text-white flex justify-center items-center font-semibold text-xs">{cartItems.length}</div>}
+                            {cartItemsCount > 0 && <div className="absolute w-[18px] h-[18px] bg-indigo-700 rounded-full top-[-8px] right-[-10px] text-white flex justify-center items-center font-semibold text-xs">{cartItemsCount}</div>}
+                        </div>
+
+                        {/* Mobile Button */}
+                        <div className="max-md:block lg:hidden">
+                            <Button>
+                                <img src={hamburgerIcon} alt="" />
+                            </Button>
                         </div>
                     </div>
                 </div>

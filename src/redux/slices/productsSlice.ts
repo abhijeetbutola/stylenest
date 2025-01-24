@@ -109,7 +109,7 @@ export const fetchProducts = createAsyncThunk<
 
       const selectedCollections = state.collections.selectedCollections.length
         ? state.collections.selectedCollections
-        : [collection, 'latest', 'cozy', 'urban', 'fresh'];
+        : collection ? [collection] : ['latest', 'cozy', 'urban', 'fresh'];
 
       const response = await axios.get(`${BASE_URL}/projects/challenges/e-commerce/products`, {
         params: {

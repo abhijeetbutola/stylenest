@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Image } from '../product-grid/schema';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type ImageCarouselProps = {
   images: Image[]
@@ -8,15 +9,15 @@ type ImageCarouselProps = {
 export default function ImageCarousel({ images }: ImageCarouselProps) {
   const [imageIndex, setImageIndex] = useState(0)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setImageIndex((index) => (index + 1) % images.length);
-    }, 3000);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setImageIndex((index) => (index + 1) % images.length);
+  //   }, 3000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [images.length]);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [images.length]);
 
   const handlePrevClick = () => {
     setImageIndex((index) => {
@@ -51,15 +52,23 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       </div>
       <button 
        style={{position: 'absolute', top: 0, left: 0, height: '100%'}}
-       onClick={handlePrevClick}
+       onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        handlePrevClick()
+      }}
       >
-        L
+        <ChevronLeft strokeWidth={1.5} />
       </button>
       <button
        style={{position: 'absolute', top: 0, right: 0, height: '100%'}}
-       onClick={handleNextClick}
+       onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        handleNextClick()
+       }}
       >
-        R
+        <ChevronRight strokeWidth={1.5} />
       </button>
     </div>
     {/* <button onClick={()=>setAutoplay(!autoplay)}>Autoplay</button> */}

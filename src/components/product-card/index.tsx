@@ -27,15 +27,20 @@ function ProductCard({ item }: ProductCardProps) {
         (details) => details.color === productColor
     );
 
-    const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor)
+    const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor);
 
     const ImageSection = isHovering ? (
         <Link to={`/product-details-page/${item.product_id}`}>
-            <ImageCarousel images={itemHoverImagesByColor} />
+            <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
         </Link>
     ) : (
         <Link to={`/product-details-page/${item.product_id}`}>
-            <img className="object-cover aspect-[14/15] max-w-[280px]" src={imageUrl} alt={item.name} />
+            <img
+                className="object-cover aspect-[14/15] max-w-[280px]"
+                src={imageUrl}
+                alt={item.name}
+                loading="lazy"
+            />
         </Link>
     );
 
@@ -45,8 +50,11 @@ function ProductCard({ item }: ProductCardProps) {
                 {(productColor?.[0] || item.colors[0][0]).toUpperCase() +
                     (productColor || item.colors[0]).slice(1)}
             </p>
-            <Link to={`/product-details-page/${item.product_id}`}>
-                <p className="text-lg font-medium text-neutral-900 hover:text-indigo-800">{item.name}</p>
+            <Link
+                to={`/product-details-page/${item.product_id}`}
+                className="group-hover:text-indigo-800"
+            >
+                <p className="text-lg font-medium text-neutral-900 group-hover:text-indigo-800">{item.name}</p>
             </Link>
             <p className="text-lg text-neutral-500 font-normal">
                 ${priceObj?.sale_price || item.inventory[0].sale_price}
@@ -66,7 +74,7 @@ function ProductCard({ item }: ProductCardProps) {
 
     return (
         <div
-            className="flex flex-col h-[480px] rounded-lg overflow-clip hover:shadow-lg"
+            className="flex flex-col h-[480px] rounded-lg overflow-clip hover:text-indigo-800 group"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >

@@ -9,6 +9,7 @@ import { ColorToCodes, ProductDetailSchema } from "../product-grid/schema";
 import tick from "../../assets/productdetailimages/svg/tickmark.svg";
 import { isColorLight } from "./luminanceChecker";
 import { addItem } from "../../redux/slices/cartSlice";
+import { toast } from "react-toastify";
 
 type ProductDetailsSectionProps = {
   product: ProductDetailSchema;
@@ -65,17 +66,22 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
     const temp = {product_id: product.product_id, name: product.name, description: product.description, images: selectedProductImages, ...currentItemDetails, color: currentItemDetails.color || "", size: currentItemDetails.size || "N/A", quantity, totalPrice}
 
     dispatch(addItem(temp))
+    toast.success("Added to cart!", {
+      className: "toast-class",
+    })
   }
 
   return (
-    <div className="flex justify-center gap-[30px] pb-24">
-      <div className="flex-1 flex flex-col gap-6 overflow-hidden">
-        <img
-          className="object-cover h-[800px] w-[592px] rounded-lg"
-          src={selectedProductImages?.[selectedImage]?.image_url}
-          alt=""
-        />
-        <div className="flex gap-4 max-w-full overflow-x-scroll">
+      <div className="flex max-lg:flex-col justify-center gap-12 lg:gap-[30px] pb-24">
+      <div className="flex-1 flex flex-col lg:w-[592px] gap-6 overflow-hidden">
+        <div className="">
+          <img
+            className="object-cover flex w-full max-sm:h-[400px] md:h-[800px] rounded-lg"
+            src={selectedProductImages?.[selectedImage]?.image_url}
+            alt=""
+          />
+        </div>
+        <div className="flex gap-4 max-sm:w-[280px] max-lg:w-[550px] overflow-x-scroll">
           {selectedProductImages?.map((image, index) => {
             return image.color === selectedColor && (              
               <div
@@ -94,7 +100,7 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
                 />
               </div>
             )
-})}
+          })}
         </div>
       </div>
       <div className="flex-1 flex flex-col gap-8 overflow-hidden pl-[2px]">
@@ -131,7 +137,7 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
             </div>
           </div>
         </div>
-        <p className="text-neutral-600 text-base">{product?.description}</p>
+        <p className="flex text-neutral-600 text-base">{product?.description}</p>
         <div className="flex flex-col gap-4">
           <p className="text-neutral-500 text-sm">Available Colors</p>
           <div className="flex gap-4">

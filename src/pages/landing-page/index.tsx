@@ -18,14 +18,14 @@ function LandingPage() {
     }, [dispatch])
 
     return (
-        <div className="bg-white flex-1 flex flex-col max-w-[1408px] mx-4 rounded-t-lg w-full">
+        <div className="bg-white max-w-[1408px] flex-1 flex flex-col rounded-t-lg w-full">
             <HeroSection />
-            <div className="flex flex-col gap-8 lg:px-24 sm:px-4 pt-24">
-                <div className="flex justify-between font-semibold flex-wrap">
-                    <p className="text-3xl text-neutral-900">
+            <div className="flex flex-col gap-8 lg:px-24 max-md:px-4 pt-24">
+                <div className="flex justify-between items-center font-semibold flex-wrap">
+                    <p className="text-2xl md:text-3xl text-neutral-900">
                         Latest Arrivals    
                     </p>
-                    <Link to="/product-listing-page">
+                    <Link to="/latest-arrivals-page">
                         <Button className="w-24 h-11 border-[1px] border-neutral-200 rounded hover:shadow-md">View All</Button>      
                     </Link>
                 </div>

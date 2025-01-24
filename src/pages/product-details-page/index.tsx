@@ -69,7 +69,7 @@ function ProductDetailsPage() {
   
 
   return (
-    <div className="bg-white max-w-[1408px] p-24 rounded-t-lg mx-4 overflow-hidden">
+    <div className=" bg-white max-w-[1408px] mx-4 px-4 pt-16 lg:p-24 rounded-t-lg overflow-hidden">
       {productDetails && (
         <ProductDetailSection
           key={productDetails.product_id}

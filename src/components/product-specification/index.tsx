@@ -3,7 +3,7 @@ import specifications from "./data"
 
 function ProductSpec() {
     return (
-        <div className="text-black w-full max-w-[1408px] flex">
+        <div className="text-black flex">
             <div className="flex flex-col grow py-24">
                 <div className="flex flex-col grow gap-y-16">
                     <div className="flex flex-col gap-y-6">
