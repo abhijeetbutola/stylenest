@@ -39,8 +39,8 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   return (
     <>
-    <div style={{position: 'relative'}}>
-      <div style={{display: 'flex', overflow: 'hidden'}}>
+    <div className='relative'>
+      <div className='flex overflow-hidden'>
       {images.map((image, index) => {
         return (
         <img
@@ -50,25 +50,25 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       )
       })}
       </div>
-      <button 
-       style={{position: 'absolute', top: 0, left: 0, height: '100%'}}
+      <button
+       className='absolute top-1/2 left-1 rounded-md bg-indigo-700 bg-opacity-75' 
        onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
         handlePrevClick()
       }}
       >
-        <ChevronLeft strokeWidth={1.5} />
+        <ChevronLeft strokeWidth={1.5} color='white' />
       </button>
       <button
-       style={{position: 'absolute', top: 0, right: 0, height: '100%'}}
+       className='absolute top-1/2 right-1 rounded-md bg-indigo-700 bg-opacity-75'
        onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
         handleNextClick()
        }}
       >
-        <ChevronRight strokeWidth={1.5} />
+        <ChevronRight strokeWidth={1.5} color='white' />
       </button>
     </div>
     {/* <button onClick={()=>setAutoplay(!autoplay)}>Autoplay</button> */}
