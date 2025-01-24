@@ -81,7 +81,7 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
             alt=""
           />
         </div>
-        <div className="flex gap-4 max-sm:w-[280px] max-lg:w-[550px] overflow-x-scroll">
+        <div className="flex gap-4 overflow-x-scroll">
           {selectedProductImages?.map((image, index) => {
             return image.color === selectedColor && (              
               <div
