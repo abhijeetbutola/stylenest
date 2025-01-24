@@ -52,7 +52,7 @@ function Collections() {
   }
 
   return (
-    <div className="h-[500px] flex-1 flex flex-col justify-center items-start gap-8 rounded-lg lg:p-24 max-lg:p-4 text-black w-full">
+    <div className="flex-1 flex flex-col justify-center items-start gap-8 rounded-lg max-sm:py-12 max-lg:py-16 lg:p-24 max-lg:px-4 text-black w-full">
       <div>
         <p className="text-black font-semibold text-3xl">Our Collections</p>
       </div>

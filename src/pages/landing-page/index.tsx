@@ -20,7 +20,7 @@ function LandingPage() {
     return (
         <div className="bg-white max-w-[1408px] flex-1 flex flex-col rounded-t-lg w-full mx-4">
             <HeroSection />
-            <div className="flex flex-col gap-8 lg:px-24 max-md:px-4 pt-24 pb-24">
+            <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
                 <div className="flex justify-between items-center font-semibold flex-wrap">
                     <p className="text-2xl md:text-3xl text-neutral-900">
                         Latest Arrivals    

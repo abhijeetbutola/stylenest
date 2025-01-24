@@ -4,7 +4,7 @@ import easyexchange from "../../assets/easyexchangeicon.svg"
 
 function Commitment() {
     return (
-        <div className="bg-white max-w-[1408px] lg:p-24 max-md:p-4 sm:px-4">
+        <div className="bg-white max-w-[1408px] max-md:py-12 max-lg:py-16 lg:p-24 max-lg:px-4 sm:px-4">
             <div className="flex flex-col gap-8 justify-center items-center">
                 <div className="flex flex-col gap-5 justify-center items-center text-center">
                     <div className="flex flex-col gap-3 justify-center items-center w-full">

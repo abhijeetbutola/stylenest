@@ -4,7 +4,7 @@ import heroImage from "../../assets/mainpageimage.jpg"
 
 function HeroSection() {
     return (
-            <div className="flex-1 flex gap-8 flex-wrap lg:p-24 max-lg:p-4">
+            <div className="flex-1 flex gap-8 flex-wrap max-sm:py-12 md:py-16 lg:p-24 max-lg:px-4 ">
                 <div className="flex flex-col gap-8 lg:gap-16 justify-center lg:max-w-[calc(50%-1rem)]">
                     <div className="flex flex-col gap-6">
                         <p className="font-semibold max-sm:text-4xl max-md:text-5xl md:text-6xl text-neutral-900">Summer styles are finally here</p>
