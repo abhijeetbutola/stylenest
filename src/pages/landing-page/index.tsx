@@ -18,7 +18,7 @@ function LandingPage() {
     }, [dispatch])
 
     return (
-        <div className="bg-white max-w-[1408px] flex-1 flex flex-col rounded-t-lg w-full">
+        <div className="bg-white max-w-[1408px] flex-1 flex flex-col rounded-t-lg w-full mx-4">
             <HeroSection />
             <div className="flex flex-col gap-8 lg:px-24 max-md:px-4 pt-24">
                 <div className="flex justify-between items-center font-semibold flex-wrap">
