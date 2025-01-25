@@ -61,7 +61,7 @@ function Collections() {
         <Link to="/product-listing-page" onClick={() => handleCollectionClick("cozy")}>
           <div className="relative max-h-[580px] flex basis-1/2 w-full rounded-lg overflow-hidden">
             <img
-              className="w-full object-cover"
+              className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[0]?.image_url}
               alt=""
             />
@@ -76,7 +76,7 @@ function Collections() {
         <Link to="/product-listing-page" onClick={() => handleCollectionClick("urban")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
           <div className="flex">
             <img
-              className="w-full object-cover"
+              className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[1]?.image_url}
               alt=""
             />
@@ -89,7 +89,7 @@ function Collections() {
         <Link to="/product-listing-page" onClick={() => handleCollectionClick("fresh")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
           <div className="flex">
             <img
-              className="w-full object-none"
+              className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[2]?.image_url}
               alt=""
             />
