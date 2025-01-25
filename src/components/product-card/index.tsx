@@ -30,7 +30,7 @@ function ProductCard({ item }: ProductCardProps) {
     const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor);
 
     const ImageSection = isHovering ? (
-        <Link to={`/product-details-page/${item.product_id}`}>
+        <Link to={`/product-details-page/${item.product_id}`} className="max-w-[280px]">
             <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
         </Link>
     ) : (
@@ -45,36 +45,41 @@ function ProductCard({ item }: ProductCardProps) {
     );
 
     const ProductDetails = (
-        <>
-            <p className="text-xs text-neutral-600">
-                {(productColor?.[0] || item.colors[0][0]).toUpperCase() +
-                    (productColor || item.colors[0]).slice(1)}
-            </p>
-            <Link
-                to={`/product-details-page/${item.product_id}`}
-                className="group-hover:text-indigo-800"
-            >
-                <p className="text-lg font-medium text-neutral-900 group-hover:text-indigo-800">{item.name}</p>
-            </Link>
-            <p className="text-lg text-neutral-500 font-normal">
-                ${priceObj?.sale_price || item.inventory[0].sale_price}
-            </p>
-            <div className="flex gap-1">
+        <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-0.5">
+                <p className="text-xs text-neutral-600 font-normal">
+                    {(productColor?.[0] || item.colors[0][0]).toUpperCase() +
+                        (productColor || item.colors[0]).slice(1)}
+                </p>
+                <Link
+                    to={`/product-details-page/${item.product_id}`}
+                    className="group-hover:text-indigo-800"
+                >
+                    <p className="text-lg font-medium text-neutral-900 group-hover:text-indigo-800">{item.name}</p>
+                </Link>
+            </div>
+            <div className="flex gap-2 items-center font-normal">
+                <p className="text-lg text-neutral-500">
+                    ${priceObj?.sale_price || item.inventory[0].sale_price}
+                </p>
+                {priceObj && priceObj?.list_price !== null && priceObj?.sale_price !== null && priceObj.list_price > priceObj.sale_price && <del className="text-xs text-neutral-600">${priceObj?.list_price}</del>}
+            </div>
+            <div className="flex gap-1 pb-[30px]">
                 {item.colors.map((color, index: number) => (
                     <Button
                         key={index}
-                        className="h-4 w-4 border-2 rounded-full border-neutral-300"
+                        className="h-4 w-4 border-[1px] rounded-full border-neutral-300"
                         style={{ backgroundColor: colorsToCodes[color as ColorToCodes] }}
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleColorClick(color, e)}
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 
     return (
         <div
-            className="flex flex-col h-[480px] rounded-lg overflow-clip hover:text-indigo-800 group"
+            className="flex flex-col rounded-lg overflow-clip hover:text-indigo-800 group"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >

@@ -51,7 +51,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       })}
       </div>
       <button
-       className='absolute top-1/2 left-1 rounded-md bg-indigo-700 bg-opacity-75' 
+       className='absolute top-0 left-0 h-full hover:bg-gray-500 hover:bg-opacity-75 transition-all' 
        onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -61,7 +61,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         <ChevronLeft strokeWidth={1.5} color='white' />
       </button>
       <button
-       className='absolute top-1/2 right-1 rounded-md bg-indigo-700 bg-opacity-75'
+       className='absolute top-0 right-0 h-full hover:bg-gray-500 hover:bg-opacity-50 transition-all'
        onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
