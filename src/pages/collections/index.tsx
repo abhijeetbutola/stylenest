@@ -64,6 +64,7 @@ function Collections() {
               className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[0]?.image_url}
               alt=""
+              loading="lazy"
             />
             <div className="absolute bottom-4 left-4 text-white">
               <p className="font-normal text-sm">{collectionData?.[0]?.name}</p>
@@ -79,6 +80,7 @@ function Collections() {
               className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[1]?.image_url}
               alt=""
+              loading="lazy"
             />
             <div className="absolute bottom-4 left-4 text-white">
               <p className="font-normal text-sm">{collectionData?.[1]?.name}</p>
@@ -92,6 +94,7 @@ function Collections() {
               className="w-full object-cover hover:scale-110 transition-all"
               src={collectionData?.[2]?.image_url}
               alt=""
+              loading="lazy"
             />
             <div className="absolute bottom-4 left-4 text-white">
               <p className="font-normal text-sm">{collectionData?.[2]?.name}</p>

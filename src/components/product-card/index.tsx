@@ -30,17 +30,21 @@ function ProductCard({ item }: ProductCardProps) {
     const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor);
 
     const ImageSection = isHovering ? (
-        <Link to={`/product-details-page/${item.product_id}`} className="max-w-[280px]">
-            <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
+        <Link to={`/product-details-page/${item.product_id}`}>
+            <div className="h-[300px] w-full md:max-w-[320px] rounded-lg overflow-hidden relative">
+                <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
+            </div>
         </Link>
     ) : (
         <Link to={`/product-details-page/${item.product_id}`}>
-            <img
-                className="object-cover aspect-[14/15] max-w-[280px]"
-                src={imageUrl}
-                alt={item.name}
-                loading="lazy"
-            />
+            <div className="h-[300px] w-full md:max-w-[320px] relative rounded-lg overflow-hidden">
+                <img
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={imageUrl}
+                    alt={item.name}
+                    loading="lazy"
+                />
+            </div>
         </Link>
     );
 
@@ -79,11 +83,11 @@ function ProductCard({ item }: ProductCardProps) {
 
     return (
         <div
-            className="flex flex-col rounded-lg overflow-clip hover:text-indigo-800 group"
+            className="flex flex-col rounded-lg overflow-clip hover:text-indigo-800 group w-full h-full"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >
-            <div className="flex rounded-lg overflow-clip">{ImageSection}</div>
+            <div className="h-full w-full">{ImageSection}</div>
             <div className="pt-4">{ProductDetails}</div>
         </div>
     );
