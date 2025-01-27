@@ -4,6 +4,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../../components/button";
 import couponCodeIcon from "../../assets/addCouponCodeicon.svg";
 import { updateItems, removeItems } from "../../redux/slices/cartSlice";
+import emptyCartImage from "../../assets/emptycartimage.svg"
+import emptyCartIcon from "../../assets/emptycarticon.svg"
+import { ArrowRight } from "lucide-react";
 
 function Cart() {
     const [couponState, setCouponState] = useState(false);
@@ -39,32 +42,50 @@ function Cart() {
         setCouponState(!couponState);
     };
 
-    return (
-        <div className="flex-1 max-w-[1408px] mx-4">
-            <div className="bg-white flex-1 flex flex-col gap-16 p-24 rounded-t-lg w-full">
-                <div className="font-semibold text-5xl text-neutral-900">Shopping Cart</div>
-
-                <div className="flex gap-8 w-full">
+    const EmptyCart = (
+        <div className="flex gap-8 justify-center items-center flex-wrap">
+            <div className="flex flex-col gap-[20px] justify-center items-center max-md:py-[90px] max-2xl:py-[104px] lg:px-24">
+                <div className="h-12 w-12 flex justify-center items-center rounded-full shadow-md">
+                    <img src={emptyCartIcon} alt="" height={21} width={21} />
+                </div>
+                <div className="flex flex-col gap-2 justify-center items-center">
+                    <p className="font-medium text-xl text-neutral-900">Your cart is empty</p>
+                    <p className="font-normal text-base text-neutral-900">Let's go explore some products</p>
+                </div>
+                <Link to="/">
+                    <div className="flex gap-[6px] bg-indigo-700 rounded-[4px] px-4 py-3">
+                        <Button className="font-medium text-base text-white">
+                            Explore Products
+                        </Button>
+                        <span className="inline-block">
+                            <ArrowRight color="#ffffff" strokeWidth={2} />
+                        </span>
+                    </div>
+                </Link>
+            </div>
+            <div className="max-lg:w-full">
+                <img src={emptyCartImage} alt="" className="object-cover max-lg:w-full max-lg:h-[320px]" />
+            </div>
+        </div>
+    );
+    const FilledCart = (
+        <div className="flex gap-8 w-full">
                     {/* Cart Items Section */}
                     <div className="flex flex-col gap-8">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex flex-col gap-8">
                                 <div className="flex gap-8 min-h-[200px]">
-                                    <img
-                                        src={item.images[0].image_url}
-                                        alt=""
-                                        className="aspect-[7/5] h-[200px] w-[280px] object-cover rounded-lg"
-                                    />
+                                    <Link to={`/product-details-page/${item.product_id}`}>
+                                        <img
+                                            src={item.images[0].image_url}
+                                            alt=""
+                                            className="aspect-[7/5] h-[200px] w-[280px] object-cover rounded-lg"
+                                        />
+                                    </Link>
                                     <div className="flex flex-col w-full max-w-[488px] gap-4">
                                         <div className="text-2xl font-medium">{item.name}</div>
                                         <div>
-                                            <span>{item.color[0].toUpperCase() + item.color.slice(1)}</span>
-                                            {item.size && (
-                                                <span>
-                                                    <span> &#183; </span>
-                                                    <span>{String(item.size).toUpperCase()}</span>
-                                                </span>
-                                            )}
+                                            {item.size ? <span>{item.color[0].toUpperCase() + item.color.slice(1)}{item.size !== "N/A" && " · " + String(item.size).toUpperCase()}</span> : <span>{item.color[0].toUpperCase() + item.color.slice(1)}</span>}
                                         </div>
                                         <div className="text-sm text-neutral-600">{item.description}</div>
                                         <div className="flex justify-between items-center">
@@ -156,6 +177,13 @@ function Cart() {
                         </div>
                     </div>
                 </div>
+    )
+
+    return (
+        <div className="flex-1 max-w-[1408px] mx-4">
+            <div className="bg-white flex-1 flex flex-col gap-16 px-4 py-12 lg:p-24 rounded-t-lg w-full">
+                <div className="font-semibold text-5xl text-neutral-900">Shopping Cart</div>
+                {cartItems.length ? FilledCart : EmptyCart }
             </div>
         </div>
     );

@@ -33,7 +33,7 @@ function Navbar() {
     return (
         <div className="h-[72px] w-full flex items-center px-8">
             <div className="flex flex-1 h-14 items-center">
-                <div className="flex grow justify-between items-center">
+                <div className="flex grow justify-between items-baseline lg:items-center">
                     <div className="flex grow gap-14 items-center">
                         {/* Logo Section */}
                         <div>
@@ -48,7 +48,7 @@ function Navbar() {
                             <Link to="/latest-arrivals-page" className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md p-2 hover:bg-indigo-500 rounded-[4px] transition-all">Latest arrivals</Link>
                         </div>
                     </div>
-                    <div className="flex gap-8 items-center">
+                    <div className="flex gap-8 lg:items-center">
 
                         {/* Desktop Button */}
                         <div className="hidden lg:block font-medium text-base text-neutral-600">
