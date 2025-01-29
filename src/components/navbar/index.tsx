@@ -8,7 +8,11 @@ import hamburgerIcon from "../../assets/hamburgericon.svg"
 import cartIcon from "../../assets/carticon.svg"
 import storeLogo from "../../assets/stylenest.svg"
 
-function Navbar() {
+type NavbarProps = {
+    sidebarOpen: () => void;
+}
+
+function Navbar({ sidebarOpen }: NavbarProps) {
     const dispatch = useAppDispatch()
     const cartItemsCount = useAppSelector((state) => state.cartItems.items.length)
     // console.log(cartItems);
@@ -62,8 +66,8 @@ function Navbar() {
                         </div>
 
                         {/* Mobile Button */}
-                        <div className="max-md:block lg:hidden">
-                            <Button>
+                        <div className="max-md:block lg:hidden scale-110 transition-all">
+                            <Button onClick={sidebarOpen}>
                                 <img src={hamburgerIcon} alt="" />
                             </Button>
                         </div>

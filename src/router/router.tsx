@@ -1,4 +1,3 @@
-// router.tsx
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ProductSpec from "../components/product-specification";
@@ -6,7 +5,6 @@ import Collections from "../pages/collections";
 import ProductDetailsPage from "../pages/product-details-page";
 import Cart from "../pages/shopping-cart";
 import Checkout from "../pages/checkout";
-// import HeroSection from "../components/hero-section"
 import LandingPage from "../pages/landing-page";
 import ProductListingPage from "../pages/product-listing-page";
 import SignIn from "../pages/sign-in";
@@ -14,7 +12,6 @@ import SignUp from "../pages/signup";
 import NotFoundPage from "../pages/not-found-page";
 import ProtectedRoutes from "../components/protected-routes";
 import LatestArrivalsPage from "../pages/latest-arrivals-page";
-// import Commitment from "../components/commitment";
 
 const router = createBrowserRouter([
     {
@@ -72,7 +69,7 @@ const router = createBrowserRouter([
     {
         path: '*',
         element: <NotFoundPage />
-    }
+    },
 ]);
 
 
