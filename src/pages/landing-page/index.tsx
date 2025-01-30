@@ -7,8 +7,13 @@ import { Link } from "react-router-dom"
 import { fetchProducts } from "../../redux/slices/productsSlice"
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
+import Container from "../../components/container"
+import { SkeletonProductGrid, SkeletonText } from "../../components/skeletons"
+import SkeletonHero from "../../components/skeletons/SkeletonHero"
+
 
 function LandingPage() {
+    // const forcedLoading = true
     const dispatch = useAppDispatch()
     const { data: fetchedProductsData, status: fetchedProductsStatus, error: fetchedProductsError } = useAppSelector((state) => state.products)
     const products = fetchedProductsData?.data || []
@@ -18,8 +23,23 @@ function LandingPage() {
     }, [dispatch])
 
     return (
-        <div className="bg-white max-w-[1408px] flex-1 flex flex-col rounded-t-lg w-full mx-4">
-            <HeroSection />
+        <Container>
+            {fetchedProductsStatus === 'loading' ?
+                (
+                    <div>
+                        <SkeletonHero />
+                        <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
+                            <div className="flex justify-between items-center font-semibold flex-wrap">
+                                <SkeletonText className="h-11 w-32" />
+                                <SkeletonText className="w-24 h-11" />      
+                            </div>
+                            <SkeletonProductGrid />
+                            </div>
+                    </div>
+                ) :
+                (<>
+                    <HeroSection />
+                {/* Latest Arrivals Section */}
             <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
                 <div className="flex justify-between items-center font-semibold flex-wrap">
                     <p className="text-2xl md:text-3xl text-neutral-900">
@@ -31,9 +51,15 @@ function LandingPage() {
                 </div>
 
                 {/* Display loading spinner if the products are being fetched */}
-                {fetchedProductsStatus === 'loading' && (
-                    <div className="text-center text-neutral-500">Loading products...</div>
-                )}
+                {/* {fetchedProductsStatus === 'loading' && (
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] grid-rows-auto gap-8">
+                    {Array(8).fill(0).map((_, index) => (
+                            <div key={index} className="w-full">
+                                <SkeletonProductCard />
+                            </div>
+                    ))}
+                </div>
+                )} */}
 
                 {/* Display error message if there's an error fetching products */}
                 {fetchedProductsStatus === 'failed' && fetchedProductsError && (
@@ -48,7 +74,11 @@ function LandingPage() {
             </div>
             <Collections />
             <Commitment />
-        </div>
+                </>
+                )
+            }
+            
+        </Container>
     )
 }
 

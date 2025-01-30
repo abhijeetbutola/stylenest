@@ -14,7 +14,7 @@ function LatestArrivalsPage() {
 
     return (
         <div className="flex-1 max-w-[1408px] mx-4">
-            <div className="bg-white p-4 lg:p-24 rounded-t-lg">
+            <div className="bg-white flex flex-col gap-8 p-4 lg:p-24 rounded-t-lg">
                 <p className="text-3xl font-semibold text-neutral-900">Latest Arrivals</p>
                 <ProductGrid products={products} />
             </div>

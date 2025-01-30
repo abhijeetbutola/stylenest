@@ -83,7 +83,7 @@ function Checkout() {
     };
     
     return (
-        <div className="bg-white p-24 flex-1 max-w-[1408px] mx-4 rounded-t-lg">
+        <div className="bg-white py-12 px-3 md:py-16 md:px-4 lg:p-24 flex-1 max-w-[1408px] mx-4 rounded-t-lg">
             <div className="flex flex-col gap-8 mx-4">
                 <div className="text-sm font-medium text-indigo-700 hover:text-indigo-500">
                     <Link to={'/cart'}>
@@ -91,9 +91,9 @@ function Checkout() {
                     </Link>
                 </div>
                 <div className="text-4xl font-semibold text-neutral-900">Checkout</div>
-                <div className="flex gap-8">
+                <div className="flex gap-8 flex-wrap">
                     <form
-                        className="flex-1 flex flex-col gap-6">
+                        className="lg:flex-1 max-lg:w-full flex flex-col gap-6">
                         <div className="font-medium text-lg text-neutral-600">Contact Information</div>
                         <div className="flex-1 flex flex-col gap-1.5">
                             <label className="font-medium text-sm text-neutral-700">Email</label>
@@ -235,7 +235,7 @@ function Checkout() {
                             </div>
                         </div>
                     </form>
-                    <div className="flex-1 flex flex-col gap-8 p-8 border-[1.5px] border-neutral-200 rounded-lg">
+                    <div className="lg:flex-1 flex flex-col gap-8 p-8 border-[1.5px] max-lg:w-full border-neutral-200 rounded-lg">
                         <div className="font-semibold text-xl text-neutral-900">Order Summary</div>
                         <div className="flex flex-col">
                             {cartItems.map((item, index) => {

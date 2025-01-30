@@ -6,6 +6,7 @@ import { fetchProductDetails } from "../../redux/slices/productDetailsSlice";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { useParams, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks"; // Custom hooks
+import { SkeletonText } from "../../components/skeletons";
 
 function ProductDetailsPage() {
   const { productId } = useParams<{ productId: string }>();
@@ -60,7 +61,7 @@ function ProductDetailsPage() {
   };
 
   if (productDetailsStatus === "loading" || fetchedProductsStatus === "loading") {
-    return <div>Loading...</div>;
+    return <div className="h-screen bg-white w-full"><SkeletonText className="animate-pulse w-100" /></div>;
   }
   
   if (productDetailsError || fetchedProductsError) {

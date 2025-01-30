@@ -69,17 +69,17 @@ function Cart() {
         </div>
     );
     const FilledCart = (
-        <div className="flex gap-8 w-full">
+        <div className="flex gap-8 w-full flex-wrap">
                     {/* Cart Items Section */}
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-8 max-lg:mb-8">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex flex-col gap-8">
-                                <div className="flex gap-8 min-h-[200px]">
-                                    <Link to={`/product-details-page/${item.product_id}`}>
+                                <div className="flex gap-8 min-h-[200px] max-md:flex-wrap">
+                                    <Link to={`/product-details-page/${item.product_id}`} className="max-md:w-full">
                                         <img
                                             src={item.images[0].image_url}
                                             alt=""
-                                            className="aspect-[7/5] h-[200px] w-[280px] object-cover rounded-lg"
+                                            className="aspect-[7/5] h-[200px] max-sm:w-full w-[280px] object-cover rounded-lg"
                                         />
                                     </Link>
                                     <div className="flex flex-col w-full max-w-[488px] gap-4">
@@ -124,8 +124,8 @@ function Cart() {
                     </div>
 
                     {/* Order Summary Section */}
-                    <div>
-                        <div className="sticky top-10 border-2 border-neutral-200 rounded-lg p-8 flex flex-col w-[384px] gap-8">
+                    <div className="flex-1">
+                        <div className="sticky top-10 border-2 border-neutral-200 rounded-lg p-8 flex flex-col w-full lg:w-[384px] gap-8">
                             <div className="text-2xl text-neutral-900 font-semibold">Order Summary</div>
 
                             <div className="flex flex-col gap-4">

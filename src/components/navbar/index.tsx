@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import hamburgerIcon from "../../assets/hamburgericon.svg"
 import cartIcon from "../../assets/carticon.svg"
 import storeLogo from "../../assets/stylenest.svg"
+import loginIcon from "../../assets/loginicon.svg"
+import logoutIcon from "../../assets/logouticon.svg"
 
 type NavbarProps = {
     sidebarOpen: () => void;
@@ -52,12 +54,13 @@ function Navbar({ sidebarOpen }: NavbarProps) {
                             <Link to="/latest-arrivals-page" className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md p-2 hover:bg-indigo-500 rounded-[4px] transition-all">Latest arrivals</Link>
                         </div>
                     </div>
-                    <div className="flex gap-8 lg:items-center">
+                    <div className="flex gap-3 md:gap-8 lg:items-center">
 
                         {/* Desktop Button */}
                         <div className="hidden lg:block font-medium text-base text-neutral-600">
                             <Button className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md p-2 hover:bg-indigo-500 rounded-[4px] transition-all" onClick={handleAuthAction}>{isAuth ? "Logout" : "Login"}</Button>
                         </div>
+
                         <div className="relative">
                             <Link to="/cart" className="font-medium text-base text-neutral-600">
                                 <img src={cartIcon} alt="" className="hover:scale-110 transition-all" />
@@ -65,8 +68,13 @@ function Navbar({ sidebarOpen }: NavbarProps) {
                             {cartItemsCount > 0 && <div className="absolute w-[18px] h-[18px] bg-indigo-700 rounded-full top-[-8px] right-[-10px] text-white flex justify-center items-center font-semibold text-xs">{cartItemsCount}</div>}
                         </div>
 
-                        {/* Mobile Button */}
-                        <div className="max-md:block lg:hidden scale-110 transition-all">
+                        {/* Mobile Buttons */}
+                        <div className="block lg:hidden scale-110 transition-all">
+                            <Button onClick={handleAuthAction}>
+                                <img src={isAuth ? logoutIcon : loginIcon} alt={isAuth ? "logout button" : "login button"} />
+                            </Button>
+                        </div>
+                        <div className="block lg:hidden scale-110 transition-all">
                             <Button onClick={sidebarOpen}>
                                 <img src={hamburgerIcon} alt="" />
                             </Button>
