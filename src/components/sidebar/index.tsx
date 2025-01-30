@@ -29,11 +29,11 @@ function Sidebar({ open, handleClose }: SidebarProps) {
         <div className={["lg:hidden absolute w-full max-w-[359px] h-screen z-[999] bg-white -translate-x-full transition-all py-8 px-4", open && "translate-x-[0]"].filter(Boolean).join(" ")}>
             <div className="flex flex-col gap-6" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between">
-                    <Link to='/'>
-                        <div>
+                    <div>
+                        <Link to='/' onClick={handleClose}>
                             <img src={logo} alt="" />
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                     <div onClick={handleClose}>
                         <Button className="scale-110 transition-all">
                             <img src={closeIcon} alt="" />
@@ -42,10 +42,10 @@ function Sidebar({ open, handleClose }: SidebarProps) {
                 </div>
                 <ul className="flex flex-col gap-2 text-sm font-normal text-neutral-900">
                     <li className="py-2 px-3">
-                        <Link to="/product-listing-page">Shop all</Link>
+                        <Link to="/product-listing-page" onClick={handleClose}>Shop all</Link>
                     </li>
                     <li className="py-2 px-3">
-                        <Link to="/latest-arrivals-page">Latest Arrivals</Link>
+                        <Link to="/latest-arrivals-page" onClick={handleClose}>Latest Arrivals</Link>
                     </li>
                 </ul>
             </div>

@@ -11,7 +11,7 @@ function Footer() {
         <div className="flex-1 flex max-w-[1408px] mx-4 mb-4">
             <div className="flex-1 lg:p-16 max-lg:p-4 bg-white rounded-b-lg">
                 <div className="flex flex-col gap-16 py-24 lg:px-8">
-                    <div className="max-sm:flex-1 flex justify-between flex-wrap">
+                    <div className="max-sm:flex-1 flex justify-between gap-8 md:gap-5 flex-wrap">
                         <div className="max-sm:w-full">
                             <p className="font-semibold text-xl text-neutral-900">Join our newsletter</p>
                             <p className="font-normal text-base text-neutral-600">We'll send you a nice letter once per week. No spam.</p>
@@ -21,7 +21,7 @@ function Footer() {
                                 <input type="text" placeholder="Enter your email" className="bg-neutral-50 border border-neutral-200 rounded h-fit sm:min-w-[280px] max-lg:w-full px-3.5 py-2.5 text-sm font-medium placeholder-neutral-500 text-neutral-900" />
                             </div>
                             <div className="max-sm:w-full">
-                                <Button className="flex justify-center items-center gap-1 bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2.5 rounded w-full h-fit">Subscribe</Button>
+                                <Button className="flex justify-center items-center gap-1 bg-indigo-700 hover:bg-indigo-800 text-white text-sm px-4 py-2.5 rounded w-full h-fit">Subscribe</Button>
                             </div>
                         </div>
                     </div>
