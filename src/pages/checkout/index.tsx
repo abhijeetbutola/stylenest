@@ -112,7 +112,7 @@ function Checkout() {
                                     control={control}
                                     render={({ field }) => {
                                         return (
-                                        <Dropdown data={options} open={open} setOpen={handleDropdownClick} onChange={field.onChange} titleClassName="flex items-center border-[1.5px] rounded-[4px] h-10 w-full bg-neutral-50 px-3.5 py-2.5 font-normal text-sm text-neutral-500" optionsClassName="flex flex-col absolute top-11 border-2 bg-white w-full shadow-lg max-h-60 overflow-y-auto z-10 rounded-md">
+                                        <Dropdown data={options} open={open} setOpen={handleDropdownClick} onChange={field.onChange} type="click" selectedOption={field.value} titleClassName="flex items-center border-[1.5px] rounded-[4px] h-10 w-full bg-neutral-50 px-3.5 py-2.5 font-normal text-sm text-neutral-500" optionsClassName="flex flex-col absolute top-11 border-2 bg-white w-full shadow-lg max-h-60 overflow-y-auto z-10 rounded-md">
                                             {field.value || 'Select a country'}
                                         </Dropdown>)
                                     }}

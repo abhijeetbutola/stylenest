@@ -10,14 +10,15 @@ import { useAppDispatch, useAppSelector } from "../../hooks"; // Importing custo
 import Button from "../../components/button";
 import { ChevronLeft, ChevronRight} from "lucide-react";
 import filterIcon from "../../assets/filtericon.svg"
+import { SkeletonProductGrid } from "../../components/skeletons";
 
-const options: string[] = [
-  "Newest",
-  "Best rating",
-  "Most popular",
-  "Price: Low to High",
-  "Price: High to Low",
-];
+const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> = {
+  "Newest": { sort: "created", direction: "desc" },
+  "Best rating": { sort: "rating", direction: "desc" },
+  "Most popular": { sort: "popularity", direction: "desc" },
+  "Price: Low to High": { sort: "price", direction: "asc" },
+  "Price: High to Low": { sort: "price", direction: "desc" },
+};
 
 type PaginationSchema = {
   has_more: boolean;
@@ -46,8 +47,12 @@ function ProductListingPage() {
   const totalPages = Math.ceil(paginationData.total / paginationData.per_page)
   
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedDropdown, setSelectedDropdown] = useState<string>("Sort by");
+  const [selectedDropdownOption, setSelectedDropdownOption] = useState<string>("Sort by");
   const [page, setPage] = useState<number>(1)
+
+  const selectedSort = useMemo(() => {
+    return sortOptions[selectedDropdownOption] || ""
+  }, [selectedDropdownOption])
 
 
   useEffect(() => {
@@ -64,8 +69,8 @@ function ProductListingPage() {
   };
 
   const handleDropdownValue = (opt: string) => {
-    setSelectedDropdown(opt);
-  };
+    setSelectedDropdownOption(opt);
+  };  
 
   const handlePageNumber = (value: number) => {
     
@@ -75,10 +80,11 @@ function ProductListingPage() {
       fetchProducts({
         collection: filters.collections[0],
         page: value,
-        per_page: 9
+        per_page: 9,
+        sort: selectedSort.sort,
+        direction: selectedSort.direction,
       })
     )
-    console.log(value);
     
     if(fetchedProductsStatus === "succeeded" && fetchedProductsError !== "failed") setPage(value)
   }
@@ -97,9 +103,11 @@ function ProductListingPage() {
         collection: filters.collections[0],
         page: 1,
         per_page: 9,
+        sort: selectedSort.sort,
+        direction: selectedSort.direction,
       })
     );
-  }, [dispatch, filters]);
+  }, [dispatch, filters, selectedSort]);
 
   return (
     <div className="bg-white flex-1 flex gap-8 max-w-[1408px] lg:p-24 max-lg:p-4 mx-4">
@@ -107,25 +115,25 @@ function ProductListingPage() {
         <FilterSection data={accObj} />
       </div>
       <div className="flex flex-1 flex-col gap-8">
-        <div className="flex justify-between items-center text-neutral-900 font-medium text-sm">
-          <div className="flex gap-2 items-center shadow-md rounded-md py-2.5 px-4">
+        <div className="flex justify-between items-center text-neutral-900 font-medium text-sm lg:ml-auto">
+          <div className="lg:hidden flex gap-2 items-center shadow-md rounded-md py-2.5 px-4">
             <img src={filterIcon} alt="" />
             <span>Filter</span>
           </div>
-          {/* <div className="border border-green-600"> */}
             <Dropdown
-              data={options}
+              data={Object.keys(sortOptions)}
               open={open}
               setOpen={handleDropdownClick}
               onChange={handleDropdownValue}
+              type="hover"
+              selectedOption={selectedDropdownOption}
               titleClassName="shadow-md rounded-md py-2.5 px-4"
-              optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-11 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
+              optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-9 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
             >
-              {selectedDropdown}
+              {selectedDropdownOption}
             </Dropdown>
-          {/* </div> */}
         </div>
-        <ProductGrid products={products} />
+        {fetchedProductsStatus === "loading" ? <SkeletonProductGrid /> : <ProductGrid products={products} />}
         <div className="flex justify-center items-center gap-2 md:gap-3">
           {page > 1
            && <div className="flex justify-center items-center border-[1px] border-neutral-200 rounded py-2 md:py-3 px-1.5 md:px-[18px] cursor-pointer bg-white hover:bg-opacity-50 hover:bg-indigo-200 text-sm transition-all" onClick={() => handlePageNumber(page-1)}>

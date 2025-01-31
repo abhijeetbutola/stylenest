@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import { Image } from '../product-grid/schema';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -9,15 +9,15 @@ type ImageCarouselProps = {
 export default function ImageCarousel({ images }: ImageCarouselProps) {
   const [imageIndex, setImageIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setImageIndex((index) => (index + 1) % images.length);
-    }, 3000);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setImageIndex((index) => (index + 1) % images.length);
+  //   }, 3000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [images.length]);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [images.length]);
 
   const handlePrevClick = () => {
     setImageIndex((index) => (index === 0 ? images.length - 1 : index - 1));
@@ -50,7 +50,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
       {/* Previous Button */}
       <button
-        className="absolute top-0 left-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-20 hover:bg-opacity-40 transition-all"
+        className="absolute top-0 left-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -62,7 +62,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
       {/* Next Button */}
       <button
-        className="absolute top-0 right-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-20 hover:bg-opacity-40 transition-all"
+        className="absolute top-0 right-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

@@ -5,8 +5,10 @@ import ProductSpec from "../../components/product-specification";
 import { fetchProductDetails } from "../../redux/slices/productDetailsSlice";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { useParams, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks"; // Custom hooks
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { SkeletonText } from "../../components/skeletons";
+import { useSearchParams } from "react-router-dom";
+import Container from "../../components/container";
 
 function ProductDetailsPage() {
   const { productId } = useParams<{ productId: string }>();
@@ -24,9 +26,12 @@ function ProductDetailsPage() {
   const { selectedGenders } = useAppSelector((state) => state.genders);
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
+  const [searchParams] = useSearchParams();
 
   const products = fetchedProductsData?.data || [];
-  console.log(productDetails?.collection);
+
+  console.log('render...');
+  
 
   const location = useLocation();
 
@@ -42,9 +47,9 @@ function ProductDetailsPage() {
 
   useEffect(() => {
     if (productDetails?.colors && productDetails.colors.length > 0) {
-      setSelectedColor(productDetails.colors[0]);
+      setSelectedColor((searchParams.get("color") || ""));
     }
-  }, [productDetails]);
+  }, [productDetails, searchParams]);
 
   useEffect(() => {
     if (productDetails?.collection) {
@@ -61,7 +66,7 @@ function ProductDetailsPage() {
   };
 
   if (productDetailsStatus === "loading" || fetchedProductsStatus === "loading") {
-    return <div className="h-screen bg-white w-full"><SkeletonText className="animate-pulse w-100" /></div>;
+    return <Container className="p-24"><SkeletonText className="h-28 w-full" /></Container>;
   }
   
   if (productDetailsError || fetchedProductsError) {

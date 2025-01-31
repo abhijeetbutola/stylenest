@@ -69,6 +69,8 @@ type FetchProductsParams = {
   collection: string;
   page: number;
   per_page: number;
+  sort?: string;
+  direction?: 'asc' | 'desc'
 };
 
 type RootState = {
@@ -97,7 +99,7 @@ export const fetchProducts = createAsyncThunk<
 >(
   'products/fetchProducts',
   async (
-    { collection, page, per_page }: FetchProductsParams,
+    { collection, page, per_page, sort, direction }: FetchProductsParams,
     { getState, rejectWithValue }
   ) => {
     try {
@@ -117,6 +119,8 @@ export const fetchProducts = createAsyncThunk<
           category: selectedGenders,
           page,
           per_page,
+          sort,
+          direction
         },
         paramsSerializer: (params) =>
           qs.stringify(params, { arrayFormat: 'repeat' }),

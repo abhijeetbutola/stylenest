@@ -44,7 +44,7 @@ function SignIn() {
 
             if(response.ok) {
                 const userData = await response.json()
-                console.log(userData);
+                // console.log(userData);
                 saveAuthToLocalStorage(userData)
                 dispatch(login(userData))
                 toast.success('Login successful!', {
