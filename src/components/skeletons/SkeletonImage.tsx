@@ -4,7 +4,7 @@ type SkeletonImageProps = {
 
 function SkeletonImage({ className }: SkeletonImageProps) {
     return (
-        <div className={`bg-gray-400 animate-pulse ${className}`}></div>
+        <div className={`bg-gray-300 animate-pulse ${className}`}></div>
     )
 }
 

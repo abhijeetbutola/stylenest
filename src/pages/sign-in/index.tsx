@@ -13,6 +13,7 @@ function SignIn() {
         email: "",
         password: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,6 +32,7 @@ function SignIn() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setIsLoading(true)
         const email = formData.email
         const password = formData.password
         try {
@@ -55,6 +57,8 @@ function SignIn() {
             }
         } catch(error) {
             console.error("Login error: ", error);
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -75,7 +79,16 @@ function SignIn() {
                                 <label htmlFor="password" className="font-medium text-sm text-neutral-700">Password</label>
                                 <Input id="password-input" type="password" name="password" value={formData.password} placeholder="Password" className="bg-neutral-50 border-[1px] border-neutral-200 w-full h-10 rounded-[4px] text-sm text-neutral-900 px-[14px] py-2.5" autoComplete="current-password" onChange={handleInputChange} required />
                             </div>
-                            <Button type="submit" className="bg-indigo-700 py-2.5 font-medium text-sm text-white rounded hover:bg-indigo-800">Submit</Button>
+                            <Button type="submit" className="bg-indigo-700 py-2.5 font-medium text-sm text-white rounded hover:bg-indigo-800" disabled={isLoading}>
+                            {isLoading ? (
+                                <div className="flex justify-center items-center gap-2">
+                                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                    Logging in...
+                                </div>
+                                ) : (
+                                    "Submit"
+                            )}
+                            </Button>
                         </form>
                     </div>
                     <div className=" hidden lg:block">

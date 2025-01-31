@@ -4,13 +4,14 @@ type ButtonProp = {
     children?: React.ReactNode;
     style?: React.CSSProperties;
     name?: string;
+    disabled?: boolean;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 
-function Button({ type, className, children, style, name, onClick }: ButtonProp) {
+function Button({ type, className, children, style, name, disabled, onClick }: ButtonProp) {
     return (
-        <button type={type} className={className} style={style} name={name} onClick={onClick}>
+        <button type={type} className={className} style={style} name={name} disabled={disabled} onClick={onClick}>
             {children}
         </button>
     );
