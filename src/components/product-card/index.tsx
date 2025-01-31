@@ -12,16 +12,16 @@ type ProductCardProps = {
 
 function ProductCard({ item }: ProductCardProps) {
     const [productColor, setProductColor] = useState<string>(item.colors[0]);
-    // const [isHovering, setIsHovering] = useState<boolean>(false);
+    const [isHovering, setIsHovering] = useState<boolean>(false);
 
     const handleColorClick = (colorName: string, e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setProductColor(colorName);
     };
 
-    // const imageUrl =
-    //     item.images.find((imageDetails) => productColor === imageDetails.color)
-    //         ?.image_url || item.images[0].image_url;
+    const imageUrl =
+        item.images.find((imageDetails) => productColor === imageDetails.color)
+            ?.image_url || item.images[0].image_url;
 
     const priceObj = item.inventory.find(
         (details) => details.color === productColor
@@ -29,13 +29,24 @@ function ProductCard({ item }: ProductCardProps) {
 
     const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor);
 
-    const ImageSection = (
+    const ImageSection = isHovering ? (
         <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
             <div className="h-[300px] w-full md:max-w-[320px] rounded-lg overflow-hidden relative">
                 <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
             </div>
         </Link>
-    )
+    ) : (
+        <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
+            <div className="h-[300px] w-full md:max-w-[320px] relative rounded-lg overflow-hidden">
+                <img
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={imageUrl}
+                    alt={item.name}
+                    loading="lazy"
+                />
+            </div>
+        </Link>
+    );
 
     const ProductDetails = (
         <div className="flex flex-col gap-3">
@@ -73,8 +84,8 @@ function ProductCard({ item }: ProductCardProps) {
     return (
         <div
             className="flex flex-col rounded-lg overflow-clip hover:text-indigo-800 group w-full h-full"
-            // onMouseEnter={() => setIsHovering(true)}
-            // onMouseLeave={() => setIsHovering(false)}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
         >
             <div className="h-full w-full">{ImageSection}</div>
             <div className="pt-4">{ProductDetails}</div>
