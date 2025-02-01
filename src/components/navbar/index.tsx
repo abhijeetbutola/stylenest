@@ -9,6 +9,8 @@ import cartIcon from "../../assets/carticon.svg"
 import storeLogo from "../../assets/stylenest.svg"
 import loginIcon from "../../assets/loginicon.svg"
 import logoutIcon from "../../assets/logouticon.svg"
+import { resetCollection } from "../../redux/slices/collectionsSlice";
+import { resetGender } from "../../redux/slices/gendersSlice";
 
 type NavbarProps = {
     sidebarOpen: () => void;
@@ -36,6 +38,11 @@ function Navbar({ sidebarOpen }: NavbarProps) {
         }
     }
 
+    const handleShopAllClick = () => {
+        dispatch(resetCollection())
+        dispatch(resetGender())
+    }
+
     return (
         <div className="h-[72px] w-full flex items-center px-4 md:px-8 lg:px-28">
             <div className="flex grow h-14 items-center">
@@ -49,7 +56,7 @@ function Navbar({ sidebarOpen }: NavbarProps) {
                 <div className="flex grow gap-14 items-centerm lg:mx-28">
                     {/* Desktop Buttons */}
                     <div className="hidden lg:flex grow gap-8 items-center ">
-                        <Link to="/product-listing-page" className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md hover:bg-indigo-500 p-2 rounded-[4px] transition-all">Shop all</Link>
+                        <Link to="/product-listing-page" className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md hover:bg-indigo-500 p-2 rounded-[4px] transition-all" onClick={handleShopAllClick}>Shop all</Link>
                         <Link to="/latest-arrivals-page" className="font-medium text-base text-neutral-600 hover:text-white hover:shadow-md p-2 hover:bg-indigo-500 rounded-[4px] transition-all">Latest arrivals</Link>
                     </div>
                 </div>

@@ -30,9 +30,6 @@ function ProductDetailsPage() {
 
   const products = fetchedProductsData?.data || [];
 
-  console.log('render...');
-  
-
   const location = useLocation();
 
   useEffect(() => {

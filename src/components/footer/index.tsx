@@ -5,8 +5,43 @@ import instagram from "../../assets/instaicon.svg"
 import facebook from "../../assets/fbicon.svg"
 import github from "../../assets/githubicon.svg"
 import x from "../../assets/xicon.svg"
+import { useAppDispatch } from "../../hooks"
+import { fetchProducts } from "../../redux/slices/productsSlice"
+import { Link } from "react-router-dom"
+import { resetGender, toggleGender } from "../../redux/slices/gendersSlice"
+import { resetCollection, toggleCollection } from "../../redux/slices/collectionsSlice"
 
 function Footer() {
+    const dispatch = useAppDispatch()
+
+    const handleCategoryClick = (value: string) => {
+        dispatch(
+            fetchProducts({
+                category: value,
+                page: 1,
+                per_page: 9
+            })
+        )
+
+        dispatch(resetGender())
+        dispatch(resetCollection())
+        dispatch(toggleGender(value))
+    }
+
+    const handleCollectionClick = (value: string) => {
+        dispatch(
+            fetchProducts({
+                collection: value,
+                page: 1,
+                per_page: 9
+            })
+        )
+
+        dispatch(resetCollection())
+        dispatch(resetGender())
+        dispatch(toggleCollection(value))
+    }
+
     return (
         <div className="flex-1 flex max-w-[1408px] mx-4 mb-4">
             <div className="flex-1 lg:p-16 max-lg:p-4 bg-white rounded-b-lg">
@@ -34,30 +69,54 @@ function Footer() {
                             <div className="flex flex-col gap-4 items-start md:w-[280px] max-sm:w-full">
                                 <p className="font-normal text-sm text-neutral-500">SHOP CATEGORIES</p>
                                 <div className="flex flex-col gap-3 items-start font-medium text-base text-neutral-600">
-                                    <Button>Unisex</Button>
-                                    <Button>Women</Button>
-                                    <Button>Men</Button>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCategoryClick("unisex")}>Unisex</Button>
+                                    </Link>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCategoryClick("women")}>Women</Button>
+                                    </Link>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCategoryClick("men")}>Men</Button>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-4 items-start md:w-[280px] max-sm:w-full">
                                 <p className="font-normal text-sm text-neutral-500">SHOP COLLECTIONS</p>
                                 <div className="flex flex-col gap-3 items-start font-medium text-base text-neutral-600">
-                                    <Button>Latest Arrivals</Button>
-                                    <Button>Urban Oasis</Button>
-                                    <Button>Cozy Comfort</Button>
-                                    <Button>Fresh Fusion</Button>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCollectionClick('latest')}>Latest Arrivals</Button>
+                                    </Link>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCollectionClick('urban')}>Urban Oasis</Button>
+                                    </Link>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCollectionClick('cozy')}>Cozy Comfort</Button>
+                                    </Link>
+                                    <Link to="/product-listing-page">
+                                        <Button className="hover:underline" onClick={() => handleCollectionClick('fresh')}>Fresh Fusion</Button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="flex justify-between flex-wrap border-t border-t-neutral-200">
                         <p className="pt-8 text-neutral-500 font-normal text-base">© 2024 StyleNest, Inc. All rights reserved.</p>
-                        <div className="flex gap-6 pt-8 flex-wrap">
-                            <img src={youtube} alt="" className="h-4 w-5" loading="lazy" />
-                            <img src={instagram} alt="" className="h-4 w-5" loading="lazy" />
-                            <img src={facebook} alt="" className="h-4 w-5" loading="lazy" />
-                            <img src={github} alt="" className="h-4 w-5" loading="lazy" />
-                            <img src={x} alt="" className="h-4 w-5" loading="lazy" />
+                        <div className="flex gap-6 pt-8 flex-wrap transition-all">
+                            <a href="https://www.youtube.com/" target="_blank">
+                                <img src={youtube} alt="" className="h-4 w-5 hover:scale-110" loading="lazy" />
+                            </a>
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <img src={instagram} alt="" className="h-4 w-5 hover:scale-110" loading="lazy" />
+                            </a>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <img src={facebook} alt="" className="h-4 w-5 hover:scale-110" loading="lazy" />
+                            </a>
+                            <a href="https://www.github.com/" target="_blank">
+                                <img src={github} alt="" className="h-4 w-5 hover:scale-110" loading="lazy" />
+                            </a>
+                            <a href="https://www.x.com/" target="_blank">
+                                <img src={x} alt="" className="h-4 w-5 hover:scale-110" loading="lazy" />
+                            </a>
                         </div>
                     </div>
                 </div>

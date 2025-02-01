@@ -66,7 +66,8 @@ type ProductsState = {
 };
 
 type FetchProductsParams = {
-  collection: string;
+  collection?: string;
+  category?: string;
   page: number;
   per_page: number;
   sort?: string;
@@ -99,7 +100,7 @@ export const fetchProducts = createAsyncThunk<
 >(
   'products/fetchProducts',
   async (
-    { collection, page, per_page, sort, direction }: FetchProductsParams,
+    { collection, category, page, per_page, sort, direction }: FetchProductsParams,
     { getState, rejectWithValue }
   ) => {
     try {
@@ -107,7 +108,7 @@ export const fetchProducts = createAsyncThunk<
 
       const selectedGenders = state.genders.selectedGenders.length
         ? state.genders.selectedGenders
-        : ['unisex', 'women', 'men'];
+        : category ? [category] : ['unisex', 'women', 'men'];
 
       const selectedCollections = state.collections.selectedCollections.length
         ? state.collections.selectedCollections
@@ -116,7 +117,7 @@ export const fetchProducts = createAsyncThunk<
       const response = await axios.get(`${BASE_URL}/projects/challenges/e-commerce/products`, {
         params: {
           collection: selectedCollections,
-          category: selectedGenders,
+          category: selectedGenders || category,
           page,
           per_page,
           sort,
