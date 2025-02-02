@@ -21,6 +21,10 @@ export default {
       aspectRatio: {
         '14/15': '14 / 15', // Custom aspect ratio for 280px width and 300px height
       },
+      willChange: {
+        opacity: 'opacity',
+        transform: 'transform',
+      },
     },
   },
   plugins: [
