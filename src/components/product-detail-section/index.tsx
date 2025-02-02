@@ -68,7 +68,6 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if(modalOpen) {
       const fetchReviewData = async () => {
         try{
           const response = await fetch(`https://www.greatfrontend.com/api/projects/challenges/e-commerce/products/${product.product_id}/reviews`)
@@ -83,8 +82,7 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
         } 
       }
       fetchReviewData()
-    }
-  },[modalOpen, product.product_id])
+  },[product.product_id])
 
   const selectedProductImages = product.images.filter((item) => item.color === selectedColor);
 
