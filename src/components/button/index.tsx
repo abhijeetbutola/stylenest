@@ -11,7 +11,7 @@ type ButtonProp = {
 
 function Button({ type, className, children, style, name, disabled, onClick }: ButtonProp) {
     return (
-        <button type={type} className={className} style={style} name={name} disabled={disabled} onClick={onClick}>
+        <button type={type} className={`cursor-pointer ${className}`} style={style} name={name} disabled={disabled} onClick={onClick}>
             {children}
         </button>
     );

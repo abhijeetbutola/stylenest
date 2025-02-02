@@ -13,7 +13,7 @@ type Data = {
 
 function Collections() {
   const [collectionData, setCollectionData] = useState<Data[] | null>([]);
-  const [loading, setLoading] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const dispatch = useAppDispatch()

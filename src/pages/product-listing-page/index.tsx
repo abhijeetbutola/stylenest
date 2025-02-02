@@ -86,6 +86,8 @@ function ProductListingPage() {
       })
     )
     
+    window.scrollTo({ top:0, behavior: 'smooth' })
+    
     if(fetchedProductsStatus === "succeeded" && fetchedProductsError !== "failed") setPage(value)
   }
 

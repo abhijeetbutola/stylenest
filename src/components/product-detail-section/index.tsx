@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import Button from "../button";
 import SizeSelect from "../size-select";
 import StarRating from "../star-rating";
@@ -10,6 +9,45 @@ import tick from "../../assets/productdetailimages/svg/tickmark.svg";
 import { isColorLight } from "./luminanceChecker";
 import { addItem } from "../../redux/slices/cartSlice";
 import { toast } from "react-toastify";
+import Modal from "../modal";
+import { useAppDispatch } from "../../hooks";
+
+interface User {
+  name: string;
+  user_id: string;
+  avatar_url: string | null;
+}
+
+interface Review {
+  rating: number;
+  content: string;
+  created_at: string; // ISO date string
+  user: User;
+}
+
+interface RatingCount {
+  count: number;
+  rating: number;
+}
+
+interface Aggregate {
+  counts: RatingCount[];
+  rating: number; // Average rating
+  total: number; // Total number of reviews
+}
+
+interface Pagination {
+  has_more: boolean;
+  page: number;
+  per_page: number;
+  total: number;
+}
+
+type ReviewsResponse = {
+  data: Review[];
+  aggregate: Aggregate;
+  pagination: Pagination;
+}
 
 type ProductDetailsSectionProps = {
   product: ProductDetailSchema;
@@ -20,10 +58,33 @@ type ProductDetailsSectionProps = {
 function ProductDetailSection({product, selectedColor, setSelectedColor}: ProductDetailsSectionProps) {
   
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0]);
-  
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch()
+  const [modalOpen, setModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[] | []>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if(modalOpen) {
+      const fetchReviewData = async () => {
+        try{
+          const response = await fetch(`https://www.greatfrontend.com/api/projects/challenges/e-commerce/products/${product.product_id}/reviews`)
+          if(!response.ok) throw new Error("Failed to fetch data")
+          const result: ReviewsResponse = await response.json()
+          const { data } = result
+          setReviews(data)
+          setLoading(false)
+        } catch(error) {
+          setError((error as Error).message || "Something went wrong")
+          setLoading(false)
+        } 
+      }
+      fetchReviewData()
+    }
+  },[modalOpen, product.product_id])
 
   const selectedProductImages = product.images.filter((item) => item.color === selectedColor);
 
@@ -131,8 +192,34 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
             <div className="flex gap-2 items-center">
               <span>{Number(product?.rating).toFixed(1)}</span>
               <StarRating stars={5} rating={product?.rating ?? 0} />
-              <Button className="text-indigo-700 text-sm font-medium">
+              <Button className="text-indigo-700 text-sm font-medium" onClick={() => setModalOpen(true)}>
                 See all {product?.reviews} reviews
+                <Modal open={modalOpen} onClose={() => setModalOpen(false)} loading={loading} error={error}>
+                  <div className="flex gap-8 w-full">
+                    <div className="flex-[1.5]">
+                      Left Section
+                    </div>
+                    <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-auto pr-8">
+                      {reviews.map((review) =>
+                        <div className="flex flex-col gap-4 text-left">
+                          <div className="flex gap-4">
+                            <div className="h-11 w-12 rounded-full overflow-hidden">
+                              <img src={review.user.avatar_url || ""} alt="" className="object-cover w-full h-full" />
+                            </div>
+                            <div className="flex flex-col gap-1 items-start w-full">
+                              <div className="flex justify-between items-center w-full">
+                                <div className="font-semibold text-base text-neutral-900">{review.user.name}</div>
+                                <div className="text-neutral-600 text-xs font-normal">{review.created_at}</div>
+                              </div>
+                              <StarRating stars={5} rating={review.rating} />
+                            </div>
+                          </div>
+                          <div className="text-base font-normal text-neutral-600">{review.content}</div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Modal>
               </Button>
             </div>
           </div>

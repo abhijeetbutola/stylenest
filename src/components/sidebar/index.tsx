@@ -1,8 +1,11 @@
 import Button from "../button"
-import closeIcon from "../../assets/sidebarcloseicon.svg"
+import closeIcon from "../../assets/closeicon.svg"
 import logo from "../../assets/stylenest.svg"
 import { Link } from "react-router-dom"
 import { useEffect } from "react"
+import { useAppDispatch } from "../../hooks"
+import { resetCollection } from "../../redux/slices/collectionsSlice"
+import { resetGender } from "../../redux/slices/gendersSlice"
 
 type SidebarProps = {
     open: boolean;
@@ -10,6 +13,8 @@ type SidebarProps = {
   }
 
 function Sidebar({ open, handleClose }: SidebarProps) {
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
         if (open) {
             document.body.style.overflow = "hidden";
@@ -17,6 +22,12 @@ function Sidebar({ open, handleClose }: SidebarProps) {
             document.body.style.overflow = "";
         }
     }, [open]);
+
+    const handleShopAllClick = () => {
+            dispatch(resetCollection())
+            dispatch(resetGender())
+            handleClose()
+        }
 
     return (
         <>
@@ -42,7 +53,7 @@ function Sidebar({ open, handleClose }: SidebarProps) {
                 </div>
                 <ul className="flex flex-col gap-2 text-sm font-normal text-neutral-900">
                     <li className="py-2 px-3">
-                        <Link to="/product-listing-page" onClick={handleClose}>Shop all</Link>
+                        <Link to="/product-listing-page" onClick={handleShopAllClick}>Shop all</Link>
                     </li>
                     <li className="py-2 px-3">
                         <Link to="/latest-arrivals-page" onClick={handleClose}>Latest Arrivals</Link>

@@ -23,6 +23,10 @@ function App() {
     }
   }, [dispatch])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.key]);
+
   const isNotFoundPage = location.pathname === "/not-found-page"
 
   const handleSidebarOpen = () => {

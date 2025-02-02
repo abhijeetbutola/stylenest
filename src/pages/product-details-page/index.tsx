@@ -4,7 +4,7 @@ import ProductGrid from "../../components/product-grid";
 import ProductSpec from "../../components/product-specification";
 import { fetchProductDetails } from "../../redux/slices/productDetailsSlice";
 import { fetchProducts } from "../../redux/slices/productsSlice";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { SkeletonText } from "../../components/skeletons";
 import { useSearchParams } from "react-router-dom";
@@ -29,12 +29,6 @@ function ProductDetailsPage() {
   const [searchParams] = useSearchParams();
 
   const products = fetchedProductsData?.data || [];
-
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, [location.pathname]);
 
   useEffect(() => {
     if (productId) {
