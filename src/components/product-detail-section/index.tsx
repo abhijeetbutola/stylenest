@@ -135,7 +135,7 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
     <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
       <div className="flex max-lg:flex-col gap-8 w-full ">
         <div className="flex-[1.5]">Left Section</div>
-        <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-auto px-4 md:px-8 lg:pr-8">
+        <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-scroll px-4 md:px-8 lg:pr-8">
           {loading ? (<p>Loading...</p>) : error ? (<p>Error: {error}</p>) : reviews.map((review, index) => (
             <div key={index} className="flex flex-col gap-4 text-left">
               <div className="flex gap-4">
