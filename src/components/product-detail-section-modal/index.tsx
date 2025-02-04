@@ -73,7 +73,7 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
       <div className="flex max-lg:flex-col gap-8 w-full ">
         <div className="flex-[1.5]">Left Section</div>
         <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-scroll px-4 md:px-8 lg:pr-8">
-          {loading ? (<p>Loading...</p>) : error ? (<p>Error: {error}</p>) : reviews.map((review, index) => (
+          {reviews.map((review, index) => (
             <div key={index} className="flex flex-col gap-4 text-left">
               <div className="flex gap-4">
                 <div className="h-11 w-12 rounded-full overflow-hidden">
@@ -93,7 +93,15 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
         </div>
       </div>
     </Modal>
-  ), [error, loading, modalOpen, reviews]);  
+  ), [modalOpen, reviews]);  
+
+  if(loading) {
+    return <p>Loading...</p>
+  }
+
+  if(error) {
+    return <p>Error: {error}</p>
+  }
 
   return (
     <>
