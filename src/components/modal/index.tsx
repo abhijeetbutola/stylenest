@@ -23,7 +23,7 @@ function Modal({ open, onClose, children}: ModalProps) {
     
 
     return (
-        <div className={`fixed inset-0 z-20 flex justify-center items-center cursor-default will-change-transform will-change-opacity ${open ? "visible bg-black/20 " : "invisible"}`}
+        <div className={`fixed inset-0 z-20 flex justify-center items-center cursor-default will-change-transform ${open ? "visible bg-black/20 " : "invisible"}`}
          onClick={
             (e) => {
                 e.stopPropagation()
