@@ -9,21 +9,15 @@ type ModalProps = {
 
 function Modal({ open, onClose, children}: ModalProps) {
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            document.body.style.overflow = open ? "hidden" : "";
-          }, 500);
+        document.body.style.overflow = open ? "hidden" : "";
 
           return () => {
-            clearTimeout(timeout);
             document.body.style.overflow = "";
           };
     }, [open]);
 
-    console.log(open);
-    
-
     return (
-        <div className={`fixed inset-0 z-20 flex justify-center items-center cursor-default will-change-scale will-change-opacity ${open ? "visible bg-black/20 " : "invisible"}`}
+        <div className={`fixed inset-0 z-20 flex justify-center items-center cursor-default ${open ? "visible bg-black/20 " : "invisible"}`}
          onClick={
             (e) => {
                 e.stopPropagation()
@@ -32,7 +26,7 @@ function Modal({ open, onClose, children}: ModalProps) {
             }>
             {/* Modal container */}
             <div
-                className={`relative bg-white rounded-lg h-[608px] overflow-auto w-[1008px] my-8 pt-[72px] text-neutral-900 transition-all duration-300 ease-in-out mx-4 md:mx-[107px] ${
+                className={`relative bg-white rounded-lg h-[608px] overflow-auto w-[1008px] my-8 pt-[72px] text-neutral-900 transition-all duration-300 ease-in-out mx-4 md:mx-[107px] will-change-scale will-change-opacity ${
                     open ? "scale-100 opacity-100" : "scale-75 opacity-0"
                 }`}
                 onClick={(e) => e.stopPropagation()}
