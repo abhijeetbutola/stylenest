@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Modal from "../modal";
-import StarRating from "../star-rating";
 import Button from "../button";
+import ReviewCard from "../review-card";
 
 interface User {
     name: string;
@@ -74,21 +74,7 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
         <div className="flex-[1.5]">Left Section</div>
         <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-scroll px-4 md:px-8 lg:pr-8">
           {reviews.map((review, index) => (
-            <div key={index} className="flex flex-col gap-4 text-left">
-              <div className="flex gap-4">
-                <div className="h-11 w-12 rounded-full overflow-hidden">
-                  <img src={review.user.avatar_url || ""} alt="" className="object-cover w-full h-full" />
-                </div>
-                <div className="flex flex-col gap-1 items-start w-full">
-                  <div className="flex justify-between items-center w-full">
-                    <div className="font-semibold text-base text-neutral-900">{review.user.name}</div>
-                    <div className="text-neutral-600 text-xs font-normal">{review.created_at}</div>
-                  </div>
-                  <StarRating stars={5} rating={review.rating} />
-                </div>
-              </div>
-              <div className="text-base font-normal text-neutral-600">{review.content}</div>
-            </div>
+            <ReviewCard key={index} review={review} />
           ))}
         </div>
       </div>
@@ -108,7 +94,7 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
         <Button className="text-indigo-700 text-sm font-medium" onClick={() => setModalOpen(true)}>
                 See all {reviewsCount} reviews
         </Button>
-        {modalOpen && MemoizedModal}
+        {modalOpen && MemoizedModal }
     </>
   )
 }
