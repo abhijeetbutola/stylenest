@@ -65,11 +65,18 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
             setLoading(false)
             } 
         }
-        fetchReviewData()
-    },[product_id])
+
+        let delay = 0;
+        if(modalOpen) delay = setTimeout(() => fetchReviewData(), 100)
+
+        return () => {
+            clearTimeout(delay)
+        }
+    },[modalOpen, product_id])
 
     const MemoizedModal = useMemo(() => (
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+            {loading ? <p>Loading...</p> :
         <div className="flex max-lg:flex-col gap-8 w-full ">
             <div className="flex-[1.5]">Left Section</div>
             <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-scroll px-4 md:px-8 lg:pr-8">
@@ -77,13 +84,9 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
                 <ReviewCard key={index} review={review} />
             ))}
             </div>
-        </div>
+        </div>}
         </Modal>
-    ), [modalOpen, reviews]);  
-
-    if(loading) {
-        return <p>Loading...</p>
-    }
+    ), [loading, modalOpen, reviews]);  
 
     if(error) {
         return <p>Error: {error}</p>
