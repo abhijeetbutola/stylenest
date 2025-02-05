@@ -27,7 +27,7 @@ function Modal({ open, onClose, children}: ModalProps) {
             {/* Modal container */}
             <div
                 className={`relative bg-white rounded-lg h-[608px] overflow-auto w-[1008px] my-8 pt-[72px] text-neutral-900 transition-all duration-300 ease-in-out mx-4 md:mx-[107px] will-change-scale will-change-opacity ${
-                    open ? "scale-100 opacity-100 visible" : "scale-75 opacity-0 invisible"
+                    open ? "scale-100 opacity-100" : "scale-75 opacity-0"
                 }`}
                 onClick={(e) => e.stopPropagation()}
             >

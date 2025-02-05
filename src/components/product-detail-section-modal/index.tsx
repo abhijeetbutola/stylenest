@@ -94,7 +94,7 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
             <Button className="text-indigo-700 text-sm font-medium" onClick={() => setModalOpen(true)}>
                     See all {reviewsCount} reviews
             </Button>
-            {modalOpen && MemoizedModal}
+            {MemoizedModal}
         </>
     )
     }

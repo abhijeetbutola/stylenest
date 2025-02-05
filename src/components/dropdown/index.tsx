@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           {data.map((opt, index) => (
             <div
               key={index}
-              className={[(selectedOption === opt) && "font-medium text-indigo-700", "px-4 py-2 hover:bg-neutral-200 cursor-pointer font-normal text-sm"].filter(Boolean).join(" ")}
+              className={[(selectedOption === opt) && "!font-medium !text-indigo-700", "px-4 py-2 hover:bg-neutral-200 cursor-pointer font-normal text-sm"].filter(Boolean).join(" ")}
               onClick={() => {
                 onChange(opt);
                 setOpen();
