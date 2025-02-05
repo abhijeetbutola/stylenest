@@ -19,34 +19,19 @@ function ProductCard({ item }: ProductCardProps) {
         setProductColor(colorName);
     };
 
-    const imageUrl =
-        item.images.find((imageDetails) => productColor === imageDetails.color)
-            ?.image_url || item.images[0].image_url;
-
     const priceObj = item.inventory.find(
         (details) => details.color === productColor
     );
 
     const itemHoverImagesByColor = item.images.filter((image) => image.color === productColor);
 
-    const ImageSection = isHovering ? (
+    const ImageSection = (
         <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
             <div className="h-[300px] w-full md:max-w-[320px] rounded-lg overflow-hidden relative">
-                <ImageCarousel key={productColor} images={itemHoverImagesByColor} />
+                <ImageCarousel key={productColor} images={itemHoverImagesByColor} isHovering={isHovering} />
             </div>
         </Link>
-    ) : (
-        <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
-            <div className="h-[300px] w-full md:max-w-[320px] relative rounded-lg overflow-hidden">
-                <img
-                    className="absolute inset-0 w-full h-full object-cover"
-                    src={imageUrl}
-                    alt={item.name}
-                    loading="lazy"
-                />
-            </div>
-        </Link>
-    );
+    )
 
     const ProductDetails = (
         <div className="flex flex-col gap-3">

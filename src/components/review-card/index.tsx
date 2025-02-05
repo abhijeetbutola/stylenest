@@ -22,7 +22,7 @@ function ReviewCard({review}: ReviewCardProps) {
         <div className="flex flex-col gap-4 text-left">
             <div className="flex gap-4">
             <div className="h-11 w-12 rounded-full overflow-hidden">
-                <img src={review.user.avatar_url || ""} alt="" className="object-cover w-full h-full" />
+                <img src={review.user.avatar_url || ""} alt="" height={48} width={48} className="object-cover w-full h-full" />
             </div>
             <div className="flex flex-col gap-1 items-start w-full">
                 <div className="flex justify-between items-center w-full">

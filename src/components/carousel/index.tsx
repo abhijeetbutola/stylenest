@@ -1,12 +1,14 @@
 import { useState} from 'react'
 import { Image } from '../product-grid/schema';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Button from '../button';
 
 type ImageCarouselProps = {
-  images: Image[]
+  images: Image[];
+  isHovering: boolean;
 }
 
-export default function ImageCarousel({ images }: ImageCarouselProps) {
+export default function ImageCarousel({ images, isHovering }: ImageCarouselProps) {
   const [imageIndex, setImageIndex] = useState(0);
 
   // useEffect(() => {
@@ -50,7 +52,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
       {/* Previous Button */}
       <button
-        className="absolute top-0 left-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all"
+        className={["absolute top-0 left-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all opacity-0", isHovering && "opacity-100"].filter(Boolean).join(" ")}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -62,7 +64,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
       {/* Next Button */}
       <button
-        className="absolute top-0 right-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all"
+        className={["absolute top-0 right-0 h-full w-10 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all opacity-0", isHovering && "opacity-100"].filter(Boolean).join(" ")}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -71,6 +73,20 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       >
         <ChevronRight strokeWidth={1.5} color="white" />
       </button>
+
+      {/* Image dots */}
+      <div className={['absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 bg-gray-400/40 p-1 rounded-full opacity-0 transition-all', isHovering && "opacity-100"].filter(Boolean).join(" ")} 
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+      }}>
+        {Array(images.length).fill(0).map((_, index) =>
+          <Button key={index} 
+                className={['h-2 w-2 rounded-full bg-white scale-100 hover:scale-125 transition-all', imageIndex === index && "!bg-indigo-700/80 outline outline-1 outline-white outline-offset-1"]
+                .filter(Boolean).join(" ")}
+                onClick={() => setImageIndex(index)}
+                ></Button>)}
+      </div>
     </>
   );
 }

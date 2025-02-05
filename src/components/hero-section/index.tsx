@@ -16,7 +16,7 @@ function HeroSection() {
                 </div>
                 <div className="lg:max-w-[calc(50%-1rem)]">
                     <div className="rounded-lg overflow-hidden">
-                        <img className="object-cover w-full aspect-[1324/1000]" loading="lazy" src={heroImage} alt="" />
+                        <img className="object-cover w-full aspect-[1324/1000]" src={heroImage} alt="" />
                     </div>
                 </div>
             </div>
