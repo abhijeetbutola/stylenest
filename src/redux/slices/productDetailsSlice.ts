@@ -1,8 +1,10 @@
 // productDetailsSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import dotenv from 'dotenv'
 
-const BASE_URL = 'https://www.greatfrontend.com/api';
+dotenv.config()
+const API_URL = process.env.REACT_APP_BASE_API_URL
 
 // Define the shape of the state
 interface ProductDetailsState {
@@ -77,7 +79,7 @@ export const fetchProductDetails = createAsyncThunk<
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.get<ProductDetails>(
-        `${BASE_URL}/projects/challenges/e-commerce/products/${productId}`
+        `${API_URL}/projects/challenges/e-commerce/products/${productId}`
       );
       return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

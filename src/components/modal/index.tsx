@@ -16,6 +16,9 @@ function Modal({ open, onClose, children}: ModalProps) {
           };
     }, [open]);
 
+    // console.log("aaaaaaaaaaa");
+    
+
     return (
         <div className={`fixed inset-0 z-20 flex justify-center items-center cursor-default ${open ? "visible bg-black/20 " : "invisible"}`}
          onClick={

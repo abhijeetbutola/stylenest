@@ -146,6 +146,9 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
               const isLight = isColorLight(hexColor);
               
 
+              console.log("aaaaaaaaaa");
+              
+
               return (
                 <div key={index} className="relative p-[9px]">
                   <Button

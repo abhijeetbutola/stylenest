@@ -66,7 +66,7 @@ function ProductDetailSectionModal({product_id, reviewsCount}: ProductDetailSect
             } 
         }
 
-        let delay = 0;
+        let delay = undefined;
         if(modalOpen) delay = setTimeout(() => fetchReviewData(), 100)
 
         return () => {
