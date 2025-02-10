@@ -43,7 +43,7 @@ function ProductDetailsPage() {
 
   useEffect(() => {
     if (productDetails?.colors && productDetails.colors.length > 0) {
-      setSelectedColor((searchParams.get("color") || productDetails.colors[0]));
+      setSelectedColor(searchParams.get("color") || productDetails.colors[0]);
     }
   }, [productDetails, searchParams]);
 
