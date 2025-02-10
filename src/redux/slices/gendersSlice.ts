@@ -29,6 +29,5 @@ const gendersSlice = createSlice({
   },
 });
 
-// Export actions and reducer
 export const { toggleGender, resetGender } = gendersSlice.actions;
 export default gendersSlice.reducer;
