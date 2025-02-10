@@ -31,6 +31,11 @@ function ProductDetailsPage() {
   const products = fetchedProductsData?.data || [];
 
   useEffect(() => {
+    console.log("Vercel - productDetails:", productDetails);
+    console.log("Vercel - fetchedProductsData:", fetchedProductsData);
+  }, [productDetails, fetchedProductsData]);  
+
+  useEffect(() => {
     if (productId) {
       dispatch(fetchProductDetails(productId));
     }
