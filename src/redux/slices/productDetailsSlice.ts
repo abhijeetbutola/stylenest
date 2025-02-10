@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // const API_URL = process.env.REACT_APP_BASE_API_URL
-const API_URL = import.meta.env.VITE_BASE_API_URL;
+const BASE_API_URL = "https://www.greatfrontend.com/api"
 
 // Define the shape of the state
 interface ProductDetailsState {
@@ -78,7 +78,7 @@ export const fetchProductDetails = createAsyncThunk<
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.get<ProductDetails>(
-        `${API_URL}/projects/challenges/e-commerce/products/${productId}`
+        `${BASE_API_URL}/projects/challenges/e-commerce/products/${productId}`
       );
       return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
