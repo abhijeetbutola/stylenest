@@ -1,10 +1,9 @@
 // productDetailsSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import dotenv from 'dotenv'
 
-dotenv.config()
-const API_URL = process.env.REACT_APP_BASE_API_URL
+// const API_URL = process.env.REACT_APP_BASE_API_URL
+const API_URL = import.meta.env.VITE_BASE_API_URL;
 
 // Define the shape of the state
 interface ProductDetailsState {
