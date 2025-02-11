@@ -19,7 +19,6 @@ type NavbarProps = {
 function Navbar({ sidebarOpen }: NavbarProps) {
     const dispatch = useAppDispatch()
     const cartItemsCount = useAppSelector((state) => state.cartItems.items.length)
-    // console.log(cartItems);
     
     const isAuth = useAppSelector((state) => state.auths.isAuthenticated)
     const navigate = useNavigate()

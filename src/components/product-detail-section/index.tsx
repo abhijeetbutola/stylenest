@@ -144,10 +144,6 @@ function ProductDetailSection({product, selectedColor, setSelectedColor}: Produc
             {product?.colors.map((color, index: number) => {
               const hexColor = colorsToCodes[color as ColorToCodes];
               const isLight = isColorLight(hexColor);
-              
-
-              console.log("aaaaaaaaaa");
-              
 
               return (
                 <div key={index} className="relative p-[9px]">

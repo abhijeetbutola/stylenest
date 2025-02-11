@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const getInitialState = () => {
     const storedAuth = localStorage.getItem("authData");
-    console.log(storedAuth);
     
     if (storedAuth) {
         return {
