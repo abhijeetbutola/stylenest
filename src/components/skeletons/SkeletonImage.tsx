@@ -1,11 +1,9 @@
 type SkeletonImageProps = {
-    className: string;
-}
+  className: string;
+};
 
 function SkeletonImage({ className }: SkeletonImageProps) {
-    return (
-        <div className={`bg-gray-300 animate-pulse ${className}`}></div>
-    )
+  return <div className={`bg-gray-300 animate-pulse ${className}`}></div>;
 }
 
-export default SkeletonImage
+export default SkeletonImage;

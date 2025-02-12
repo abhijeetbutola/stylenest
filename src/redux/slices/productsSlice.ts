@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import qs from 'qs';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import qs from "qs";
 
-const BASE_URL = 'https://www.greatfrontend.com/api';
+const BASE_URL = "https://www.greatfrontend.com/api";
 
 type Product = {
   product_id: string;
@@ -61,7 +61,7 @@ type FetchProductsData = {
 
 type ProductsState = {
   data: FetchProductsData | null; // Allow null initially
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 };
 
@@ -71,7 +71,7 @@ type FetchProductsParams = {
   page: number;
   per_page: number;
   sort?: string;
-  direction?: 'asc' | 'desc'
+  direction?: "asc" | "desc";
 };
 
 type RootState = {
@@ -89,7 +89,7 @@ type FetchProductsRejectValue = {
 
 const initialState: ProductsState = {
   data: null, // Set to null initially
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
@@ -98,9 +98,16 @@ export const fetchProducts = createAsyncThunk<
   FetchProductsParams, // Thunk argument type
   { rejectValue: FetchProductsRejectValue } // Rejected payload type
 >(
-  'products/fetchProducts',
+  "products/fetchProducts",
   async (
-    { collection, category, page, per_page, sort, direction }: FetchProductsParams,
+    {
+      collection,
+      category,
+      page,
+      per_page,
+      sort,
+      direction,
+    }: FetchProductsParams,
     { getState, rejectWithValue }
   ) => {
     try {
@@ -108,53 +115,67 @@ export const fetchProducts = createAsyncThunk<
 
       const selectedGenders = state.genders.selectedGenders.length
         ? state.genders.selectedGenders
-        : category ? [category] : ['unisex', 'women', 'men'];
+        : category
+        ? [category]
+        : ["unisex", "women", "men"];
 
       const selectedCollections = state.collections.selectedCollections.length
         ? state.collections.selectedCollections
-        : collection ? [collection] : ['latest', 'cozy', 'urban', 'fresh'];
+        : collection
+        ? [collection]
+        : ["latest", "cozy", "urban", "fresh"];
 
-      const response = await axios.get(`${BASE_URL}/projects/challenges/e-commerce/products`, {
-        params: {
-          collection: selectedCollections,
-          category: selectedGenders || category,
-          page,
-          per_page,
-          sort,
-          direction
-        },
-        paramsSerializer: (params) =>
-          qs.stringify(params, { arrayFormat: 'repeat' }),
-      });
+      const response = await axios.get(
+        `${BASE_URL}/projects/challenges/e-commerce/products`,
+        {
+          params: {
+            collection: selectedCollections,
+            category: selectedGenders || category,
+            page,
+            per_page,
+            sort,
+            direction,
+          },
+          paramsSerializer: (params) =>
+            qs.stringify(params, { arrayFormat: "repeat" }),
+        }
+      );
 
       return response.data as FetchProductsData;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return rejectWithValue({
-        errorMessage: error.response?.data || 'An error occurred',
+        errorMessage: error.response?.data || "An error occurred",
       });
     }
   }
 );
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<FetchProductsData>) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
+        state.status = "loading";
       })
       .addCase(
+        fetchProducts.fulfilled,
+        (state, action: PayloadAction<FetchProductsData>) => {
+          state.status = "succeeded";
+          state.data = action.payload;
+        }
+      )
+      .addCase(
         fetchProducts.rejected,
-        (state, action: PayloadAction<FetchProductsRejectValue | undefined>) => {
-          state.status = 'failed';
-          state.error = action.payload?.errorMessage || 'Failed to fetch products';
+        (
+          state,
+          action: PayloadAction<FetchProductsRejectValue | undefined>
+        ) => {
+          state.status = "failed";
+          state.error =
+            action.payload?.errorMessage || "Failed to fetch products";
         }
       );
   },

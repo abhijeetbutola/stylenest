@@ -1,21 +1,23 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type CollectionsState = {
-    selectedCollections: string[];
-}
+  selectedCollections: string[];
+};
 
 const initialState: CollectionsState = {
-    selectedCollections: []
-}
+  selectedCollections: [],
+};
 
 const collectionsSlice = createSlice({
-  name: 'collections',
+  name: "collections",
   initialState,
   reducers: {
     toggleCollection: (state, action: PayloadAction<string>) => {
       const collection = action.payload;
       if (state.selectedCollections.includes(collection)) {
-        state.selectedCollections = state.selectedCollections.filter((item) => item !== collection);
+        state.selectedCollections = state.selectedCollections.filter(
+          (item) => item !== collection
+        );
       } else {
         state.selectedCollections.push(collection);
       }
@@ -26,6 +28,5 @@ const collectionsSlice = createSlice({
   },
 });
 
-
-export const { toggleCollection, resetCollection } = collectionsSlice.actions
-export default collectionsSlice.reducer
+export const { toggleCollection, resetCollection } = collectionsSlice.actions;
+export default collectionsSlice.reducer;

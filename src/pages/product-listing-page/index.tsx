@@ -8,31 +8,40 @@ import { resetGender } from "../../redux/slices/gendersSlice";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks"; // Importing custom hooks
 import Button from "../../components/button";
-import { ChevronLeft, ChevronRight} from "lucide-react";
-import filterIcon from "../../assets/filtericon.svg"
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import filterIcon from "../../assets/filtericon.svg";
 import { SkeletonProductGrid } from "../../components/skeletons";
 
-const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> = {
-  "Newest": { sort: "created", direction: "desc" },
-  "Best rating": { sort: "rating", direction: "desc" },
-  "Most popular": { sort: "popularity", direction: "desc" },
-  "Price: Low to High": { sort: "price", direction: "asc" },
-  "Price: High to Low": { sort: "price", direction: "desc" },
-};
+const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> =
+  {
+    Newest: { sort: "created", direction: "desc" },
+    "Best rating": { sort: "rating", direction: "desc" },
+    "Most popular": { sort: "popularity", direction: "desc" },
+    "Price: Low to High": { sort: "price", direction: "asc" },
+    "Price: High to Low": { sort: "price", direction: "desc" },
+  };
 
 type PaginationSchema = {
   has_more: boolean;
   page: number;
   per_page: number;
   total: number;
-}
+};
 
 function ProductListingPage() {
   const dispatch = useAppDispatch();
-  const selectedGenders = useAppSelector((state) => state.genders.selectedGenders);
-  const selectedCollections = useAppSelector((state) => state.collections.selectedCollections);
+  const selectedGenders = useAppSelector(
+    (state) => state.genders.selectedGenders
+  );
+  const selectedCollections = useAppSelector(
+    (state) => state.collections.selectedCollections
+  );
 
-  const { data: fetchedProductsData, status: fetchedProductsStatus, error: fetchedProductsError } = useAppSelector((state) => state.products);
+  const {
+    data: fetchedProductsData,
+    status: fetchedProductsStatus,
+    error: fetchedProductsError,
+  } = useAppSelector((state) => state.products);
 
   const products = fetchedProductsData?.data || [];
 
@@ -43,17 +52,18 @@ function ProductListingPage() {
     total: 0,
   };
 
-  const paginationData: PaginationSchema = fetchedProductsData?.pagination || defaultPagination
-  const totalPages = Math.ceil(paginationData.total / paginationData.per_page)
-  
+  const paginationData: PaginationSchema =
+    fetchedProductsData?.pagination || defaultPagination;
+  const totalPages = Math.ceil(paginationData.total / paginationData.per_page);
+
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedDropdownOption, setSelectedDropdownOption] = useState<string>("Sort by");
-  const [page, setPage] = useState<number>(1)
+  const [selectedDropdownOption, setSelectedDropdownOption] =
+    useState<string>("Sort by");
+  const [page, setPage] = useState<number>(1);
 
   const selectedSort = useMemo(() => {
-    return sortOptions[selectedDropdownOption] || ""
-  }, [selectedDropdownOption])
-
+    return sortOptions[selectedDropdownOption] || "";
+  }, [selectedDropdownOption]);
 
   useEffect(() => {
     return () => {
@@ -70,12 +80,11 @@ function ProductListingPage() {
 
   const handleDropdownValue = (opt: string) => {
     setSelectedDropdownOption(opt);
-  };  
+  };
 
   const handlePageNumber = (value: number) => {
-    
-    if(value > totalPages || value < 0) return
-    
+    if (value > totalPages || value < 0) return;
+
     dispatch(
       fetchProducts({
         collection: filters.collections[0],
@@ -84,12 +93,16 @@ function ProductListingPage() {
         sort: selectedSort.sort,
         direction: selectedSort.direction,
       })
+    );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (
+      fetchedProductsStatus === "succeeded" &&
+      fetchedProductsError !== "failed"
     )
-    
-    window.scrollTo({ top:0, behavior: 'smooth' })
-    
-    if(fetchedProductsStatus === "succeeded" && fetchedProductsError !== "failed") setPage(value)
-  }
+      setPage(value);
+  };
 
   const filters = useMemo(
     () => ({
@@ -122,41 +135,68 @@ function ProductListingPage() {
             <img src={filterIcon} alt="" />
             <span>Filter</span>
           </div>
-            <Dropdown
-              data={Object.keys(sortOptions)}
-              open={open}
-              setOpen={handleDropdownClick}
-              onChange={handleDropdownValue}
-              type="hover"
-              selectedOption={selectedDropdownOption}
-              titleClassName="shadow-md rounded-md py-2.5 px-4"
-              optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-9 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
-            >
-              {selectedDropdownOption}
-            </Dropdown>
+          <Dropdown
+            data={Object.keys(sortOptions)}
+            open={open}
+            setOpen={handleDropdownClick}
+            onChange={handleDropdownValue}
+            type="hover"
+            selectedOption={selectedDropdownOption}
+            titleClassName="shadow-md rounded-md py-2.5 px-4"
+            optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-9 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
+          >
+            {selectedDropdownOption}
+          </Dropdown>
         </div>
-        {fetchedProductsStatus === "loading" ? <SkeletonProductGrid /> : <ProductGrid products={products} />}
+        {fetchedProductsStatus === "loading" ? (
+          <SkeletonProductGrid />
+        ) : (
+          <ProductGrid products={products} />
+        )}
         <div className="flex justify-center items-center gap-2 md:gap-3">
-          {page > 1
-           && <div className="flex justify-center items-center border-[1px] border-neutral-200 rounded py-2 md:py-3 px-1.5 md:px-[18px] cursor-pointer bg-white hover:bg-opacity-50 hover:bg-indigo-200 text-sm transition-all" onClick={() => handlePageNumber(page-1)}>
-                <ChevronLeft size={15} />
-                <Button className="hidden md:block">Prev</Button>
-              </div>
-              }
+          {page > 1 && (
+            <div
+              className="flex justify-center items-center border-[1px] border-neutral-200 rounded py-2 md:py-3 px-1.5 md:px-[18px] cursor-pointer bg-white hover:bg-opacity-50 hover:bg-indigo-200 text-sm transition-all"
+              onClick={() => handlePageNumber(page - 1)}
+            >
+              <ChevronLeft size={15} />
+              <Button className="hidden md:block">Prev</Button>
+            </div>
+          )}
           {products &&
-            Array.from({ length: Math.ceil(paginationData.total / paginationData.per_page) }, (_, index) => {
-              return (
-                <Button key={index} className={["border-[1px] border-neutral-200 py-3 px-3 md:px-[18px] rounded text-sm bg-white hover:bg-indigo-200 hover:bg-opacity-50 transition-all", (index+1) === paginationData.page && "border-none outline outline-indigo-700 hover:bg-white"].filter(Boolean).join(" ")} onClick={() => handlePageNumber(index+1)}>
-                  {index + 1} {/* Display 1-based page numbers */}
-                </Button>
-              );
-            })}
-          {paginationData.has_more
-           && <div className="flex justify-center items-center border-[1px] border-neutral-200 rounded py-2 md:py-3 px-1.5 md:px-[18px] cursor-pointer bg-white hover:bg-opacity-50 hover:bg-indigo-200 text-sm transition-all" onClick={() => handlePageNumber(page+1)}>
-                <Button className="hidden md:block">Next</Button>
-                <ChevronRight size={15} />
-              </div>
+            Array.from(
+              {
+                length: Math.ceil(
+                  paginationData.total / paginationData.per_page
+                ),
+              },
+              (_, index) => {
+                return (
+                  <Button
+                    key={index}
+                    className={[
+                      "border-[1px] border-neutral-200 py-3 px-3 md:px-[18px] rounded text-sm bg-white hover:bg-indigo-200 hover:bg-opacity-50 transition-all",
+                      index + 1 === paginationData.page &&
+                        "border-none outline outline-indigo-700 hover:bg-white",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    onClick={() => handlePageNumber(index + 1)}
+                  >
+                    {index + 1} {/* Display 1-based page numbers */}
+                  </Button>
+                );
               }
+            )}
+          {paginationData.has_more && (
+            <div
+              className="flex justify-center items-center border-[1px] border-neutral-200 rounded py-2 md:py-3 px-1.5 md:px-[18px] cursor-pointer bg-white hover:bg-opacity-50 hover:bg-indigo-200 text-sm transition-all"
+              onClick={() => handlePageNumber(page + 1)}
+            >
+              <Button className="hidden md:block">Next</Button>
+              <ChevronRight size={15} />
+            </div>
+          )}
         </div>
       </div>
     </div>

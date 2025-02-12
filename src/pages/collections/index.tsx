@@ -16,7 +16,7 @@ function Collections() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,8 +48,8 @@ function Collections() {
   }
 
   const handleCollectionClick = (collection: string) => {
-    dispatch(toggleCollection(collection))
-  }
+    dispatch(toggleCollection(collection));
+  };
 
   return (
     <div className="flex-1 flex flex-col justify-center items-start gap-8 rounded-lg max-sm:py-12 max-lg:py-16 lg:p-24 max-lg:px-4 text-black w-full">
@@ -58,7 +58,10 @@ function Collections() {
       </div>
       <div className="flex max-sm:flex-col gap-7 w-full">
         {/* First image */}
-        <Link to="/product-listing-page" onClick={() => handleCollectionClick("cozy")}>
+        <Link
+          to="/product-listing-page"
+          onClick={() => handleCollectionClick("cozy")}
+        >
           <div className="relative max-h-[580px] flex basis-1/2 w-full rounded-lg overflow-hidden">
             <img
               className="w-full object-cover hover:scale-110 transition-all"
@@ -68,40 +71,58 @@ function Collections() {
             />
             <div className="absolute bottom-4 left-4 text-white">
               <p className="font-normal text-sm">{collectionData?.[0]?.name}</p>
-              <p className="font-medium text-base">{collectionData?.[0]?.description}</p>
+              <p className="font-medium text-base">
+                {collectionData?.[0]?.description}
+              </p>
             </div>
           </div>
         </Link>
         {/* Second and Third images */}
         <div className="flex max-h-[580px] basis-1/2 flex-col gap-7">
-        <Link to="/product-listing-page" onClick={() => handleCollectionClick("urban")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
-          <div className="flex">
-            <img
-              className="w-full object-cover hover:scale-110 transition-all"
-              src={collectionData?.[1]?.image_url}
-              alt=""
-              loading="lazy"
-            />
-            <div className="absolute bottom-4 left-4 text-white">
-              <p className="font-normal text-sm">{collectionData?.[1]?.name}</p>
-              <p className="font-medium text-base">{collectionData?.[1]?.description}</p>
+          <Link
+            to="/product-listing-page"
+            onClick={() => handleCollectionClick("urban")}
+            className="relative flex-1 flex w-full rounded-lg overflow-hidden"
+          >
+            <div className="flex">
+              <img
+                className="w-full object-cover hover:scale-110 transition-all"
+                src={collectionData?.[1]?.image_url}
+                alt=""
+                loading="lazy"
+              />
+              <div className="absolute bottom-4 left-4 text-white">
+                <p className="font-normal text-sm">
+                  {collectionData?.[1]?.name}
+                </p>
+                <p className="font-medium text-base">
+                  {collectionData?.[1]?.description}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Link to="/product-listing-page" onClick={() => handleCollectionClick("fresh")} className="relative flex-1 flex w-full rounded-lg overflow-hidden">
-          <div className="flex">
-            <img
-              className="w-full object-cover hover:scale-110 transition-all"
-              src={collectionData?.[2]?.image_url}
-              alt=""
-              loading="lazy"
-            />
-            <div className="absolute bottom-4 left-4 text-white">
-              <p className="font-normal text-sm">{collectionData?.[2]?.name}</p>
-              <p className="font-medium text-base">{collectionData?.[2]?.description}</p>
+          </Link>
+          <Link
+            to="/product-listing-page"
+            onClick={() => handleCollectionClick("fresh")}
+            className="relative flex-1 flex w-full rounded-lg overflow-hidden"
+          >
+            <div className="flex">
+              <img
+                className="w-full object-cover hover:scale-110 transition-all"
+                src={collectionData?.[2]?.image_url}
+                alt=""
+                loading="lazy"
+              />
+              <div className="absolute bottom-4 left-4 text-white">
+                <p className="font-normal text-sm">
+                  {collectionData?.[2]?.name}
+                </p>
+                <p className="font-medium text-base">
+                  {collectionData?.[2]?.description}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
         </div>
       </div>
     </div>

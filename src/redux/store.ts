@@ -5,7 +5,10 @@ import collectionsReducer from "./slices/collectionsSlice";
 import gendersReducer from "./slices/gendersSlice";
 import productDetailsReducer from "./slices/productDetailsSlice";
 import authReducer from "./slices/authSlice";
-import { loadStateFromLocalStorage, saveStateToLocalStorage } from "../utils/localStorageUtils";
+import {
+  loadStateFromLocalStorage,
+  saveStateToLocalStorage,
+} from "../utils/localStorageUtils";
 
 // Define the type of the preloaded state
 const preloadedCartState: CartState = loadStateFromLocalStorage() || {

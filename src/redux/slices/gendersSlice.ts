@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define the shape of the state
 interface GendersState {
@@ -12,13 +12,15 @@ const initialState: GendersState = {
 
 // Create the slice with typed actions and state
 const gendersSlice = createSlice({
-  name: 'genders',
+  name: "genders",
   initialState,
   reducers: {
     toggleGender: (state, action: PayloadAction<string>) => {
       const gender = action.payload;
       if (state.selectedGenders.includes(gender)) {
-        state.selectedGenders = state.selectedGenders.filter((item) => item !== gender);
+        state.selectedGenders = state.selectedGenders.filter(
+          (item) => item !== gender
+        );
       } else {
         state.selectedGenders.push(gender);
       }

@@ -14,26 +14,27 @@ function ProductDetailsPage() {
   const { productId } = useParams<{ productId: string }>();
   const dispatch = useAppDispatch();
 
-  const { data: productDetails, status: productDetailsStatus, error: productDetailsError } = useAppSelector(
-    (state) => state.productDetails
-  );
+  const {
+    data: productDetails,
+    status: productDetailsStatus,
+    error: productDetailsError,
+  } = useAppSelector((state) => state.productDetails);
 
-  const { data: fetchedProductsData, status: fetchedProductsStatus, error: fetchedProductsError } = useAppSelector(
-    (state) => state.products
-  );
+  const {
+    data: fetchedProductsData,
+    status: fetchedProductsStatus,
+    error: fetchedProductsError,
+  } = useAppSelector((state) => state.products);
 
   const { selectedCollections } = useAppSelector((state) => state.collections);
   const { selectedGenders } = useAppSelector((state) => state.genders);
 
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(
+    undefined
+  );
   const [searchParams] = useSearchParams();
 
   const products = fetchedProductsData?.data || [];
-
-  useEffect(() => {
-    console.log("Vercel - productDetails:", productDetails);
-    console.log("Vercel - fetchedProductsData:", fetchedProductsData);
-  }, [productDetails, fetchedProductsData]);  
 
   useEffect(() => {
     if (productId) {
@@ -49,9 +50,20 @@ function ProductDetailsPage() {
 
   useEffect(() => {
     if (productDetails?.collection) {
-      dispatch(fetchProducts({ collection: productDetails?.collection.collection_id, per_page: 5, page: 1 }));
+      dispatch(
+        fetchProducts({
+          collection: productDetails?.collection.collection_id,
+          per_page: 5,
+          page: 1,
+        })
+      );
     }
-  }, [dispatch, productDetails?.collection, selectedCollections, selectedGenders]);
+  }, [
+    dispatch,
+    productDetails?.collection,
+    selectedCollections,
+    selectedGenders,
+  ]);
 
   const filteredProducts = products?.length
     ? products.filter((item) => item.product_id !== productId)
@@ -61,14 +73,20 @@ function ProductDetailsPage() {
     setSelectedColor(colorName);
   };
 
-  if (productDetailsStatus === "loading" || fetchedProductsStatus === "loading") {
-    return <Container className="p-24"><SkeletonText className="h-28 w-full" /></Container>;
+  if (
+    productDetailsStatus === "loading" ||
+    fetchedProductsStatus === "loading"
+  ) {
+    return (
+      <Container className="p-24">
+        <SkeletonText className="h-28 w-full" />
+      </Container>
+    );
   }
-  
+
   if (productDetailsError || fetchedProductsError) {
     return <div>Error loading product details or products.</div>;
   }
-  
 
   return (
     <div className=" bg-white max-w-[1408px] mx-4 px-4 pt-16 lg:p-24 rounded-t-lg overflow-hidden">

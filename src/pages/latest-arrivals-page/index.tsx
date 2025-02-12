@@ -5,22 +5,29 @@ import { fetchProducts } from "../../redux/slices/productsSlice";
 import { SkeletonProductGrid } from "../../components/skeletons";
 
 function LatestArrivalsPage() {
-    const dispatch = useAppDispatch()
-    const { data: fetchedProductsData, status: fetchedProductsStatus } = useAppSelector((state) => state.products)
-    const products = fetchedProductsData?.data || []
+  const dispatch = useAppDispatch();
+  const { data: fetchedProductsData, status: fetchedProductsStatus } =
+    useAppSelector((state) => state.products);
+  const products = fetchedProductsData?.data || [];
 
-    useEffect(() => {
-        dispatch(fetchProducts({ collection: 'latest', page: 1, per_page: 8}))
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchProducts({ collection: "latest", page: 1, per_page: 8 }));
+  }, [dispatch]);
 
-    return (
-        <div className="flex-1 max-w-[1408px] mx-4">
-            <div className="bg-white flex flex-col gap-8 p-4 lg:p-24 rounded-t-lg">
-                <p className="text-3xl font-semibold text-neutral-900">Latest Arrivals</p>
-                {fetchedProductsStatus === "loading" ? <SkeletonProductGrid /> : <ProductGrid products={products} />}
-            </div>
-        </div>
-    )
+  return (
+    <div className="flex-1 max-w-[1408px] mx-4">
+      <div className="bg-white flex flex-col gap-8 p-4 lg:p-24 rounded-t-lg">
+        <p className="text-3xl font-semibold text-neutral-900">
+          Latest Arrivals
+        </p>
+        {fetchedProductsStatus === "loading" ? (
+          <SkeletonProductGrid />
+        ) : (
+          <ProductGrid products={products} />
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default LatestArrivalsPage
+export default LatestArrivalsPage;

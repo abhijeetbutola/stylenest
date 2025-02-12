@@ -14,63 +14,60 @@ import ProtectedRoutes from "../components/protected-routes";
 import LatestArrivalsPage from "../pages/latest-arrivals-page";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            {
-                index: true,
-                element: <LandingPage />
-            },
-            {
-                path: 'product-specification',
-                element: <ProductSpec />
-            },
-            {
-                path: 'collections',
-                element: <Collections />
-            },
-            {
-                path: 'product-details-page/:productId',
-                element: <ProductDetailsPage />,
-            },
-            {
-                path: 'cart',
-                element: (
-                    <Cart />
-                )
-            },
-            {
-                path: 'checkout',
-                element: (
-                    <ProtectedRoutes>
-                        <Checkout />
-                    </ProtectedRoutes>
-                )
-            },
-            {
-                path: 'product-listing-page',
-                element: <ProductListingPage />
-            },
-            {
-                path: 'latest-arrivals-page',
-                element: <LatestArrivalsPage />
-            },
-            {
-                path: 'sign-in',
-                element: <SignIn />
-            },
-            {
-                path: 'sign-up',
-                element: <SignUp />
-            },
-        ]
-    },
-    {
-        path: '*',
-        element: <NotFoundPage />
-    },
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <LandingPage />,
+      },
+      {
+        path: "product-specification",
+        element: <ProductSpec />,
+      },
+      {
+        path: "collections",
+        element: <Collections />,
+      },
+      {
+        path: "product-details-page/:productId",
+        element: <ProductDetailsPage />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+      {
+        path: "checkout",
+        element: (
+          <ProtectedRoutes>
+            <Checkout />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "product-listing-page",
+        element: <ProductListingPage />,
+      },
+      {
+        path: "latest-arrivals-page",
+        element: <LatestArrivalsPage />,
+      },
+      {
+        path: "sign-in",
+        element: <SignIn />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
 ]);
-
 
 export default router;

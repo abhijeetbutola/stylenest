@@ -26,12 +26,20 @@ type FilterSectionProps = {
 const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
   const [open, setOpen] = useState<number[]>([]);
   const dispatch = useAppDispatch();
-  const selectedCollections = useAppSelector((state) => state.collections.selectedCollections);
-  const selectedGenders = useAppSelector((state) => state.genders.selectedGenders);
+  const selectedCollections = useAppSelector(
+    (state) => state.collections.selectedCollections
+  );
+  const selectedGenders = useAppSelector(
+    (state) => state.genders.selectedGenders
+  );
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = e.target.name;
-    if (checkboxValue === "unisex" || checkboxValue === "women" || checkboxValue === "men") {
+    if (
+      checkboxValue === "unisex" ||
+      checkboxValue === "women" ||
+      checkboxValue === "men"
+    ) {
       dispatch(toggleGender(checkboxValue));
     } else {
       dispatch(toggleCollection(checkboxValue));
@@ -63,8 +71,13 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
             className="flex justify-between items-center mb-6 cursor-pointer"
             onClick={() => handleAccordionClick(index)}
           >
-            <div className="font-medium text-neutral-900 text-base">{item.title}</div>
-            <img src={open.includes(index) ? contractIcon : expandIcon} alt="" />
+            <div className="font-medium text-neutral-900 text-base">
+              {item.title}
+            </div>
+            <img
+              src={open.includes(index) ? contractIcon : expandIcon}
+              alt=""
+            />
           </div>
           {(item.title === "Collections" || item.title === "Category") && (
             <div
@@ -118,7 +131,11 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
             </div>
           )}
           {item.title === "Rating" && (
-            <div className={[!open.includes(index) && "hidden"].filter(Boolean).join(" ")}>
+            <div
+              className={[!open.includes(index) && "hidden"]
+                .filter(Boolean)
+                .join(" ")}
+            >
               {(item.types as number[]).map((rating, idx) => (
                 <div key={idx}>
                   <StarRating stars={5} rating={rating} />

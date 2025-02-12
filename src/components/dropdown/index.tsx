@@ -6,12 +6,12 @@ type DropdownProps = {
   open: boolean; // State to indicate if the dropdown is open
   setOpen: () => void; // Function to toggle the dropdown's open state
   onChange: (selectedOption: string) => void; // Callback for when an option is selected
-  type: 'hover' | 'click';
+  type: "hover" | "click";
   selectedOption: string;
   children: ReactNode; // Content to display in the dropdown title
   titleClassName?: string; // Class name for the dropdown title
   optionsClassName?: string; // Class name for the dropdown options
-}
+};
 
 const Dropdown: React.FC<DropdownProps> = ({
   data,
@@ -24,17 +24,21 @@ const Dropdown: React.FC<DropdownProps> = ({
   titleClassName = "",
   optionsClassName = "",
 }) => {
-
   const handleHoverType = () => {
-    if(type === 'hover') setOpen()
-  }
+    if (type === "hover") setOpen();
+  };
 
   const handleClickType = () => {
-    if(type === 'click') setOpen()
-  }
+    if (type === "click") setOpen();
+  };
 
   return (
-    <div className="relative cursor-pointer" onMouseEnter={handleHoverType} onMouseLeave={handleHoverType} onClick={handleClickType}>
+    <div
+      className="relative cursor-pointer"
+      onMouseEnter={handleHoverType}
+      onMouseLeave={handleHoverType}
+      onClick={handleClickType}
+    >
       <div
         className={`${titleClassName} flex justify-between items-center gap-1.5`}
       >
@@ -46,7 +50,12 @@ const Dropdown: React.FC<DropdownProps> = ({
           {data.map((opt, index) => (
             <div
               key={index}
-              className={[(selectedOption === opt) && "!font-medium !text-indigo-700", "px-4 py-2 hover:bg-neutral-200 cursor-pointer font-normal text-sm"].filter(Boolean).join(" ")}
+              className={[
+                selectedOption === opt && "!font-medium !text-indigo-700",
+                "px-4 py-2 hover:bg-neutral-200 cursor-pointer font-normal text-sm",
+              ]
+                .filter(Boolean)
+                .join(" ")}
               onClick={() => {
                 onChange(opt);
                 setOpen();
