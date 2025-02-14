@@ -110,12 +110,19 @@ function ProductDetailSectionModal({
                 {stats &&
                   stats.total > 0 &&
                   stats.counts.map((item) => (
-                    <div className="flex justify-between">
-                      <div>{ratingName[String(item.rating)]}</div>
-                      <ProgressBar
-                        count={item.count}
-                        totalReviews={stats.total}
-                      />
+                    <div className="flex items-center">
+                      <div className="flex-1">
+                        {ratingName[String(item.rating)]}
+                      </div>
+                      <div className="flex items-center">
+                        <ProgressBar
+                          count={item.count}
+                          totalReviews={stats.total}
+                        />
+                        <div className="w-[42px] h-6 text-right">
+                          {Math.round((item.count / stats.total) * 100)}%
+                        </div>
+                      </div>
                     </div>
                   ))}
               </div>
