@@ -18,8 +18,6 @@ type ReviewCardProps = {
 };
 
 function ReviewCard({ review }: ReviewCardProps) {
-  console.log(review);
-
   return (
     <div className="flex flex-col gap-4 text-left">
       <div className="flex gap-4">
