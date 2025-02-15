@@ -100,31 +100,46 @@ function ProductDetailSectionModal({
         ) : (
           <div className="flex max-lg:flex-col gap-8 w-full ">
             <div className="flex-[1.5]">
-              <div className="flex flex-col gap-4 px-8">
-                <div>Overall Rating</div>
-                <div className="flex gap-2 items-center">
-                  <div>{stats?.rating}</div>
-                  {stats && <StarRating stars={5} rating={stats.rating} />}
-                  <div>Based on {stats?.total} reviews</div>
+              <div className="flex flex-col gap-6 px-8">
+                <div className="flex flex-col gap-2">
+                  <div className="font-semibold text-xl text-neutral-900">
+                    Overall Rating
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <div className="text-base text-neutral-900 font-semibold">
+                      {stats?.rating}
+                    </div>
+                    {stats && <StarRating stars={5} rating={stats.rating} />}
+                    <div className="text-sm text-neutral-600 font-normal">
+                      Based on {stats?.total} reviews
+                    </div>
+                  </div>
                 </div>
-                {stats &&
-                  stats.total > 0 &&
-                  stats.counts.map((item) => (
-                    <div className="flex items-center">
-                      <div className="flex-1">
-                        {ratingName[String(item.rating)]}
-                      </div>
+                <div className="flex flex-col gap-4 my-4">
+                  {stats &&
+                    stats.total > 0 &&
+                    stats.counts.map((item) => (
                       <div className="flex items-center">
-                        <ProgressBar
-                          count={item.count}
-                          totalReviews={stats.total}
-                        />
-                        <div className="w-[42px] h-6 text-right">
-                          {Math.round((item.count / stats.total) * 100)}%
+                        <div className="flex-1 text-neutral-600 text-base font-medium">
+                          {ratingName[String(item.rating)]}
+                        </div>
+                        <div className="flex items-center">
+                          <ProgressBar
+                            count={item.count}
+                            totalReviews={stats.total}
+                          />
+                          <div className="w-[42px] h-6 text-right text-neutral-600 text-base font-normal">
+                            {Math.round((item.count / stats.total) * 100)}%
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                </div>
+                <div className="mx-auto">
+                  <Button className="font-medium text-base text-neutral-900 py-3 px-[22px] rounded-[4px] border border-neutral-200 shadow-md">
+                    Write a review
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="flex-[2] flex flex-col gap-8 h-[536px] overflow-scroll px-4 md:px-8 lg:pr-8">
