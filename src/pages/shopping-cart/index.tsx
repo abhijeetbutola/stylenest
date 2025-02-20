@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../../components/button";
 import couponCodeIcon from "../../assets/addCouponCodeicon.svg";
 import { updateItems, removeItems } from "../../redux/slices/cartSlice";
-import emptyCartImage from "../../assets/emptycartimage.svg";
+import emptyCartImage from "../../assets/emptycartimage.webp";
 import emptyCartIcon from "../../assets/emptycarticon.svg";
 import { ArrowRight } from "lucide-react";
 

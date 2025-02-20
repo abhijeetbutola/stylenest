@@ -1,6 +1,7 @@
 import shippingtruck from "../../assets/shippingtruckicon.svg";
 import qualitytick from "../../assets/qualitytickicon.svg";
 import easyexchange from "../../assets/easyexchangeicon.svg";
+import Text from "../text";
 
 function Commitment() {
   return (
@@ -34,11 +35,11 @@ function Commitment() {
               <p className="font-semibold text-xl text-neutral-900">
                 Complimentary Shipping
               </p>
-              <p className="font-normal text-base text-neutral-600">
+              <Text as={"p"} color="secondary">
                 Enjoy the convenience of free shipping for all orders. We
                 believe in transparent pricing, and the price you see is the
                 price you pay— no surprise fees
-              </p>
+              </Text>
             </div>
           </div>
           <div className="text-center flex flex-col justify-center items-center gap-5 lg:max-w-[300px]">
@@ -53,11 +54,11 @@ function Commitment() {
               <p className="font-semibold text-xl text-neutral-900">
                 2-year Quality Promise
               </p>
-              <p className="font-normal text-base text-neutral-600">
+              <Text as={"p"} color="secondary">
                 Shop with confidence knowing that we stand behind our products.
                 Should any issue arise within the first two years, rest assured
                 we're here to help with a hassle-free replacement.
-              </p>
+              </Text>
             </div>
           </div>
           <div className="text-center flex flex-col justify-center items-center gap-5 lg:max-w-[300px]">
@@ -72,12 +73,12 @@ function Commitment() {
               <p className="font-semibold text-xl text-neutral-900">
                 Easy Exchanges
               </p>
-              <p className="font-normal text-base text-neutral-600">
+              <Text as={"p"} color="secondary">
                 If your purchase isn't quite right, pass it on to a friend who
                 might love it, and let us know. We're happy to facilitate an
                 exchange to ensure you have the perfect item to complement your
                 lifestyle.
-              </p>
+              </Text>
             </div>
           </div>
         </div>

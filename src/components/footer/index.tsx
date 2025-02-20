@@ -13,6 +13,7 @@ import {
   resetCollection,
   toggleCollection,
 } from "../../redux/slices/collectionsSlice";
+import Text from "../text";
 
 function Footer() {
   const dispatch = useAppDispatch();
@@ -54,9 +55,9 @@ function Footer() {
               <p className="font-semibold text-xl text-neutral-900">
                 Join our newsletter
               </p>
-              <p className="font-normal text-base text-neutral-600">
+              <Text as={"p"} color="secondary">
                 We'll send you a nice letter once per week. No spam.
-              </p>
+              </Text>
             </div>
             <div className="max-sm:flex-1 flex items-center gap-4 flex-wrap sm:max-lg:w-full">
               <div className="max-md:flex-1 max-sm:w-full">
@@ -117,7 +118,10 @@ function Footer() {
                 <p className="font-normal text-sm text-neutral-500">
                   SHOP COLLECTIONS
                 </p>
-                <div className="flex flex-col gap-3 items-start font-medium text-base text-neutral-600">
+                <Text
+                  as={"div"}
+                  className="flex flex-col gap-3 items-start font-medium text-base text-neutral-600"
+                >
                   <Link to="/product-listing-page">
                     <Button
                       className="hover:underline"
@@ -150,7 +154,7 @@ function Footer() {
                       Fresh Fusion
                     </Button>
                   </Link>
-                </div>
+                </Text>
               </div>
             </div>
           </div>

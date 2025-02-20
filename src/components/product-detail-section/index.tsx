@@ -11,6 +11,7 @@ import { addItem } from "../../redux/slices/cartSlice";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks";
 import ProductDetailSectionModal from "../product-detail-section-modal";
+import Text from "../text";
 
 type ProductDetailsSectionProps = {
   product: ProductDetailSchema;
@@ -169,9 +170,9 @@ function ProductDetailSection({
             </div>
           </div>
         </div>
-        <p className="flex text-neutral-600 text-base">
+        <Text as={"p"} color="secondary">
           {product?.description}
-        </p>
+        </Text>
         <div className="flex flex-col gap-4">
           <p className="text-neutral-500 text-sm">Available Colors</p>
           <div className="flex gap-4">
