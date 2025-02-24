@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Image } from "../../components/product-grid/schema";
 
 // Type definitions
-type CartItem = {
+export type CartItem = {
   product_id: string;
   color: string;
   size: string;
