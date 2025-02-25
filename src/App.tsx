@@ -38,7 +38,7 @@ function App() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Sidebar open={sidebarOpen} handleClose={handleSidebarClose} />
       {!isNotFoundPage && <Navbar sidebarOpen={handleSidebarOpen} />}
       <div className="flex justify-center rounded-t-lg">

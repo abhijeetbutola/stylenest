@@ -47,7 +47,7 @@ function Footer() {
   };
 
   return (
-    <div className="flex-1 flex max-w-[1408px] mx-4 mb-4">
+    <div className="grow max-w-[1408px] mx-4 mb-4">
       <div className="flex-1 lg:p-16 max-lg:p-4 bg-white rounded-b-lg">
         <div className="flex flex-col gap-16 py-24 lg:px-8">
           <div className="max-sm:flex-1 flex justify-between gap-8 md:gap-5 flex-wrap">
