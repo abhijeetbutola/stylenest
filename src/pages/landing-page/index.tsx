@@ -54,17 +54,6 @@ function LandingPage() {
               </Link>
             </div>
 
-            {/* Display loading spinner if the products are being fetched */}
-            {/* {fetchedProductsStatus === 'loading' && (
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] grid-rows-auto gap-8">
-                    {Array(8).fill(0).map((_, index) => (
-                            <div key={index} className="w-full">
-                                <SkeletonProductCard />
-                            </div>
-                    ))}
-                </div>
-                )} */}
-
             {/* Display error message if there's an error fetching products */}
             {fetchedProductsStatus === "failed" && fetchedProductsError && (
               <div className="text-center text-red-500">

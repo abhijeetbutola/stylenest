@@ -10,9 +10,6 @@ import OrderSummary from "../../components/order-summary";
 function Cart() {
   const cartItems = useAppSelector((state) => state.cartItems.items);
 
-  console.log("rerender");
-  console.log(cartItems);
-
   const EmptyCart = (
     <div className="flex gap-8 justify-center items-center flex-wrap">
       <div className="flex flex-col gap-[20px] justify-center items-center max-md:py-[90px] max-2xl:py-[104px] lg:px-24">
