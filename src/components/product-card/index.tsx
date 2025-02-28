@@ -33,11 +33,18 @@ function ProductCard({ item }: ProductCardProps) {
   const ImageSection = (
     <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
       <div className="h-[300px] w-full md:max-w-[320px] rounded-lg overflow-hidden relative">
-        <ImageCarousel
-          key={productColor}
-          images={itemHoverImagesByColor}
-          isHovering={isHovering}
-        />
+        {isHovering ? (
+          <ImageCarousel
+            key={productColor}
+            images={itemHoverImagesByColor}
+            isHovering={isHovering}
+          />
+        ) : (
+          <img
+            src={item.images[0].image_url}
+            className="h-full w-full object-cover"
+          />
+        )}
       </div>
     </Link>
   );
