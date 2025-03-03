@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { SkeletonText } from "../../components/skeletons";
 import { useSearchParams } from "react-router-dom";
 import Container from "../../components/container";
+import { Helmet } from "react-helmet-async";
 
 function ProductDetailsPage() {
   const { productId } = useParams<{ productId: string }>();
@@ -89,18 +90,23 @@ function ProductDetailsPage() {
   }
 
   return (
-    <div className=" bg-white max-w-[1408px] mx-4 px-4 pt-16 lg:p-24 rounded-t-lg overflow-hidden">
-      {productDetails && (
-        <ProductDetailSection
-          key={productDetails.product_id}
-          product={productDetails}
-          selectedColor={selectedColor}
-          setSelectedColor={handleColorClick}
-        />
-      )}
-      <ProductSpec />
-      <ProductGrid products={filteredProducts.slice(0, 4)} />
-    </div>
+    <>
+      <Helmet>
+        <title>{productDetails?.name}</title>
+      </Helmet>
+      <div className=" bg-white max-w-[1408px] mx-4 px-4 pt-16 lg:p-24 rounded-t-lg overflow-hidden">
+        {productDetails && (
+          <ProductDetailSection
+            key={productDetails.product_id}
+            product={productDetails}
+            selectedColor={selectedColor}
+            setSelectedColor={handleColorClick}
+          />
+        )}
+        <ProductSpec />
+        <ProductGrid products={filteredProducts.slice(0, 4)} />
+      </div>
+    </>
   );
 }
 

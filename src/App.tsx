@@ -9,6 +9,7 @@ import { rehydrate } from "./redux/slices/authSlice";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import Sidebar from "./components/sidebar";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,25 +39,27 @@ function App() {
   };
 
   return (
-    <div className="relative w-full">
-      <Sidebar open={sidebarOpen} handleClose={handleSidebarClose} />
-      {!isNotFoundPage && <Navbar sidebarOpen={handleSidebarOpen} />}
-      <div className="flex justify-center rounded-t-lg">
-        <Outlet />
-        <ToastContainer
-          position="bottom-center"
-          transition={Zoom}
-          closeButton={false}
-          hideProgressBar
-          stacked
-        />
-      </div>
-      {!isNotFoundPage && (
-        <div className="w-full flex justify-center items-start">
-          <Footer />
+    <HelmetProvider>
+      <div className="relative w-full">
+        <Sidebar open={sidebarOpen} handleClose={handleSidebarClose} />
+        {!isNotFoundPage && <Navbar sidebarOpen={handleSidebarOpen} />}
+        <div className="flex justify-center rounded-t-lg">
+          <Outlet />
+          <ToastContainer
+            position="bottom-center"
+            transition={Zoom}
+            closeButton={false}
+            hideProgressBar
+            stacked
+          />
         </div>
-      )}
-    </div>
+        {!isNotFoundPage && (
+          <div className="w-full flex justify-center items-start">
+            <Footer />
+          </div>
+        )}
+      </div>
+    </HelmetProvider>
   );
 }
 

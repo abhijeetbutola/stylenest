@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import Container from "../../components/container";
 import { SkeletonProductGrid, SkeletonText } from "../../components/skeletons";
 import SkeletonHero from "../../components/skeletons/SkeletonHero";
+import { Helmet } from "react-helmet-async";
 
 function LandingPage() {
   // const forcedLoading = true
@@ -26,52 +27,57 @@ function LandingPage() {
   }, [dispatch]);
 
   return (
-    <Container>
-      {fetchedProductsStatus === "loading" ? (
-        <div>
-          <SkeletonHero />
-          <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
-            <div className="flex justify-between items-center font-semibold flex-wrap">
-              <SkeletonText className="h-11 w-32" />
-              <SkeletonText className="w-24 h-11" />
-            </div>
-            <SkeletonProductGrid />
-          </div>
-        </div>
-      ) : (
-        <>
-          <HeroSection />
-          {/* Latest Arrivals Section */}
-          <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
-            <div className="flex justify-between items-center font-semibold flex-wrap">
-              <p className="text-2xl md:text-3xl text-neutral-900">
-                Latest Arrivals
-              </p>
-              <Link to="/latest-arrivals-page">
-                <Button className="w-24 h-11 border border-neutral-200 rounded hover:shadow-md transition-all">
-                  View All
-                </Button>
-              </Link>
-            </div>
-
-            {/* Display error message if there's an error fetching products */}
-            {fetchedProductsStatus === "failed" && fetchedProductsError && (
-              <div className="text-center text-red-500">
-                Error fetching products:{" "}
-                {fetchedProductsError || "Something went wrong."}
+    <>
+      <Helmet>
+        <title>Home | Stylenest</title>
+      </Helmet>
+      <Container>
+        {fetchedProductsStatus === "loading" ? (
+          <div>
+            <SkeletonHero />
+            <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
+              <div className="flex justify-between items-center font-semibold flex-wrap">
+                <SkeletonText className="h-11 w-32" />
+                <SkeletonText className="w-24 h-11" />
               </div>
-            )}
-
-            {/* Render the product grid only if the data is available */}
-            {fetchedProductsStatus === "succeeded" && (
-              <ProductGrid products={products} />
-            )}
+              <SkeletonProductGrid />
+            </div>
           </div>
-          <Collections />
-          <Commitment />
-        </>
-      )}
-    </Container>
+        ) : (
+          <>
+            <HeroSection />
+            {/* Latest Arrivals Section */}
+            <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
+              <div className="flex justify-between items-center font-semibold flex-wrap">
+                <p className="text-2xl md:text-3xl text-neutral-900">
+                  Latest Arrivals
+                </p>
+                <Link to="/latest-arrivals-page">
+                  <Button className="w-24 h-11 border border-neutral-200 rounded hover:shadow-md transition-all">
+                    View All
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Display error message if there's an error fetching products */}
+              {fetchedProductsStatus === "failed" && fetchedProductsError && (
+                <div className="text-center text-red-500">
+                  Error fetching products:{" "}
+                  {fetchedProductsError || "Something went wrong."}
+                </div>
+              )}
+
+              {/* Render the product grid only if the data is available */}
+              {fetchedProductsStatus === "succeeded" && (
+                <ProductGrid products={products} />
+              )}
+            </div>
+            <Collections />
+            <Commitment />
+          </>
+        )}
+      </Container>
+    </>
   );
 }
 
