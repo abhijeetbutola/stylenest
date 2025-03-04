@@ -46,6 +46,7 @@ function App() {
         <div className="flex justify-center rounded-t-lg">
           <Outlet />
           <ToastContainer
+            // className={``}
             position="bottom-center"
             transition={Zoom}
             closeButton={false}

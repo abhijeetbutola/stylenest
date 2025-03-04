@@ -11,8 +11,8 @@ function Cart() {
   const cartItems = useAppSelector((state) => state.cartItems.items);
 
   const EmptyCart = (
-    <div className="flex gap-8 justify-center items-center flex-wrap">
-      <div className="flex flex-col gap-[20px] justify-center items-center max-md:py-[90px] max-2xl:py-[104px] lg:px-24">
+    <div className="flex max-lg:flex-col gap-8 justify-center items-center">
+      <div className="flex w-full flex-col gap-[20px] justify-center items-center max-md:py-[90px] max-2xl:py-[104px] lg:px-24">
         <div className="h-12 w-12 flex justify-center items-center rounded-full shadow-md">
           <img src={emptyCartIcon} alt="" height={21} width={21} />
         </div>
