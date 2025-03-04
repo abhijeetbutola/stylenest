@@ -2,13 +2,14 @@ import Input from "../../components/input";
 import signinpic from "../../assets/signinpagepic.svg";
 import Button from "../../components/button";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { saveAuthToLocalStorage } from "../../utils/authLocalStorageUtils";
 import { login } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import signInWithGoogle from "../../authMethods";
+import signInWithGoogle from "../../auth/authMethods/googleoauth";
 import googleLogo from "../../assets/icons8-google.svg";
+import useAuth from "../../auth/useAuth";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -16,12 +17,23 @@ function SignIn() {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const user = useAuth();
+
+  console.log(user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user) {
+      saveAuthToLocalStorage(user);
+      dispatch(login(user));
+      toast.success("Logged in with Google!");
+      navigate(from, { replace: true });
+    }
+  }, [user, dispatch, navigate, from]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
