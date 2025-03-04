@@ -11,6 +11,8 @@ import loginIcon from "../../assets/loginicon.svg";
 import logoutIcon from "../../assets/logouticon.svg";
 import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../../auth/firebaseConfig";
 
 type NavbarProps = {
   sidebarOpen: () => void;
@@ -29,6 +31,7 @@ function Navbar({ sidebarOpen }: NavbarProps) {
     if (isAuth) {
       dispatch(logout());
       dispatch(clearCart());
+      signOut(auth);
       toast.success("You have been logged out.", {
         className: "toast-class",
         delay: 500,

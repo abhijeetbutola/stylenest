@@ -30,7 +30,6 @@ function SignIn() {
     if (user) {
       saveAuthToLocalStorage(user);
       dispatch(login(user));
-      toast.success("Logged in with Google!");
       navigate(from, { replace: true });
     }
   }, [user, dispatch, navigate, from]);
@@ -75,6 +74,14 @@ function SignIn() {
       console.error("Login error: ", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error("Google sign-in error: ", error);
     }
   };
 
@@ -150,7 +157,7 @@ function SignIn() {
               <div className="flex items-center border border-neutral-300 py-2 px-4 rounded-full text-center text-neutral-700 font-medium text-sm">
                 <img src={googleLogo} alt="" className="h-8" />
                 <div className="grow">
-                  <Button onClick={signInWithGoogle} className="">
+                  <Button onClick={handleGoogleSignIn} className="">
                     Continue with Google
                   </Button>
                 </div>
