@@ -154,14 +154,13 @@ function SignIn() {
               <br />
               <div className="text-center text-sm font-semibold">OR</div>
               <br />
-              <div className="flex items-center border border-neutral-300 py-2 px-4 rounded-full text-center text-neutral-700 font-medium text-sm">
+              <Button
+                onClick={handleGoogleSignIn}
+                className="flex items-center w-full border border-neutral-300 hover:border-neutral-100 py-2 px-4 rounded-full text-center text-neutral-700 font-medium text-sm hover:bg-neutral-100 transition-all"
+              >
                 <img src={googleLogo} alt="" className="h-8" />
-                <div className="grow">
-                  <Button onClick={handleGoogleSignIn} className="">
-                    Continue with Google
-                  </Button>
-                </div>
-              </div>
+                <div className="grow">Continue with Google</div>
+              </Button>
             </div>
           </div>
           <div className=" hidden lg:block">
