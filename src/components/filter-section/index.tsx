@@ -2,10 +2,12 @@ import { useState } from "react";
 import StarRating from "../star-rating";
 import { toggleCollection } from "../../redux/slices/collectionsSlice";
 import { toggleGender } from "../../redux/slices/gendersSlice";
+import { toggleColor } from "../../redux/slices/colorsSlice";
 import Button from "../button";
 import expandIcon from "../../assets/filtersectionexpandicon.svg";
 import contractIcon from "../../assets/contracticon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { fetchProducts } from "../../redux/slices/productsSlice";
 
 type DataType = {
   name: string;
@@ -33,6 +35,10 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
     (state) => state.genders.selectedGenders
   );
 
+  const selectedColors = useAppSelector((state) => state.colors.selectedColors);
+
+  console.log(selectedColors);
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = e.target.name;
     if (
@@ -47,8 +53,10 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
   };
 
   const handleColorClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonName = e.currentTarget.name;
-    console.log("Color button clicked:", buttonName);
+    const colorName = e.currentTarget.name;
+    // console.log("Color button clicked:", colorName);
+    dispatch(toggleColor(colorName));
+    dispatch(fetchProducts({ page: 1, per_page: 9 }));
   };
 
   const handleAccordionClick = (value: number) => {

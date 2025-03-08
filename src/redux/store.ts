@@ -4,6 +4,7 @@ import productsReducer from "./slices/productsSlice";
 import collectionsReducer from "./slices/collectionsSlice";
 import gendersReducer from "./slices/gendersSlice";
 import productDetailsReducer from "./slices/productDetailsSlice";
+import colorsSliceReducer from "./slices/colorsSlice";
 import authReducer from "./slices/authSlice";
 import {
   loadStateFromLocalStorage,
@@ -27,6 +28,7 @@ export const store = configureStore({
     products: productsReducer,
     collections: collectionsReducer,
     genders: gendersReducer,
+    colors: colorsSliceReducer,
     productDetails: productDetailsReducer,
     auths: authReducer,
   },

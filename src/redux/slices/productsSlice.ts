@@ -81,6 +81,9 @@ type RootState = {
   collections: {
     selectedCollections: string[];
   };
+  colors: {
+    selectedColors: string[];
+  };
 };
 
 type FetchProductsRejectValue = {
@@ -125,6 +128,11 @@ export const fetchProducts = createAsyncThunk<
         ? [collection]
         : ["latest", "cozy", "urban", "fresh"];
 
+      const selectedColors =
+        state.colors.selectedColors.length > 0
+          ? state.colors.selectedColors
+          : undefined;
+
       const response = await axios.get(
         `${BASE_URL}/projects/challenges/e-commerce/products`,
         {
@@ -135,6 +143,7 @@ export const fetchProducts = createAsyncThunk<
             per_page,
             sort,
             direction,
+            ...(selectedColors && { color: selectedColors }),
           },
           paramsSerializer: (params) =>
             qs.stringify(params, { arrayFormat: "repeat" }),
