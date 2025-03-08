@@ -13,6 +13,7 @@ import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../auth/firebaseConfig";
+import { resetColor } from "../../redux/slices/colorsSlice";
 
 type NavbarProps = {
   sidebarOpen: () => void;
@@ -45,6 +46,7 @@ function Navbar({ sidebarOpen }: NavbarProps) {
   const handleShopAllClick = () => {
     dispatch(resetCollection());
     dispatch(resetGender());
+    dispatch(resetColor());
   };
 
   return (

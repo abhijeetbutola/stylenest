@@ -131,7 +131,13 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
               {(item.types as DataType[]).map((type, idx) => (
                 <Button
                   key={idx}
-                  className={`h-4 w-4 rounded-full bg-${type.code} inline-block border-[1px] cursor-pointer`}
+                  className={`h-4 w-4 rounded-full bg-${
+                    type.code
+                  } inline-block border-[1px] cursor-pointer ${
+                    selectedColors.includes(type.name)
+                      ? "outline outline-indigo-700"
+                      : ""
+                  }`}
                   name={type.name}
                   onClick={handleColorClick}
                 />

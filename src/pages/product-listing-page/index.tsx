@@ -11,6 +11,7 @@ import Button from "../../components/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import filterIcon from "../../assets/filtericon.svg";
 import { SkeletonProductGrid } from "../../components/skeletons";
+import { resetColor } from "../../redux/slices/colorsSlice";
 
 const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> =
   {
@@ -70,6 +71,7 @@ function ProductListingPage() {
       if (window.location.pathname !== "/product-listing-page") {
         dispatch(resetCollection());
         dispatch(resetGender());
+        dispatch(resetColor());
       }
     };
   }, [dispatch]);
