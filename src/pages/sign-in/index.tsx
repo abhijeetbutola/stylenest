@@ -19,8 +19,6 @@ function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuth();
 
-  console.log(user);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

@@ -8,6 +8,7 @@ import expandIcon from "../../assets/filtersectionexpandicon.svg";
 import contractIcon from "../../assets/contracticon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts } from "../../redux/slices/productsSlice";
+import { accObj as data } from "../../pages/product-listing-page/accordionItems";
 
 type DataType = {
   name: string;
@@ -15,17 +16,7 @@ type DataType = {
   code?: string;
 };
 
-type Data = {
-  title: string;
-  types: DataType[] | number[];
-  showCheckbox?: boolean;
-};
-
-type FilterSectionProps = {
-  data: Data[];
-};
-
-const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
+const FilterSection = () => {
   const [open, setOpen] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const selectedCollections = useAppSelector(
@@ -34,10 +25,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
   const selectedGenders = useAppSelector(
     (state) => state.genders.selectedGenders
   );
-
   const selectedColors = useAppSelector((state) => state.colors.selectedColors);
-
-  console.log(selectedColors);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = e.target.name;
@@ -54,7 +42,6 @@ const FilterSection: React.FC<FilterSectionProps> = ({ data }) => {
 
   const handleColorClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const colorName = e.currentTarget.name;
-    // console.log("Color button clicked:", colorName);
     dispatch(toggleColor(colorName));
     dispatch(fetchProducts({ page: 1, per_page: 9 }));
   };

@@ -1,4 +1,4 @@
-const accObj = [
+export const accObj = [
   {
     title: "Collections",
     types: [
@@ -85,5 +85,3 @@ const accObj = [
     types: [1, 2, 3, 4, 5],
   },
 ];
-
-export default accObj;

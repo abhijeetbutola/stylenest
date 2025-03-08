@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ProductGrid from "../../components/product-grid";
 import Dropdown from "../../components/dropdown";
-import accObj from "./accordionItems";
+// import accObj from "./accordionItems";
 import FilterSection from "../../components/filter-section";
 import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
@@ -129,7 +129,7 @@ function ProductListingPage() {
   return (
     <div className="bg-white flex-1 flex gap-8 max-w-[1408px] lg:p-24 max-lg:p-4 mx-4">
       <div className="hidden lg:block w-[248px] pt-4 pr-4">
-        <FilterSection data={accObj} />
+        <FilterSection />
       </div>
       <div className="flex flex-1 flex-col gap-8">
         <div className="flex justify-between items-center text-neutral-900 font-medium text-sm lg:ml-auto">
