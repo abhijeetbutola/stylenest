@@ -3,63 +3,31 @@ import { useState } from "react";
 import { useForm, Controller, FieldErrors } from "react-hook-form";
 import Button from "../../components/button";
 import Dropdown from "../../components/dropdown";
-import checkoutTick from "../../assets/checkouttick.svg";
 import lockIcon from "../../assets/lockordericon.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "../../hooks";
+import DeliveryMethodCard from "../../components/delivery-method-card";
 
 const options = [
-  "Alabama",
-  "Alaska",
-  "Arizona",
-  "Arkansas",
-  "California",
-  "Colorado",
-  "Connecticut",
-  "Delaware",
-  "Florida",
-  "Georgia",
-  "Hawaii",
-  "Idaho",
-  "Illinois",
-  "Indiana",
-  "Iowa",
-  "Kansas",
-  "Kentucky",
-  "Louisiana",
-  "Maine",
-  "Maryland",
-  "Massachusetts",
-  "Michigan",
-  "Minnesota",
-  "Mississippi",
-  "Missouri",
-  "Montana",
-  "Nebraska",
-  "Nevada",
-  "New Hampshire",
-  "New Jersey",
-  "New Mexico",
-  "New York",
-  "North Carolina",
-  "North Dakota",
-  "Ohio",
-  "Oklahoma",
-  "Oregon",
-  "Pennsylvania",
-  "Rhode Island",
-  "South Carolina",
-  "South Dakota",
-  "Tennessee",
-  "Texas",
-  "Utah",
-  "Vermont",
-  "Virginia",
-  "Washington",
-  "West Virginia",
-  "Wisconsin",
-  "Wyoming",
+  "United States",
+  "Canada",
+  "United Kingdom",
+  "Germany",
+  "France",
+  "Italy",
+  "Spain",
+  "Netherlands",
+  "Australia",
+  "Japan",
+  "China",
+  "India",
+  "Brazil",
+  "Mexico",
+  "South Korea",
+  "Singapore",
+  "United Arab Emirates",
+  "South Africa",
 ];
 
 const formSchema = z.object({
@@ -121,7 +89,7 @@ function Checkout() {
   };
 
   const onError = (errors: FieldErrors) => {
-    console.log("Form submission errors:", errors);
+    console.error("Form submission errors:", errors);
   };
 
   return (
@@ -307,60 +275,16 @@ function Checkout() {
                 Delivery Method
               </div>
               <div className="flex gap-4">
-                <Button
-                  type="button"
-                  className={[
-                    "flex-1 h-[120px] flex flex-col gap-2 p-4 rounded-lg border-[1.5px]",
-                    deliveryType === "standard" && "border-indigo-700",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  onClick={() => onDeliveryTypeChange("standard")}
-                >
-                  <div className="w-full text-left">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-base text-neutral-900">
-                        Standard
-                      </span>
-                      {deliveryType === "standard" && (
-                        <img src={checkoutTick} alt="" />
-                      )}
-                    </div>
-                    <div className="font-normal text-sm text-neutral-600">
-                      4-10 business days
-                    </div>
-                  </div>
-                  <div className="font-medium text-base text-neutral-900">
-                    FREE
-                  </div>
-                </Button>
-                <Button
-                  type="button"
-                  className={[
-                    "flex-1 h-[120px] flex flex-col gap-2 p-4 rounded-lg border-[1.5px]",
-                    deliveryType === "express" && "border-indigo-700",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  onClick={() => onDeliveryTypeChange("express")}
-                >
-                  <div className="w-full text-left">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-base text-neutral-900">
-                        Express
-                      </span>
-                      {deliveryType === "express" && (
-                        <img src={checkoutTick} alt="" />
-                      )}
-                    </div>
-                    <div className="font-normal text-sm text-neutral-600">
-                      2-5 business days
-                    </div>
-                  </div>
-                  <div className="font-medium text-base text-neutral-900">
-                    $15.00
-                  </div>
-                </Button>
+                <DeliveryMethodCard
+                  title="Standard"
+                  deliveryType={deliveryType}
+                  onCardClick={onDeliveryTypeChange}
+                />
+                <DeliveryMethodCard
+                  title="Express"
+                  deliveryType={deliveryType}
+                  onCardClick={onDeliveryTypeChange}
+                />
               </div>
             </div>
             <hr className="border-b border-neutral-200" />
@@ -478,23 +402,34 @@ function Checkout() {
               <div>
                 <hr className="border-t-2 border-neutral-300 mb-8" />
                 <div className="flex justify-between">
-                  <p>Subtotal</p>
-                  <p>${totalAmount}</p>
+                  <p className="text-neutral-600 text-base">Subtotal</p>
+                  <p className="text-neutral-900 text-lg font-semibold">
+                    ${totalAmount.toFixed(2)}
+                  </p>
                 </div>
                 <div className="flex justify-between">
-                  <p>Shipping</p>
-                  <p>FREE</p>
+                  <p className="text-neutral-600 text-base">Shipping</p>
+                  <p className="text-neutral-900 text-lg font-semibold">
+                    {deliveryType === "standard" ? "FREE" : "$15.00"}
+                  </p>
                 </div>
                 <div className="flex justify-between">
-                  <p>Coupon Discount</p>
-                  <p>$0.00</p>
+                  <p className="text-neutral-600 text-base">Coupon Discount</p>
+                  <p className="text-neutral-900 text-lg font-semibold">
+                    $0.00
+                  </p>
                 </div>
               </div>
               <div>
                 <hr className="border-t-2 border-neutral-300 my-8" />
                 <div className="flex justify-between">
-                  <p>Total</p>
-                  <p>${totalAmount}</p>
+                  <p className="text-neutral-900 text-2xl font-medium">Total</p>
+                  <p className="font-semibold text-neutral-900 text-4xl">
+                    $
+                    {deliveryType === "standard"
+                      ? totalAmount
+                      : totalAmount + 15.0}
+                  </p>
                 </div>
               </div>
             </div>
