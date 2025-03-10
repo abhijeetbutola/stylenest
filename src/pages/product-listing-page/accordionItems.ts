@@ -63,12 +63,12 @@ export const accObj = [
         code: "amber-500",
       },
       {
-        name: "emerald",
-        code: "emerald-600",
+        name: "green",
+        code: "green-600",
       },
       {
-        name: "indigo",
-        code: "indigo-600",
+        name: "blue",
+        code: "blue-600",
       },
       {
         name: "yellow",
