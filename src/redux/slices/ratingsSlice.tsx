@@ -21,8 +21,6 @@ const ratingsSlice = createSlice({
       } else {
         state.selectedRatings.push(rating);
       }
-
-      console.log(state.selectedRatings);
     },
     resetRating: (state) => {
       state.selectedRatings = [];

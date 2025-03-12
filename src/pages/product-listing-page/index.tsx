@@ -12,6 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import filterIcon from "../../assets/filtericon.svg";
 import { SkeletonProductGrid } from "../../components/skeletons";
 import { resetColor } from "../../redux/slices/colorsSlice";
+import { resetRating } from "../../redux/slices/ratingsSlice";
 
 const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> =
   {
@@ -72,6 +73,7 @@ function ProductListingPage() {
         dispatch(resetCollection());
         dispatch(resetGender());
         dispatch(resetColor());
+        dispatch(resetRating());
       }
     };
   }, [dispatch]);

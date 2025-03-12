@@ -141,8 +141,6 @@ export const fetchProducts = createAsyncThunk<
           ? state.ratings.selectedRatings
           : undefined;
 
-      console.log(selectedRatings);
-
       const response = await axios.get(
         `${BASE_URL}/projects/challenges/e-commerce/products`,
         {
