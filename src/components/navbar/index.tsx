@@ -14,6 +14,7 @@ import { resetGender } from "../../redux/slices/gendersSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../auth/firebaseConfig";
 import { resetColor } from "../../redux/slices/colorsSlice";
+import { resetRating } from "../../redux/slices/ratingsSlice";
 
 type NavbarProps = {
   sidebarOpen: () => void;
@@ -47,6 +48,7 @@ function Navbar({ sidebarOpen }: NavbarProps) {
     dispatch(resetCollection());
     dispatch(resetGender());
     dispatch(resetColor());
+    dispatch(resetRating());
   };
 
   return (

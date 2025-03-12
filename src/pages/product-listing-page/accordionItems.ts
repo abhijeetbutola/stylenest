@@ -82,6 +82,6 @@ export const accObj = [
   },
   {
     title: "Rating",
-    types: [1, 2, 3, 4, 5],
+    types: [5, 4, 3, 2, 1],
   },
 ];

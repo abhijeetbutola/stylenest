@@ -9,6 +9,7 @@ import contractIcon from "../../assets/contracticon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { accObj as data } from "../../pages/product-listing-page/accordionItems";
+import { toggleRating } from "../../redux/slices/ratingsSlice";
 
 type DataType = {
   name: string;
@@ -26,6 +27,9 @@ const FilterSection = () => {
     (state) => state.genders.selectedGenders
   );
   const selectedColors = useAppSelector((state) => state.colors.selectedColors);
+  const selectedRatings = useAppSelector(
+    (state) => state.ratings.selectedRatings
+  );
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = e.target.name;
@@ -43,6 +47,12 @@ const FilterSection = () => {
   const handleColorClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const colorName = e.currentTarget.name;
     dispatch(toggleColor(colorName));
+    dispatch(fetchProducts({ page: 1, per_page: 9 }));
+  };
+
+  const handleRatingClick = (rating: number) => {
+    dispatch(toggleRating(rating));
+
     dispatch(fetchProducts({ page: 1, per_page: 9 }));
   };
 
@@ -138,8 +148,12 @@ const FilterSection = () => {
                 .join(" ")}
             >
               {(item.types as number[]).map((rating, idx) => (
-                <div key={idx}>
-                  <StarRating stars={5} rating={rating} />
+                <div key={idx} onClick={() => handleRatingClick(rating)}>
+                  <StarRating
+                    stars={5}
+                    rating={rating}
+                    stroke={selectedRatings.includes(rating) ? "#737373" : ""}
+                  />
                 </div>
               ))}
             </div>
