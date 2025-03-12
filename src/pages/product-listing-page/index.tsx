@@ -9,6 +9,7 @@ import { fetchProducts } from "../../redux/slices/productsSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks"; // Importing custom hooks
 import Button from "../../components/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import tshirtIcon from "../../assets/tshirticon.svg";
 import filterIcon from "../../assets/filtericon.svg";
 import { SkeletonProductGrid } from "../../components/skeletons";
 import { resetColor } from "../../redux/slices/colorsSlice";
@@ -128,6 +129,34 @@ function ProductListingPage() {
     );
   }, [dispatch, filters, selectedSort]);
 
+  const EmptyPage = (
+    <div className="h-full flex flex-col justify-center items-center gap-5">
+      <div className="rounded-full p-3 shadow-md">
+        <img src={tshirtIcon} />
+      </div>
+      <div className="flex flex-col gap-2 items-center">
+        <p className="font-medium text-xl text-neutral-900">
+          Nothing found just yet
+        </p>
+        <p className="text-base text-neutral-900 font-normal">
+          Adjust your filters a bit, and let's see what we can find!
+        </p>
+      </div>
+      <Button
+        type="button"
+        className="bg-indigo-700 hover:bg-indigo-800 px-[18px] py-2.5 text-base font-medium rounded text-white"
+        onClick={() => {
+          dispatch(resetCollection());
+          dispatch(resetColor());
+          dispatch(resetGender());
+          dispatch(resetRating());
+        }}
+      >
+        Reset filters
+      </Button>
+    </div>
+  );
+
   return (
     <div className="bg-white flex-1 flex gap-8 max-w-[1408px] lg:p-24 max-lg:p-4 mx-4">
       <div className="hidden lg:block w-[248px] pt-4 pr-4">
@@ -154,8 +183,10 @@ function ProductListingPage() {
         </div>
         {fetchedProductsStatus === "loading" ? (
           <SkeletonProductGrid />
-        ) : (
+        ) : products.length ? (
           <ProductGrid products={products} />
+        ) : (
+          EmptyPage
         )}
         <div className="flex justify-center items-center gap-2 md:gap-3">
           {page > 1 && (
