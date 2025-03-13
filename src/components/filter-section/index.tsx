@@ -34,6 +34,14 @@ const FilterSection = () => {
     (state) => state.ratings.selectedRatings
   );
 
+  const filterCount = useAppSelector(
+    (state) =>
+      (state.collections.selectedCollections.length || 0) +
+      (state.genders.selectedGenders.length || 0) +
+      (state.colors.selectedColors.length || 0) +
+      (state.ratings.selectedRatings.length || 0)
+  );
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = e.target.name;
     if (
@@ -175,7 +183,8 @@ const FilterSection = () => {
       <div className="text-center">
         <Button
           type="button"
-          className="text-indigo-700 font-medium text-base"
+          className="text-indigo-700 font-medium text-base disabled:text-neutral-400 disabled:cursor-not-allowed"
+          disabled={!filterCount}
           onClick={() => {
             dispatch(resetCollection());
             dispatch(resetGender());
@@ -183,7 +192,7 @@ const FilterSection = () => {
             dispatch(resetRating());
           }}
         >
-          Clear all
+          Clear all ({filterCount})
         </Button>
       </div>
     </div>
