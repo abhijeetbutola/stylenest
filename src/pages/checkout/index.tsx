@@ -93,7 +93,7 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-white py-12 px-3 md:py-16 md:px-4 lg:p-24 flex-1 max-w-[1408px] mx-4 rounded-t-lg">
+    <div className="bg-white py-12 px-3 md:py-16 md:px-4 lg:p-24 w-full max-w-[1408px] mx-4 rounded-t-lg">
       <div className="flex flex-col gap-8 mx-4">
         <div className="text-sm font-medium text-indigo-700 hover:text-indigo-500">
           <Link to={"/cart"}>&#8249; Back to Shopping Cart</Link>
