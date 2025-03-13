@@ -104,7 +104,7 @@ function Checkout() {
             <div className="font-medium text-lg text-neutral-600">
               Contact Information
             </div>
-            <div className="flex-1 flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5">
               <label className="font-medium text-sm text-neutral-700">
                 Email
               </label>
@@ -189,7 +189,7 @@ function Checkout() {
                   )}
                 </div>
               </div>
-              <div className="flex-1 flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1.5">
                 <label className="font-medium text-sm text-neutral-700">
                   Address
                 </label>
@@ -270,7 +270,7 @@ function Checkout() {
               </div>
             </div>
             <hr className="border-b border-neutral-200" />
-            <div className="flex-1 flex flex-col gap-6">
+            <div className="flex flex-col gap-6">
               <div className="font-medium text-lg text-neutral-600">
                 Delivery Method
               </div>
@@ -344,7 +344,7 @@ function Checkout() {
             <div className="font-semibold text-xl text-neutral-900">
               Order Summary
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col lg:h-[700px] overflow-auto">
               {cartItems.map((item, index) => {
                 return (
                   <div key={index}>
