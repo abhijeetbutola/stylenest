@@ -6,6 +6,8 @@ import {
   removeItems,
   updateItems,
 } from "../../redux/slices/cartSlice";
+import { useState } from "react";
+import ConfirmModal from "../confirm-modal";
 
 export default function CartItemCard({
   item,
@@ -14,6 +16,8 @@ export default function CartItemCard({
   item: CartItem;
   index: number;
 }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const cartItems = useAppSelector((state) => state.cartItems.items);
   const dispatch = useAppDispatch();
 
@@ -48,6 +52,7 @@ export default function CartItemCard({
 
   const handleRemoveButtonClick = (index: number) => {
     dispatch(removeItems(cartItems[index]));
+    setModalOpen(false);
   };
 
   return (
@@ -97,10 +102,42 @@ export default function CartItemCard({
               </div>
               <Button
                 className="font-medium text-sm text-neutral-600"
-                onClick={() => handleRemoveButtonClick(index)}
+                onClick={() => {
+                  setModalOpen(true);
+                }}
               >
                 Remove
               </Button>
+              <ConfirmModal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+              >
+                <div className="flex flex-col items-center justify-center gap-8">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-semibold text-lg text-neutral-900">
+                      Confirm Item Removal
+                    </p>
+                    <p className="font-normal text-sm text-neutral-600">
+                      Are you sure you want to remove this item from you
+                      shopping cart?
+                    </p>
+                  </div>
+                  <div className="flex gap-3 w-full font-medium">
+                    <Button
+                      className="flex-1 py-2.5 rounded-[4px] shadow-md"
+                      onClick={() => setModalOpen(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className="border border-black flex-1 bg-indigo-700 hover:bg-indigo-800 text-white py-2.5 rounded-[4px]"
+                      onClick={() => handleRemoveButtonClick(index)}
+                    >
+                      Yes
+                    </Button>
+                  </div>
+                </div>
+              </ConfirmModal>
             </div>
             <span className="font-medium text-lg text-neutral-900">
               ${item.totalPrice}

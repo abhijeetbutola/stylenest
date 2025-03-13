@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
-import Modal from "../modal";
 import Button from "../button";
 import ReviewCard from "../review-card";
 import ProgressBar from "../progress-bar";
 import StarRating from "../star-rating";
+import ReviewModal from "../review-modal";
 
 interface User {
   name: string;
@@ -94,7 +94,7 @@ function ProductDetailSectionModal({
 
   const MemoizedModal = useMemo(
     () => (
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+      <ReviewModal open={modalOpen} onClose={() => setModalOpen(false)}>
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -149,7 +149,7 @@ function ProductDetailSectionModal({
             </div>
           </div>
         )}
-      </Modal>
+      </ReviewModal>
     ),
     [loading, modalOpen, reviews, stats]
   );

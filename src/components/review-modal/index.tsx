@@ -7,7 +7,7 @@ type ModalProps = {
   children: ReactNode;
 };
 
-function Modal({ open, onClose, children }: ModalProps) {
+function ReviewModal({ open, onClose, children }: ModalProps) {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
 
@@ -44,4 +44,4 @@ function Modal({ open, onClose, children }: ModalProps) {
   );
 }
 
-export default Modal;
+export default ReviewModal;
