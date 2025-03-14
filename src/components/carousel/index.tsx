@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Image } from "../product-grid/schema";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "../button";
@@ -13,23 +13,43 @@ export default function ImageCarousel({
   isHovering,
 }: ImageCarouselProps) {
   const [imageIndex, setImageIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState(new Set([0]));
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setImageIndex((index) => (index + 1) % images.length);
-  //   }, 3000);
+  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
 
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, [images.length]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target as HTMLImageElement;
+            const index = Number(img.dataset.index);
+            if (!loadedImages.has(index)) {
+              img.src = img.dataset.src || "";
+              setLoadedImages((prev) => new Set([...prev, index]));
+            }
+          }
+        });
+      },
+      { root: null, threshold: 0.1 }
+    );
 
-  const handlePrevClick = () => {
-    setImageIndex((index) => (index === 0 ? images.length - 1 : index - 1));
-  };
+    imageRefs.current.forEach((img) => {
+      if (img) observer.observe(img);
+    });
 
-  const handleNextClick = () => {
-    setImageIndex((index) => (index === images.length - 1 ? 0 : index + 1));
+    return () => observer.disconnect();
+  }, [loadedImages]);
+
+  useEffect(() => {
+    const firstImg = imageRefs.current[0];
+    if (firstImg && !firstImg.src) {
+      firstImg.src = firstImg.dataset.src || "";
+    }
+  }, []);
+
+  const handleImageChange = (newIndex: number) => {
+    setImageIndex(newIndex);
   };
 
   return (
@@ -43,13 +63,27 @@ export default function ImageCarousel({
           }}
         >
           {images.map((image, index) => (
-            <img
+            <div
               key={index}
-              src={image.image_url}
-              alt={`carousel-${index}`}
-              className="object-cover h-[300px] md:w-[280px] w-full flex-shrink-0"
-              loading="lazy"
-            />
+              className="relative h-[300px] md:w-[280px] w-full flex-shrink-0"
+            >
+              {/* Blurred Placeholder */}
+              <div
+                className={`absolute inset-0 bg-gray-200 animate-pulse ${
+                  loadedImages.has(index) ? "hidden" : "block"
+                }`}
+              ></div>
+              <img
+                ref={(el) => (imageRefs.current[index] = el)}
+                data-src={image.image_url}
+                data-index={index}
+                alt={`carousel-${index}`}
+                className={`object-cover h-[300px] md:w-[280px] w-full flex-shrink-0 transition-opacity duration-500  ${
+                  loadedImages.has(index) ? "opacity-100" : "opacity-0"
+                }`}
+                loading="lazy"
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -65,7 +99,9 @@ export default function ImageCarousel({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          handlePrevClick();
+          handleImageChange(
+            imageIndex === 0 ? images.length - 1 : imageIndex - 1
+          );
         }}
       >
         <ChevronLeft strokeWidth={1.5} color="white" />
@@ -82,7 +118,9 @@ export default function ImageCarousel({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          handleNextClick();
+          handleImageChange(
+            imageIndex === images.length - 1 ? 0 : imageIndex + 1
+          );
         }}
       >
         <ChevronRight strokeWidth={1.5} color="white" />
