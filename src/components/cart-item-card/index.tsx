@@ -130,7 +130,7 @@ export default function CartItemCard({
                       Cancel
                     </Button>
                     <Button
-                      className="border border-black flex-1 bg-indigo-700 hover:bg-indigo-800 text-white py-2.5 rounded-[4px]"
+                      className="flex-1 bg-indigo-700 hover:bg-indigo-800 text-white py-2.5 rounded-[4px]"
                       onClick={() => handleRemoveButtonClick(index)}
                     >
                       Yes

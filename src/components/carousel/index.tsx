@@ -48,6 +48,7 @@ export default function ImageCarousel({
               src={image.image_url}
               alt={`carousel-${index}`}
               className="object-cover h-[300px] md:w-[280px] w-full flex-shrink-0"
+              loading="lazy"
             />
           ))}
         </div>
@@ -112,7 +113,9 @@ export default function ImageCarousel({
               ]
                 .filter(Boolean)
                 .join(" ")}
-              onClick={() => setImageIndex(index)}
+              onClick={() => {
+                setImageIndex(index);
+              }}
             ></Button>
           ))}
       </div>

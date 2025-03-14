@@ -26,25 +26,18 @@ function ProductCard({ item }: ProductCardProps) {
     (details) => details.color === productColor
   );
 
-  const itemHoverImagesByColor = item.images.filter(
+  const itemImagesByColor = item.images.filter(
     (image) => image.color === productColor
   );
 
   const ImageSection = (
     <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
       <div className="h-[300px] w-full md:w-[280px] rounded-lg overflow-hidden relative">
-        {isHovering ? (
-          <ImageCarousel
-            key={productColor}
-            images={itemHoverImagesByColor}
-            isHovering={isHovering}
-          />
-        ) : (
-          <img
-            src={item.images[0].image_url}
-            className="h-[300px] md:w-[280px] w-full object-cover"
-          />
-        )}
+        <ImageCarousel
+          key={productColor}
+          images={itemImagesByColor}
+          isHovering={isHovering}
+        />
       </div>
     </Link>
   );
@@ -82,7 +75,7 @@ function ProductCard({ item }: ProductCardProps) {
         {item.colors.map((color, index: number) => (
           <Button
             key={index}
-            className="h-4 w-4 border-[1px] rounded-full border-neutral-300"
+            className="h-4 w-4 border rounded-full border-neutral-300 hover:border-2 hover:border-neutral-600"
             style={{ backgroundColor: colorsToCodes[color as ColorToCodes] }}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
               handleColorClick(color, e)
