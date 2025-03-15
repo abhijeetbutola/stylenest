@@ -69,8 +69,8 @@ export default function ImageCarousel({
             >
               {/* Blurred Placeholder */}
               <div
-                className={`absolute inset-0 bg-gray-200 animate-pulse ${
-                  loadedImages.has(index) ? "hidden" : "block"
+                className={`absolute inset-0 bg-gray-200 !animate-pulse ${
+                  loadedImages.has(index) ? "!opacity-0" : "!opacity-100"
                 }`}
               ></div>
               <img
@@ -78,8 +78,8 @@ export default function ImageCarousel({
                 data-src={image.image_url}
                 data-index={index}
                 alt={`carousel-${index}`}
-                className={`object-cover h-[300px] md:w-[280px] w-full flex-shrink-0 transition-opacity duration-500  ${
-                  loadedImages.has(index) ? "opacity-100" : "opacity-0"
+                className={`object-cover h-[300px] md:w-[280px] w-full flex-shrink-0 transition-opacity duration-500 ${
+                  loadedImages.has(index) ? "!opacity-100" : "!opacity-0"
                 }`}
                 loading="lazy"
               />

@@ -23,7 +23,7 @@ function ProductCard({ item }: ProductCardProps) {
           if (entry.isIntersecting) setIsVisible(true);
         });
       },
-      { rootMargin: "100px" }
+      { rootMargin: "200px" }
     );
 
     if (cardRef.current) observer.observe(cardRef.current);
