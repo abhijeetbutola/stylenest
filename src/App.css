@@ -28,7 +28,7 @@
 }
 
 .marquee-content {
-  animation: marquee 30s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
 .marquee-container::before {
