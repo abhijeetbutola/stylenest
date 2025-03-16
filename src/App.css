@@ -17,3 +17,40 @@
   justify-content: center;
   padding: 5px;
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-content {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.marquee-container {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+
+.marquee-content:hover {
+  animation-play-state: paused !important;
+}

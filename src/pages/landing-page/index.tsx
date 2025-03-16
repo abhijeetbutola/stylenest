@@ -11,6 +11,28 @@ import Container from "../../components/container";
 import { SkeletonProductGrid, SkeletonText } from "../../components/skeletons";
 import SkeletonHero from "../../components/skeletons/SkeletonHero";
 import { Helmet } from "react-helmet-async";
+import Marquee from "../../components/marquee";
+import marqueeAdidas from "../../assets/marquee_adidas.png";
+import marqueeNewBalance from "../../assets/marquee_newbalance.png";
+import marqueeGucci from "../../assets/marquee_gucci.png";
+import marqueeEmporio from "../../assets/marquee_emporio_armani.png";
+import marqueeBurberry from "../../assets/marquee_burberry.jpg";
+import marqueeFaberge from "../../assets/marquee_faberge.png";
+import marqueeNike from "../../assets/marquee_nike.png";
+import marqueeReebok from "../../assets/marquee_reebok.png";
+import marqueeMoschino from "../../assets/marquee_moschino.png";
+
+const marqueeImages = [
+  marqueeAdidas,
+  marqueeGucci,
+  marqueeNewBalance,
+  marqueeBurberry,
+  marqueeEmporio,
+  marqueeNike,
+  marqueeFaberge,
+  marqueeReebok,
+  marqueeMoschino,
+];
 
 function LandingPage() {
   // const forcedLoading = true
@@ -46,6 +68,7 @@ function LandingPage() {
         ) : (
           <>
             <HeroSection />
+
             {/* Latest Arrivals Section */}
             <div className="flex flex-col gap-8 lg:px-24 max-lg:px-4 py-12 md:py-16 lg:py-24">
               <div className="flex justify-between items-center font-semibold flex-wrap">
@@ -74,6 +97,9 @@ function LandingPage() {
             </div>
             <Collections />
             <Commitment />
+
+            {/* Marquee */}
+            <Marquee images={marqueeImages} />
           </>
         )}
       </Container>
