@@ -1,10 +1,10 @@
 type StarRatingProps = {
   stars: number;
   rating: number;
-  stroke?: string;
+  selected?: boolean;
 };
 
-function StarRating({ stars, rating, stroke = "" }: StarRatingProps) {
+function StarRating({ stars, rating, selected }: StarRatingProps) {
   const fullStars = Math.floor(rating);
   const partialStarPercentage = Math.round((rating % 1) * 100);
   const hasPartialStar = rating % 1 !== 0;
@@ -12,13 +12,13 @@ function StarRating({ stars, rating, stroke = "" }: StarRatingProps) {
   return (
     <div className={"inline-flex justify-center gap-1"}>
       {Array.from({ length: fullStars }).map((_, i) => (
-        <StarIcon key={i} fillPercentage={100} stroke={stroke} />
+        <StarIcon key={i} fillPercentage={100} selected={selected} />
       ))}
       {hasPartialStar && (
-        <StarIcon fillPercentage={partialStarPercentage} stroke={stroke} />
+        <StarIcon fillPercentage={partialStarPercentage} selected={selected} />
       )}
       {Array.from({ length: emptyStars }).map((_, i) => (
-        <StarIcon key={i + fullStars} fillPercentage={0} stroke={stroke} />
+        <StarIcon key={i + fullStars} fillPercentage={0} selected={selected} />
       ))}
     </div>
   );
@@ -32,20 +32,33 @@ function StarRating({ stars, rating, stroke = "" }: StarRatingProps) {
  */
 function StarIcon({
   fillPercentage,
-  stroke = "",
+  selected,
 }: {
   fillPercentage: number;
-  stroke?: string;
+  selected?: boolean;
 }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
       <path
-        stroke={stroke}
-        fill={`url(#yellow-gradient-${fillPercentage})`}
+        fill={
+          selected
+            ? `url(#gold-gradient-${fillPercentage})`
+            : `url(#yellow-gradient-${fillPercentage})`
+        }
         d="M9.538 1.61a.5.5 0 01.924 0l2.066 4.967a.5.5 0 00.421.307l5.363.43a.5.5 0 01.286.878l-4.086 3.5a.5.5 0 00-.161.496l1.248 5.233a.5.5 0 01-.747.543l-4.591-2.805a.5.5 0 00-.522 0l-4.59 2.804a.5.5 0 01-.748-.542l1.248-5.233a.5.5 0 00-.16-.496l-4.087-3.5a.5.5 0 01.286-.878l5.363-.43a.5.5 0 00.421-.307L9.538 1.61z"
       />
 
       <defs>
+        <linearGradient
+          id={`gold-gradient-${fillPercentage}`}
+          x1="0"
+          x2="1"
+          y1="0"
+          y2="0"
+        >
+          <stop offset={`${fillPercentage}%`} stopColor="#EAB308" />
+          <stop offset={`${fillPercentage}%`} stopColor="#E0E0E0" />
+        </linearGradient>
         <linearGradient
           id={`yellow-gradient-${fillPercentage}`}
           x1="0"

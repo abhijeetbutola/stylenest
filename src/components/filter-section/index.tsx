@@ -167,7 +167,7 @@ const FilterSection = () => {
                     <StarRating
                       stars={5}
                       rating={rating}
-                      stroke={selectedRatings.includes(rating) ? "#737373" : ""}
+                      selected={selectedRatings.includes(rating)}
                     />
                   </div>
                 ))}
@@ -179,22 +179,26 @@ const FilterSection = () => {
           )}
         </>
       ))}
-      <hr className="border-t-[1px] border-neutral-300" />
-      <div className="text-center">
-        <Button
-          type="button"
-          className="text-indigo-700 font-medium text-base disabled:text-neutral-400 disabled:cursor-not-allowed"
-          disabled={!filterCount}
-          onClick={() => {
-            dispatch(resetCollection());
-            dispatch(resetGender());
-            dispatch(resetColor());
-            dispatch(resetRating());
-          }}
-        >
-          Clear all ({filterCount})
-        </Button>
-      </div>
+      {!!filterCount && (
+        <>
+          <hr className="border-t-[1px] border-neutral-300" />
+          <div className="text-center">
+            <Button
+              type="button"
+              className="text-indigo-700 font-medium text-base disabled:text-neutral-400 disabled:cursor-not-allowed"
+              disabled={!filterCount}
+              onClick={() => {
+                dispatch(resetCollection());
+                dispatch(resetGender());
+                dispatch(resetColor());
+                dispatch(resetRating());
+              }}
+            >
+              Clear all ({filterCount})
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
