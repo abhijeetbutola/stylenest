@@ -175,8 +175,8 @@ function ProductListingPage() {
             onChange={handleDropdownValue}
             type="hover"
             selectedOption={selectedDropdownOption}
-            titleClassName="shadow-md rounded-md py-2.5 px-4"
-            optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-9 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
+            titleClassName="shadow-md rounded-md py-2.5 px-4 hover:bg-neutral-50 hover:border-neutral-200"
+            optionsClassName="flex flex-col border-[1.5px] absolute w-[228px] top-10 bg-white max-h-60 overflow-y-auto rounded-md shadow-lg z-10"
           >
             {selectedDropdownOption}
           </Dropdown>
