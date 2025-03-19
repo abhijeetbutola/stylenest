@@ -118,22 +118,24 @@ function ProductDetailSectionModal({
                 <div className="flex flex-col gap-4 my-4">
                   {stats &&
                     stats.total > 0 &&
-                    stats.counts.map((item) => (
-                      <div className="flex items-center">
-                        <div className="flex-1 text-neutral-600 text-base font-medium">
-                          {ratingName[String(item.rating)]}
-                        </div>
-                        <div className="flex items-center">
-                          <ProgressBar
-                            count={item.count}
-                            totalReviews={stats.total}
-                          />
-                          <div className="w-[42px] h-6 text-right text-neutral-600 text-base font-normal">
-                            {Math.round((item.count / stats.total) * 100)}%
+                    stats.counts
+                      .sort((a, b) => b.rating - a.rating)
+                      .map((item) => (
+                        <div key={item.rating} className="flex items-center">
+                          <div className="flex-1 text-neutral-600 text-base font-medium">
+                            {ratingName[String(item.rating)]}
+                          </div>
+                          <div className="flex items-center">
+                            <ProgressBar
+                              count={item.count}
+                              totalReviews={stats.total}
+                            />
+                            <div className="w-[42px] h-6 text-right text-neutral-600 text-base font-normal">
+                              {Math.round((item.count / stats.total) * 100)}%
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                 </div>
                 <div className="mx-auto">
                   <Button className="font-medium text-base text-neutral-900 py-3 px-[22px] rounded-[4px] border border-neutral-200 shadow-md">
