@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import ProductGrid from "../../components/product-grid";
 import Dropdown from "../../components/dropdown";
-// import accObj from "./accordionItems";
 import FilterSection from "../../components/filter-section";
 import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
 import { fetchProducts } from "../../redux/slices/productsSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks"; // Importing custom hooks
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../../components/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import tshirtIcon from "../../assets/tshirticon.svg";
@@ -14,6 +13,7 @@ import filterIcon from "../../assets/filtericon.svg";
 import { SkeletonProductGrid } from "../../components/skeletons";
 import { resetColor } from "../../redux/slices/colorsSlice";
 import { resetRating } from "../../redux/slices/ratingsSlice";
+import { toggleSidebar } from "../../redux/slices/contextualSidebarSlice";
 
 const sortOptions: Record<string, { sort: string; direction: "asc" | "desc" }> =
   {
@@ -164,7 +164,10 @@ function ProductListingPage() {
       </div>
       <div className="flex flex-1 flex-col gap-8">
         <div className="flex justify-between items-center text-neutral-900 font-medium text-sm lg:ml-auto">
-          <div className="lg:hidden flex gap-2 items-center shadow-md rounded-md py-2.5 px-4">
+          <div
+            className="lg:hidden flex gap-2 items-center shadow-md rounded-md py-2.5 px-4"
+            onClick={() => dispatch(toggleSidebar())}
+          >
             <img src={filterIcon} alt="" />
             <span>Filter</span>
           </div>

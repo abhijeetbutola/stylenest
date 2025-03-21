@@ -39,7 +39,7 @@ function Sidebar({ open, handleClose }: SidebarProps) {
       )}
       <div
         className={[
-          "lg:hidden absolute w-full max-w-[359px] h-screen z-[999] bg-white -translate-x-full transition-all py-8 px-4",
+          "lg:hidden fixed w-full max-w-[359px] h-screen z-[999] bg-white -translate-x-full transition-all py-8 px-4",
           open && "translate-x-[0]",
         ]
           .filter(Boolean)

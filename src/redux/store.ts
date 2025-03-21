@@ -7,6 +7,7 @@ import productDetailsReducer from "./slices/productDetailsSlice";
 import colorsReducer from "./slices/colorsSlice";
 import ratingsReducer from "./slices/ratingsSlice";
 import authReducer from "./slices/authSlice";
+import contextualSidebarReducer from "./slices/contextualSidebarSlice";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
@@ -33,6 +34,7 @@ export const store = configureStore({
     ratings: ratingsReducer,
     productDetails: productDetailsReducer,
     auths: authReducer,
+    contextualSidebar: contextualSidebarReducer,
   },
   preloadedState,
 });
