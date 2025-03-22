@@ -3,10 +3,20 @@ import Button from "../button";
 import closeIcon from "../../assets/closeicon.svg";
 import FilterSection from "../filter-section";
 import { toggleSidebar } from "../../redux/slices/contextualSidebarSlice";
+import { useEffect } from "react";
 
 function ContextualSidebar() {
   const sidebarOpen = useAppSelector((state) => state.contextualSidebar.open);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [sidebarOpen]);
+
   return (
     <>
       {sidebarOpen && (
@@ -16,7 +26,7 @@ function ContextualSidebar() {
         />
       )}
       <div
-        className={`lg:hidden fixed left-0 bg-white w-full max-w-[359px] h-full -translate-x-full z-[997] transition-all p-6 ${
+        className={`lg:hidden fixed left-0 bg-white w-full max-w-[359px] h-full -translate-x-full z-[997] transition-all p-6 overflow-y-scroll ${
           sidebarOpen ? "translate-x-0" : ""
         }`}
       >
