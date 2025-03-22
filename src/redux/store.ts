@@ -18,6 +18,9 @@ const preloadedCartState: CartState = loadStateFromLocalStorage() || {
   items: [],
   totalQuantity: 0,
   totalAmount: 0,
+  appliedCoupon: null,
+  discount: 0,
+  afterDiscount: 0,
 };
 
 const preloadedState = {

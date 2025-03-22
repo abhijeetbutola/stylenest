@@ -14,13 +14,24 @@ export type CartItem = {
   images: Image[];
   name: string;
   description: string;
-  [key: string]: unknown; // For any additional properties in the new item payload
+  [key: string]: unknown; // Allow additional properties
 };
 
 export type CartState = {
   items: CartItem[];
   totalQuantity: number;
   totalAmount: number;
+  appliedCoupon: string | null;
+  discount: number;
+  afterDiscount: number;
+};
+
+// Hardcoded coupons (since there's no backend)
+const COUPONS: Record<string, number> = {
+  WELCOME10: 10, // 10% off
+  SUMMER20: 20, // 20% off
+  FLAT50: 50, // 50% off
+  GR8TFRNTND15: 15, // 15% off
 };
 
 // Initial state
@@ -28,6 +39,9 @@ const initialState: CartState = {
   items: [],
   totalQuantity: 0,
   totalAmount: 0,
+  appliedCoupon: null,
+  discount: 0,
+  afterDiscount: 0,
 };
 
 const cartSlice = createSlice({
@@ -48,20 +62,24 @@ const cartSlice = createSlice({
         existingItem.totalPrice += newItem.sale_price * newItem.quantity;
       } else {
         const totalPrice = newItem.sale_price * newItem.quantity;
-        state.items.push({
-          ...newItem,
-          totalPrice,
-        });
+        state.items.push({ ...newItem, totalPrice });
       }
 
       state.totalQuantity += newItem.quantity;
       state.totalAmount += newItem.sale_price * newItem.quantity;
+      state.afterDiscount =
+        state.totalAmount - (state.totalAmount * state.discount) / 100;
     },
+
     clearCart: (state) => {
       state.items = [];
       state.totalQuantity = 0;
       state.totalAmount = 0;
+      state.appliedCoupon = null;
+      state.discount = 0;
+      state.afterDiscount = 0;
     },
+
     updateItems: (
       state,
       action: PayloadAction<{
@@ -80,12 +98,17 @@ const cartSlice = createSlice({
       );
 
       if (existingItem) {
-        const prevTotalPrice = existingItem.totalPrice;
+        const priceDifference =
+          existingItem.sale_price * (quantity - existingItem.quantity);
         existingItem.quantity = quantity;
         existingItem.totalPrice = quantity * existingItem.sale_price;
-        state.totalAmount -= prevTotalPrice - existingItem.totalPrice;
+        state.totalAmount += priceDifference;
       }
+
+      state.afterDiscount =
+        state.totalAmount - (state.totalAmount * state.discount) / 100;
     },
+
     removeItems: (
       state,
       action: PayloadAction<{ product_id: string; color: string; size: string }>
@@ -107,10 +130,42 @@ const cartSlice = createSlice({
             item.size !== size
         );
       }
+
+      if (state.items.length === 0) {
+        state.appliedCoupon = null;
+        state.discount = 0;
+        state.afterDiscount = 0;
+      } else {
+        state.afterDiscount =
+          state.totalAmount - (state.totalAmount * state.discount) / 100;
+      }
+    },
+
+    applyCoupon: (state, action: PayloadAction<string>) => {
+      const couponCode = action.payload.toUpperCase();
+      if (COUPONS[couponCode]) {
+        state.appliedCoupon = couponCode;
+        state.discount = COUPONS[couponCode];
+        state.afterDiscount =
+          state.totalAmount - (state.totalAmount * state.discount) / 100;
+      }
+    },
+
+    removeCoupon: (state) => {
+      state.appliedCoupon = null;
+      state.discount = 0;
+      state.afterDiscount = state.totalAmount;
     },
   },
 });
 
-export const { addItem, updateItems, clearCart, removeItems } =
-  cartSlice.actions;
+export const {
+  addItem,
+  updateItems,
+  clearCart,
+  removeItems,
+  applyCoupon,
+  removeCoupon,
+} = cartSlice.actions;
+
 export default cartSlice.reducer;

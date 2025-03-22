@@ -4,11 +4,12 @@ type StarRatingProps = {
   selected?: boolean;
 };
 
-function StarRating({ stars, rating, selected }: StarRatingProps) {
+function StarRating({ stars, rating, selected = false }: StarRatingProps) {
   const fullStars = Math.floor(rating);
   const partialStarPercentage = Math.round((rating % 1) * 100);
   const hasPartialStar = rating % 1 !== 0;
   const emptyStars = stars - Math.ceil(rating);
+
   return (
     <div className={"inline-flex justify-center gap-1"}>
       {Array.from({ length: fullStars }).map((_, i) => (
@@ -32,7 +33,7 @@ function StarRating({ stars, rating, selected }: StarRatingProps) {
  */
 function StarIcon({
   fillPercentage,
-  selected,
+  selected = false,
 }: {
   fillPercentage: number;
   selected?: boolean;
@@ -41,7 +42,13 @@ function StarIcon({
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
       <path
         fill={
-          selected
+          fillPercentage === 100
+            ? selected
+              ? "#EAB308"
+              : "#FACC15" // Fully filled star
+            : fillPercentage === 0
+            ? "#E5E7EB" // Empty star
+            : selected
             ? `url(#gold-gradient-${fillPercentage})`
             : `url(#yellow-gradient-${fillPercentage})`
         }
@@ -57,7 +64,7 @@ function StarIcon({
           y2="0"
         >
           <stop offset={`${fillPercentage}%`} stopColor="#EAB308" />
-          <stop offset={`${fillPercentage}%`} stopColor="#E0E0E0" />
+          <stop offset={`${fillPercentage + 1}%`} stopColor="#E5E7EB" />
         </linearGradient>
         <linearGradient
           id={`yellow-gradient-${fillPercentage}`}
@@ -67,7 +74,7 @@ function StarIcon({
           y2="0"
         >
           <stop offset={`${fillPercentage}%`} stopColor="#FACC15" />
-          <stop offset={`${fillPercentage}%`} stopColor="#E5E7EB" />
+          <stop offset={`${fillPercentage + 1}%`} stopColor="#E5E7EB" />
         </linearGradient>
       </defs>
     </svg>
