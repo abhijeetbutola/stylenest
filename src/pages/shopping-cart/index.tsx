@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
 import Button from "../../components/button";
 import emptyCartImage from "../../assets/emptycartimage.webp";
-import emptyCartIcon from "../../assets/emptycarticon.svg";
+import emptyCartIcon from "../../assets/icons/emptycarticon.svg";
 import { ArrowRight } from "lucide-react";
 import CartItemCard from "../../components/cart-item-card";
 import OrderSummary from "../../components/order-summary";

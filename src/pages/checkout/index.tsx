@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm, Controller, FieldErrors } from "react-hook-form";
 import Button from "../../components/button";
 import Dropdown from "../../components/dropdown";
-import lockIcon from "../../assets/lockordericon.svg";
+import lockIcon from "../../assets/icons/lockordericon.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "../../hooks";

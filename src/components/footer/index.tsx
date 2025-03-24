@@ -1,10 +1,10 @@
 import Button from "../button";
-import logo from "../../assets/stylenest.svg";
-import youtube from "../../assets/youtubeicon.svg";
-import instagram from "../../assets/instaicon.svg";
-import facebook from "../../assets/fbicon.svg";
-import github from "../../assets/githubicon.svg";
-import x from "../../assets/xicon.svg";
+import logo from "../../assets/icons/stylenest.svg";
+import youtube from "../../assets/icons/youtubeicon.svg";
+import instagram from "../../assets/icons/instaicon.svg";
+import facebook from "../../assets/icons/fbicon.svg";
+import github from "../../assets/icons/githubicon.svg";
+import x from "../../assets/icons/xicon.svg";
 import { useAppDispatch } from "../../hooks";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { Link } from "react-router-dom";

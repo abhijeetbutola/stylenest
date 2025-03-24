@@ -1,5 +1,5 @@
 import Button from "../button";
-import checkoutTick from "../../assets/checkouttick.svg";
+import checkoutTick from "../../assets/icons/checkouttick.svg";
 
 type DeliveryType = "standard" | "express";
 

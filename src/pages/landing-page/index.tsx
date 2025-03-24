@@ -12,15 +12,15 @@ import { SkeletonProductGrid, SkeletonText } from "../../components/skeletons";
 import SkeletonHero from "../../components/skeletons/SkeletonHero";
 import { Helmet } from "react-helmet-async";
 import Marquee from "../../components/marquee";
-import marqueeAdidas from "../../assets/marquee_adidas.png";
-import marqueeNewBalance from "../../assets/marquee_newbalance.png";
-import marqueeGucci from "../../assets/marquee_gucci.png";
-import marqueeEmporio from "../../assets/marquee_emporio_armani.png";
-import marqueeBurberry from "../../assets/marquee_burberry.jpg";
-import marqueeFaberge from "../../assets/marquee_faberge.png";
-import marqueeNike from "../../assets/marquee_nike.png";
-import marqueeReebok from "../../assets/marquee_reebok.png";
-import marqueeMoschino from "../../assets/marquee_moschino.png";
+import marqueeAdidas from "../../assets/marqueelogos/marquee_adidas.png";
+import marqueeNewBalance from "../../assets/marqueelogos/marquee_newbalance.png";
+import marqueeGucci from "../../assets/marqueelogos/marquee_gucci.png";
+import marqueeEmporio from "../../assets/marqueelogos/marquee_emporio_armani.png";
+import marqueeBurberry from "../../assets/marqueelogos/marquee_burberry.jpg";
+import marqueeFaberge from "../../assets/marqueelogos/marquee_faberge.png";
+import marqueeNike from "../../assets/marqueelogos/marquee_nike.png";
+import marqueeReebok from "../../assets/marqueelogos/marquee_reebok.png";
+import marqueeMoschino from "../../assets/marqueelogos/marquee_moschino.png";
 
 const marqueeImages = [
   marqueeAdidas,

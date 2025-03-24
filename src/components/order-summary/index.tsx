@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../button";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import couponCodeIcon from "../../assets/addCouponCodeicon.svg";
+import couponCodeIcon from "../../assets/icons/addCouponCodeicon.svg";
 import { applyCoupon, removeCoupon } from "../../redux/slices/cartSlice";
-import closeIcon from "../../assets/closeicon.svg";
+import { closeIcon } from "../../assets/";
 
 export default function OrderSummary() {
   const dispatch = useAppDispatch();

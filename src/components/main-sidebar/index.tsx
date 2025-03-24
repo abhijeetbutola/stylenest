@@ -1,18 +1,18 @@
 import Button from "../button";
-import closeIcon from "../../assets/closeicon.svg";
-import logo from "../../assets/stylenest.svg";
+import { closeIcon } from "../../assets/";
+import logo from "../../assets/icons/stylenest.svg";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks";
 import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
 
-type SidebarProps = {
+type MainSidebarProps = {
   open: boolean;
   handleClose: () => void;
 };
 
-function Sidebar({ open, handleClose }: SidebarProps) {
+function MainSidebar({ open, handleClose }: MainSidebarProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -79,4 +79,4 @@ function Sidebar({ open, handleClose }: SidebarProps) {
   );
 }
 
-export default Sidebar;
+export default MainSidebar;

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../button";
-import closeIcon from "../../assets/closeicon.svg";
+import { closeIcon } from "../../assets/";
 import FilterSection from "../filter-section";
 import { toggleSidebar } from "../../redux/slices/contextualSidebarSlice";
 import { useEffect } from "react";

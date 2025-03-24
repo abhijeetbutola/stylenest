@@ -1,5 +1,5 @@
 import Input from "../../components/input";
-import signuppic from "../../assets/signuppagepic.svg";
+import signuppic from "../../assets/icons/signuppagepic.svg";
 import Button from "../../components/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

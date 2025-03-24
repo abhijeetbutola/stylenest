@@ -1,5 +1,5 @@
 import Input from "../../components/input";
-import signinpic from "../../assets/signinpagepic.svg";
+import signinpic from "../../assets/icons/signinpagepic.svg";
 import Button from "../../components/button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { login } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import signInWithGoogle from "../../auth/authMethods/googleoauth";
-import googleLogo from "../../assets/icons8-google.svg";
+import googleLogo from "../../assets/icons/icons8-google.svg";
 import useAuth from "../../auth/useAuth";
 
 function SignIn() {

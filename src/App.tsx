@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { rehydrate } from "./redux/slices/authSlice";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
-import Sidebar from "./components/sidebar";
+import MainSidebar from "./components/main-sidebar";
 import { HelmetProvider } from "react-helmet-async";
 import ContextualSidebar from "./components/contextual-sidebar";
 
@@ -42,7 +42,7 @@ function App() {
   return (
     <HelmetProvider>
       <div className="w-full">
-        <Sidebar open={sidebarOpen} handleClose={handleSidebarClose} />
+        <MainSidebar open={sidebarOpen} handleClose={handleSidebarClose} />
         <ContextualSidebar />
         {!isNotFoundPage && <Navbar sidebarOpen={handleSidebarOpen} />}
         <div className="flex justify-center rounded-t-lg">

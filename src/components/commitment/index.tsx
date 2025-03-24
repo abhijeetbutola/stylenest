@@ -1,6 +1,6 @@
-import shippingtruck from "../../assets/shippingtruckicon.svg";
-import qualitytick from "../../assets/qualitytickicon.svg";
-import easyexchange from "../../assets/easyexchangeicon.svg";
+import shippingtruck from "../../assets/icons/shippingtruckicon.svg";
+import qualitytick from "../../assets/icons/qualitytickicon.svg";
+import easyexchange from "../../assets/icons/easyexchangeicon.svg";
 import Text from "../text";
 
 function Commitment() {

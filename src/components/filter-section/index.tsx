@@ -7,8 +7,8 @@ import {
 import { resetGender, toggleGender } from "../../redux/slices/gendersSlice";
 import { resetColor, toggleColor } from "../../redux/slices/colorsSlice";
 import Button from "../button";
-import expandIcon from "../../assets/filtersectionexpandicon.svg";
-import contractIcon from "../../assets/contracticon.svg";
+import expandIcon from "../../assets/icons/filtersectionexpandicon.svg";
+import contractIcon from "../../assets/icons/contracticon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { accObj as data } from "../../pages/product-listing-page/accordionItems";
