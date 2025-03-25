@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import couponCodeIcon from "../../assets/icons/addCouponCodeicon.svg";
 import { applyCoupon, removeCoupon } from "../../redux/slices/cartSlice";
 import { closeIcon } from "../../assets/";
+import { COUPONS } from "../../redux/slices/cartSlice";
 
 export default function OrderSummary() {
   const dispatch = useAppDispatch();
@@ -70,7 +71,8 @@ export default function OrderSummary() {
                 <Button
                   className="border-2 border-neutral-200 rounded-[4px] py-2.5 px-5"
                   onClick={() => {
-                    dispatch(applyCoupon(coupon));
+                    if (COUPONS[coupon]) dispatch(applyCoupon(coupon));
+                    else alert("Invalid coupon code!");
                     setCoupon("");
                   }}
                 >

@@ -26,8 +26,7 @@ export type CartState = {
   afterDiscount: number;
 };
 
-// Hardcoded coupons (since there's no backend)
-const COUPONS: Record<string, number> = {
+export const COUPONS: Record<string, number> = {
   WELCOME10: 10, // 10% off
   SUMMER20: 20, // 20% off
   FLAT50: 50, // 50% off

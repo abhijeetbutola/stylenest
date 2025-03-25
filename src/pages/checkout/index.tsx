@@ -71,8 +71,11 @@ function Checkout() {
     },
   });
 
-  const cartItems = useAppSelector((state) => state.cartItems.items);
-  const totalAmount = useAppSelector((state) => state.cartItems.totalAmount);
+  const {
+    items: cartItems,
+    totalAmount,
+    afterDiscount,
+  } = useAppSelector((state) => state.cartItems);
   const [open, setOpen] = useState(false);
 
   const handleDropdownClick = () => {
@@ -416,7 +419,7 @@ function Checkout() {
                 <div className="flex justify-between">
                   <p className="text-neutral-600 text-base">Coupon Discount</p>
                   <p className="text-neutral-900 text-lg font-semibold">
-                    $0.00
+                    ${totalAmount - afterDiscount}
                   </p>
                 </div>
               </div>
@@ -427,8 +430,8 @@ function Checkout() {
                   <p className="font-semibold text-neutral-900 text-4xl">
                     $
                     {deliveryType === "standard"
-                      ? totalAmount
-                      : totalAmount + 15.0}
+                      ? afterDiscount ?? totalAmount
+                      : (afterDiscount ?? totalAmount) + 15.0}
                   </p>
                 </div>
               </div>
