@@ -68,16 +68,16 @@ function ProductListingPage() {
     return sortOptions[selectedDropdownOption] || "";
   }, [selectedDropdownOption]);
 
-  useEffect(() => {
-    return () => {
-      if (window.location.pathname !== "/product-listing-page") {
-        dispatch(resetCollection());
-        dispatch(resetGender());
-        dispatch(resetColor());
-        dispatch(resetRating());
-      }
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (window.location.pathname !== "/product-listing-page") {
+  //       dispatch(resetCollection());
+  //       dispatch(resetGender());
+  //       dispatch(resetColor());
+  //       dispatch(resetRating());
+  //     }
+  //   };
+  // }, [dispatch]);
 
   const handleDropdownClick = () => {
     setOpen(!open);
@@ -100,7 +100,7 @@ function ProductListingPage() {
       })
     );
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "auto" });
 
     if (
       fetchedProductsStatus === "succeeded" &&

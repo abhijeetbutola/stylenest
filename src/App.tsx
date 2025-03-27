@@ -26,7 +26,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [location.key]);
 
   const isNotFoundPage = location.pathname === "/not-found-page";

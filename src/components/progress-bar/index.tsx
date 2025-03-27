@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 type ProgressBarProps = {
   count: number;
   totalReviews: number;
+  color: string;
 };
 
-function ProgressBar({ count, totalReviews }: ProgressBarProps) {
+function ProgressBar({ count, totalReviews, color }: ProgressBarProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function ProgressBar({ count, totalReviews }: ProgressBarProps) {
   return (
     <div className="bg-gray-200 h-2 w-[142px] overflow-hidden rounded-full">
       <div
-        className="bg-blue-500 h-full origin-left transition-all"
+        className={`bg-${color} h-full origin-left transition-all`}
         style={{ transform: `scaleX(${(progress / totalReviews) * 100}%)` }}
       ></div>
     </div>
