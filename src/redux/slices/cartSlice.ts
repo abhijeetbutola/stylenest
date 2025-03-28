@@ -66,8 +66,12 @@ const cartSlice = createSlice({
 
       state.totalQuantity += newItem.quantity;
       state.totalAmount += newItem.sale_price * newItem.quantity;
-      state.afterDiscount =
-        state.totalAmount - (state.totalAmount * state.discount) / 100;
+      state.afterDiscount = parseFloat(
+        (
+          state.totalAmount -
+          (state.totalAmount * state.discount) / 100
+        ).toFixed(2)
+      );
     },
 
     clearCart: (state) => {
@@ -104,8 +108,12 @@ const cartSlice = createSlice({
         state.totalAmount += priceDifference;
       }
 
-      state.afterDiscount =
-        state.totalAmount - (state.totalAmount * state.discount) / 100;
+      state.afterDiscount = parseFloat(
+        (
+          state.totalAmount -
+          (state.totalAmount * state.discount) / 100
+        ).toFixed(2)
+      );
     },
 
     removeItems: (
@@ -135,8 +143,12 @@ const cartSlice = createSlice({
         state.discount = 0;
         state.afterDiscount = 0;
       } else {
-        state.afterDiscount =
-          state.totalAmount - (state.totalAmount * state.discount) / 100;
+        state.afterDiscount = parseFloat(
+          (
+            state.totalAmount -
+            (state.totalAmount * state.discount) / 100
+          ).toFixed(2)
+        );
       }
     },
 
@@ -145,8 +157,12 @@ const cartSlice = createSlice({
       if (COUPONS[couponCode]) {
         state.appliedCoupon = couponCode;
         state.discount = COUPONS[couponCode];
-        state.afterDiscount =
-          state.totalAmount - (state.totalAmount * state.discount) / 100;
+        state.afterDiscount = parseFloat(
+          (
+            state.totalAmount -
+            (state.totalAmount * state.discount) / 100
+          ).toFixed(2)
+        );
       }
     },
 

@@ -9,7 +9,7 @@ type User = {
 type Review = {
   rating: number;
   content: string;
-  created_at: string; // ISO date string
+  created_at: string;
   user: User;
 };
 
@@ -21,14 +21,12 @@ function ReviewCard({ review }: ReviewCardProps) {
   return (
     <div className="flex flex-col gap-4 text-left">
       <div className="flex gap-4">
-        <div className="h-11 w-12 rounded-full overflow-hidden">
+        <div className="h-[42px] w-12 rounded-full overflow-hidden">
           {review.user.avatar_url ? (
             <img
               src={review.user.avatar_url || ""}
               alt=""
-              height={48}
-              width={48}
-              className="object-cover h-full"
+              className="object-cover h-full w-full"
             />
           ) : (
             <div className="bg-gray-500 w-full h-full flex justify-center items-center">

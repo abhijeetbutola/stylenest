@@ -76,7 +76,7 @@ function LandingPage() {
                   Latest Arrivals
                 </p>
                 <Link to="/latest-arrivals-page">
-                  <Button className="w-24 h-11 border border-neutral-200 rounded hover:shadow-md transition-all">
+                  <Button className="w-24 h-11 border border-neutral-200 rounded shadow-md transition-all">
                     View All
                   </Button>
                 </Link>

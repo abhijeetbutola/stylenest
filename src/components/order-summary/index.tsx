@@ -18,6 +18,8 @@ export default function OrderSummary() {
     (state) => state.cartItems
   );
 
+  console.log(afterDiscount);
+
   const handleCouponState = () => {
     setCouponState(!couponState);
   };
@@ -50,7 +52,7 @@ export default function OrderSummary() {
                 {appliedCoupon}
               </span>
               <span className="font-semibold text-lg text-neutral-900">
-                -${totalAmount - afterDiscount}
+                -${(totalAmount - afterDiscount).toFixed(2)}
               </span>
             </div>
           )}
