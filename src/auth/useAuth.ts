@@ -1,15 +1,27 @@
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "./firebaseConfig";
 import { useEffect, useState } from "react";
+import { User } from "firebase/auth";
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
+    let unsubscribe: (() => void) | undefined;
+
+    const loadAuth = async () => {
+      const { onAuthStateChanged } = await import("firebase/auth");
+      const { loadFirebaseAuth } = await import("./lazyFirebase");
+      const { auth } = await loadFirebaseAuth();
+
+      unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+      });
+    };
+
+    loadAuth();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
   return user;

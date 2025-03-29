@@ -17,8 +17,7 @@
 }
 
 body {
-  background-image: linear-gradient(to bottom, #f9fafb, #d2d6db);
+  background-image: linear-gradient(to right, #f9fafb, #e9eaea);
   background-size: auto auto;
   min-height: 100%;
-  /* overflow: hidden; */
 }

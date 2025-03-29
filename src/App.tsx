@@ -41,7 +41,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <div className="w-full">
+      <div className="w-full shadow-inner">
         <MainSidebar open={sidebarOpen} handleClose={handleSidebarClose} />
         <ContextualSidebar />
         {!isNotFoundPage && <Navbar sidebarOpen={handleSidebarOpen} />}

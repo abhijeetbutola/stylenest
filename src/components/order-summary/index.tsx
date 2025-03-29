@@ -62,7 +62,7 @@ export default function OrderSummary() {
               <div className="font-medium text-sm text-neutral-700">
                 Coupon Code
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 max-sm:flex-col">
                 <input
                   type="text"
                   placeholder="Enter coupon code"

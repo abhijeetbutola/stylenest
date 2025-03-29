@@ -11,8 +11,6 @@ import loginIcon from "../../assets/icons/loginicon.svg";
 import logoutIcon from "../../assets/icons/logouticon.svg";
 import { resetCollection } from "../../redux/slices/collectionsSlice";
 import { resetGender } from "../../redux/slices/gendersSlice";
-import { signOut } from "firebase/auth";
-import { auth } from "../../auth/firebaseConfig";
 import { resetColor } from "../../redux/slices/colorsSlice";
 import { resetRating } from "../../redux/slices/ratingsSlice";
 
@@ -29,11 +27,16 @@ function Navbar({ sidebarOpen }: NavbarProps) {
   const isAuth = useAppSelector((state) => state.auths.isAuthenticated);
   const navigate = useNavigate();
 
-  const handleAuthAction = () => {
+  const handleAuthAction = async () => {
     if (isAuth) {
+      const { signOut } = await import("firebase/auth");
+      const { loadFirebaseAuth } = await import("../../auth/lazyFirebase");
+
+      const { auth } = await loadFirebaseAuth();
+      await signOut(auth);
+
       dispatch(logout());
       dispatch(clearCart());
-      signOut(auth);
       toast.success("You have been logged out.", {
         className: "toast-class",
         delay: 500,

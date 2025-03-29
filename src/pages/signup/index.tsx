@@ -12,7 +12,7 @@ function SignUp() {
         2. Install zod
         3. Define react hook form variables like register, handleSubmit, and others
         4. Define zod schema for validation
-        5. State in the react hook form that validation is goind to be done via zod
+        5. State in the react hook form that validation is going to be done via zod
         6. create an onSubmit function in which we will have a try, catch block. In the try block we will fetch the api and send the data in the body of the request and our headers will be content-type: application/json. Provide a toast message accordingly(successful signup or not)
         7. For real time password validity check we will make use of the watch function in the react hook form. We will tell it watch the "password" field. Then using an array of objects, where each object is for different parameters that we want to check, we will update the ui in real time
         8. Then in jsx we will pass the handleSubmit function from react hook form into onSubmit function of the form tag. The handleSubmit function will itself take in onSubmit function that we have created.
