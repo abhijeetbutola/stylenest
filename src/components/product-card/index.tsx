@@ -1,6 +1,6 @@
 import { colorsToCodes } from "../product-grid/colorToCodes";
 import { Products } from "../product-grid/schema";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../button";
 import { Link } from "react-router-dom";
 import { ColorToCodes } from "../product-grid/schema";
@@ -13,6 +13,27 @@ type ProductCardProps = {
 function ProductCard({ item }: ProductCardProps) {
   const [productColor, setProductColor] = useState<string>(item.colors[0]);
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setIsVisible(true);
+        });
+      },
+      { rootMargin: "300px" }
+    );
+
+    if (cardRef.current) observer.observe(cardRef.current);
+
+    const refValue = cardRef.current;
+
+    return () => {
+      if (refValue) observer.unobserve(refValue);
+    };
+  }, []);
 
   const handleColorClick = (
     colorName: string,
@@ -33,13 +54,13 @@ function ProductCard({ item }: ProductCardProps) {
   const ImageSection = (
     <Link to={`/product-details-page/${item.product_id}?color=${productColor}`}>
       <div className="h-[300px] w-full md:w-[280px] rounded-lg overflow-hidden relative">
-        {/* {isVisible && ( */}
-        <ImageCarousel
-          key={productColor}
-          images={itemImagesByColor}
-          isHovering={isHovering}
-        />
-        {/* )} */}
+        {isVisible && (
+          <ImageCarousel
+            key={productColor}
+            images={itemImagesByColor}
+            isHovering={isHovering}
+          />
+        )}
       </div>
     </Link>
   );
@@ -90,6 +111,7 @@ function ProductCard({ item }: ProductCardProps) {
 
   return (
     <div
+      ref={cardRef}
       className="flex flex-col rounded-lg overflow-clip hover:text-indigo-800 group w-full h-full"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
