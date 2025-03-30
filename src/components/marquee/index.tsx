@@ -37,7 +37,7 @@ export default function Marquee({ images }: { images: string[] }) {
               key={index}
               src={src}
               alt={`brand-${index}`}
-              className="h-24 w-auto object-contain shrink-0 px-8"
+              className="h-24 w-40 object-contain shrink-0 px-8"
               loading="lazy"
             />
           ))}
@@ -50,7 +50,7 @@ export default function Marquee({ images }: { images: string[] }) {
               key={index}
               src={src}
               alt={`brand-${index}`}
-              className="h-24 w-auto object-contain shrink-0 px-8"
+              className="h-24 w-40 object-contain shrink-0 px-8"
               loading="lazy"
             />
           ))}
@@ -62,7 +62,7 @@ export default function Marquee({ images }: { images: string[] }) {
               key={index}
               src={src}
               alt={`brand-${index}`}
-              className="h-24 w-auto object-contain shrink-0 px-8"
+              className="h-24 w-40 object-contain shrink-0 px-8"
               loading="lazy"
             />
           ))}

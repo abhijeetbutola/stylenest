@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks";
 import { toggleCollection } from "../../redux/slices/collectionsSlice";
@@ -15,10 +15,14 @@ function Collections() {
   const [collectionData, setCollectionData] = useState<Data[] | null>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const hasFetched = useRef(false);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
     const fetchData = async () => {
       try {
         const response = await fetch(
