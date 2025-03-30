@@ -79,7 +79,7 @@ function ProductDetailsPage() {
     fetchedProductsStatus === "loading"
   ) {
     return (
-      <Container className="p-24">
+      <Container className="h-screen p-24">
         <SkeletonText className="h-28 w-full" />
       </Container>
     );

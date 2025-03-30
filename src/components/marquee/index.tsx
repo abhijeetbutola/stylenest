@@ -38,6 +38,7 @@ export default function Marquee({ images }: { images: string[] }) {
               src={src}
               alt={`brand-${index}`}
               className="h-24 w-auto object-contain shrink-0 px-8"
+              loading="lazy"
             />
           ))}
         </div>
@@ -50,6 +51,7 @@ export default function Marquee({ images }: { images: string[] }) {
               src={src}
               alt={`brand-${index}`}
               className="h-24 w-auto object-contain shrink-0 px-8"
+              loading="lazy"
             />
           ))}
         {Array(multiplier)
@@ -61,6 +63,7 @@ export default function Marquee({ images }: { images: string[] }) {
               src={src}
               alt={`brand-${index}`}
               className="h-24 w-auto object-contain shrink-0 px-8"
+              loading="lazy"
             />
           ))}
       </div>

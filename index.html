@@ -6,8 +6,30 @@
       content="width=device-width, initial-scale=1.0"
       charset="UTF-8"
     />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <title>Stylenest</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Preload main page static image -->
+    <link rel="preload" as="image" href="src\assets\mainpageimage.jpg" />
+
+    <!-- Preconnect google font origin -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload the font -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+
+    <!-- Fallback if JavaScript is disabled -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

@@ -16,7 +16,6 @@ import marqueeAdidas from "../../assets/marqueelogos/marquee_adidas.png";
 import marqueeNewBalance from "../../assets/marqueelogos/marquee_newbalance.png";
 import marqueeGucci from "../../assets/marqueelogos/marquee_gucci.png";
 import marqueeEmporio from "../../assets/marqueelogos/marquee_emporio_armani.png";
-import marqueeBurberry from "../../assets/marqueelogos/marquee_burberry.jpg";
 import marqueeFaberge from "../../assets/marqueelogos/marquee_faberge.png";
 import marqueeNike from "../../assets/marqueelogos/marquee_nike.png";
 import marqueeReebok from "../../assets/marqueelogos/marquee_reebok.png";
@@ -26,7 +25,6 @@ const marqueeImages = [
   marqueeAdidas,
   marqueeGucci,
   marqueeNewBalance,
-  marqueeBurberry,
   marqueeEmporio,
   marqueeNike,
   marqueeFaberge,

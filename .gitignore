@@ -29,3 +29,6 @@ dist-ssr
 
 # bundle analysis
 bundle-analysis.html
+
+# Unlighthouse generated files
+.unlighthouse/
