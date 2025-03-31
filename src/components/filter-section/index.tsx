@@ -99,7 +99,7 @@ const FilterSection = () => {
             {(item.title === "Collections" || item.title === "Category") && (
               <div
                 className={[
-                  "flex flex-col gap-6 mt-6",
+                  "flex flex-col gap-6",
                   !open.includes(index) && "hidden",
                 ]
                   .filter(Boolean)
@@ -131,7 +131,7 @@ const FilterSection = () => {
             {item.title === "Colors" && (
               <div
                 className={[
-                  "flex gap-4 p-1 flex-wrap mt-6",
+                  "flex gap-4 p-1 flex-wrap",
                   !open.includes(index) && "hidden",
                 ]
                   .filter(Boolean)
@@ -156,7 +156,7 @@ const FilterSection = () => {
             {item.title === "Rating" && (
               <div
                 className={[
-                  "flex flex-col gap-6 mt-6",
+                  "flex flex-col gap-6",
                   !open.includes(index) && "hidden",
                 ]
                   .filter(Boolean)
