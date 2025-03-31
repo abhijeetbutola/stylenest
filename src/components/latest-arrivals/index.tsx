@@ -4,6 +4,10 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useEffect } from "react";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import ProductGrid from "../product-grid";
+import { resetCollection } from "../../redux/slices/collectionsSlice";
+import { resetColor } from "../../redux/slices/colorsSlice";
+import { resetGender } from "../../redux/slices/gendersSlice";
+import { resetRating } from "../../redux/slices/ratingsSlice";
 
 function LatestArrivals() {
   const dispatch = useAppDispatch();
@@ -15,6 +19,10 @@ function LatestArrivals() {
   const products = fetchedProductsData?.data || [];
 
   useEffect(() => {
+    dispatch(resetCollection());
+    dispatch(resetColor());
+    dispatch(resetGender());
+    dispatch(resetRating());
     dispatch(fetchProducts({ collection: "latest", page: 1, per_page: 8 }));
   }, [dispatch]);
 

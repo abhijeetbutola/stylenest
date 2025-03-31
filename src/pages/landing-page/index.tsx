@@ -1,9 +1,7 @@
 import Commitment from "../../components/commitment";
 import HeroSection from "../../components/hero-section";
 import Collections from "../collections";
-
 import Container from "../../components/container";
-
 import { Helmet } from "react-helmet-async";
 import Marquee from "../../components/marquee";
 import {
@@ -30,8 +28,6 @@ const marqueeImages = [
 ];
 
 function LandingPage() {
-  // const forcedLoading = true
-
   return (
     <>
       <Helmet>

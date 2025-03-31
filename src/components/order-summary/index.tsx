@@ -18,8 +18,6 @@ export default function OrderSummary() {
     (state) => state.cartItems
   );
 
-  console.log(afterDiscount);
-
   const handleCouponState = () => {
     setCouponState(!couponState);
   };

@@ -3,6 +3,10 @@ import ProductGrid from "../../components/product-grid";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { SkeletonProductGrid } from "../../components/skeletons";
+import { resetCollection } from "../../redux/slices/collectionsSlice";
+import { resetColor } from "../../redux/slices/colorsSlice";
+import { resetRating } from "../../redux/slices/ratingsSlice";
+import { resetGender } from "../../redux/slices/gendersSlice";
 
 function LatestArrivalsPage() {
   const dispatch = useAppDispatch();
@@ -11,6 +15,10 @@ function LatestArrivalsPage() {
   const products = fetchedProductsData?.data || [];
 
   useEffect(() => {
+    dispatch(resetCollection());
+    dispatch(resetColor());
+    dispatch(resetGender());
+    dispatch(resetRating());
     dispatch(fetchProducts({ collection: "latest", page: 1, per_page: 8 }));
   }, [dispatch]);
 

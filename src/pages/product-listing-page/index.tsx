@@ -70,7 +70,7 @@ function ProductListingPage() {
 
   // useEffect(() => {
   //   return () => {
-  //     if (window.location.pathname !== "/product-listing-page") {
+  //     if (window.location.pathname === "/") {
   //       dispatch(resetCollection());
   //       dispatch(resetGender());
   //       dispatch(resetColor());
