@@ -208,20 +208,20 @@ function ProductListingPage() {
                   paginationData.total / paginationData.per_page
                 ),
               },
-              (n: number) => {
+              (_, index) => {
                 return (
                   <Button
-                    key={n}
+                    key={index}
                     className={[
                       "border-[1px] border-neutral-200 py-3 px-3 md:px-[18px] rounded text-sm bg-white hover:bg-indigo-200 hover:bg-opacity-50 transition-all",
-                      n + 1 === paginationData.page &&
+                      index + 1 === paginationData.page &&
                         "border-none outline outline-indigo-700 hover:bg-white",
                     ]
                       .filter(Boolean)
                       .join(" ")}
-                    onClick={() => handlePageNumber(n + 1)}
+                    onClick={() => handlePageNumber(index + 1)}
                   >
-                    {n + 1} {/* Display 1-based page numbers */}
+                    {index + 1} {/* Display 1-based page numbers */}
                   </Button>
                 );
               }
