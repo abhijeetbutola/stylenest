@@ -201,27 +201,27 @@ function ProductListingPage() {
               <Button className="hidden md:block">Prev</Button>
             </div>
           )}
-          {products &&
+          {products.length > 0 &&
             Array.from(
               {
                 length: Math.ceil(
                   paginationData.total / paginationData.per_page
                 ),
               },
-              (_, index) => {
+              (n: number) => {
                 return (
                   <Button
-                    key={index}
+                    key={n}
                     className={[
                       "border-[1px] border-neutral-200 py-3 px-3 md:px-[18px] rounded text-sm bg-white hover:bg-indigo-200 hover:bg-opacity-50 transition-all",
-                      index + 1 === paginationData.page &&
+                      n + 1 === paginationData.page &&
                         "border-none outline outline-indigo-700 hover:bg-white",
                     ]
                       .filter(Boolean)
                       .join(" ")}
-                    onClick={() => handlePageNumber(index + 1)}
+                    onClick={() => handlePageNumber(n + 1)}
                   >
-                    {index + 1} {/* Display 1-based page numbers */}
+                    {n + 1} {/* Display 1-based page numbers */}
                   </Button>
                 );
               }

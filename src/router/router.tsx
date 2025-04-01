@@ -8,7 +8,7 @@ import Checkout from "../pages/checkout";
 import LandingPage from "../pages/landing-page";
 import ProductListingPage from "../pages/product-listing-page";
 import SignIn from "../pages/sign-in";
-import SignUp from "../pages/signup";
+import SignUp from "../pages/sign-up";
 import NotFoundPage from "../pages/not-found-page";
 import ProtectedRoutes from "../components/protected-routes";
 import LatestArrivalsPage from "../pages/latest-arrivals-page";
