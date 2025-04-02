@@ -29,8 +29,10 @@ function SignUp() {
         .string()
         .min(8, "Password must be atleast 8 characters long")
         .regex(/[A-Z]/, "Password must contain an uppercase letter")
+        .regex(/[a-z]/, "Password must container a lowercase letter")
         .regex(/\d/, "Password must contain a number"),
       confirmPassword: z.string().min(1, "Confirm password is required"),
+      terms: z.boolean(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords must match",
@@ -51,6 +53,8 @@ function SignUp() {
   };
 
   const password = watch("password", "");
+  const termsAccepted = watch("terms", false);
+
   const passwordCriteria = [
     { id: 1, label: "At least 8 characters", isValid: password.length >= 8 },
     {
@@ -58,7 +62,17 @@ function SignUp() {
       label: "Contains an uppercase letter",
       isValid: /[A-Z]/.test(password),
     },
-    { id: 3, label: "Contains a number", isValid: /\d/.test(password) },
+    {
+      id: 3,
+      label: "At least a lowercase letter",
+      isValid: /[a-z]/.test(password),
+    },
+    { id: 4, label: "Contains a number", isValid: /\d/.test(password) },
+    {
+      id: 5,
+      label: "Contains a special character",
+      isValid: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    },
   ];
 
   return (
@@ -127,7 +141,11 @@ function SignUp() {
           />
           <div className="flex flex-col gap-6 font-medium text-sm text-neutral-900">
             <p className="flex gap-3 items-center text-sm font-normal text-neutral-600">
-              <Input type="checkbox" className="accent-indigo-700 w-4 h-4" />
+              <Input
+                type="checkbox"
+                className="accent-indigo-700 w-4 h-4"
+                {...register("terms", { required: true })}
+              />
               <span>
                 I agree with StyleNest{" "}
                 <Link to={"/"} className="text-indigo-700">
@@ -137,7 +155,12 @@ function SignUp() {
             </p>
             <Button
               type="submit"
-              className="w-full bg-indigo-700 py-2.5 font-medium text-sm text-white rounded hover:bg-indigo-800"
+              disabled={!termsAccepted}
+              className={`w-full py-2.5 font-medium text-sm text-white rounded transition-colors ${
+                termsAccepted
+                  ? "bg-indigo-700 hover:bg-indigo-800"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
             >
               Create account
             </Button>
