@@ -29,14 +29,18 @@ function SignUp() {
         .string()
         .min(8, "Password must be atleast 8 characters long")
         .regex(/[A-Z]/, "Password must contain an uppercase letter")
-        .regex(/[a-z]/, "Password must container a lowercase letter")
-        .regex(/\d/, "Password must contain a number"),
+        .regex(/[a-z]/, "Password must contain a lowercase letter")
+        .regex(/\d/, "Password must contain a number")
+        .regex(
+          /[!@#$%^&*(),.?":{}|<>]/,
+          "Password must contain a special character"
+        ),
       confirmPassword: z.string().min(1, "Confirm password is required"),
       terms: z.boolean(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords must match",
-      path: ["confirm password"],
+      path: ["confirmPassword"],
     });
 
   type SignUpFormData = z.infer<typeof signupSchema>;
@@ -70,7 +74,7 @@ function SignUp() {
     { id: 4, label: "Contains a number", isValid: /\d/.test(password) },
     {
       id: 5,
-      label: "Contains a special character",
+      label: "Contains a special character (e.g., ! @ # $ % ^ & *)",
       isValid: /[!@#$%^&*(),.?":{}|<>]/.test(password),
     },
   ];
