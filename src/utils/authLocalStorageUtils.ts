@@ -1,14 +1,6 @@
-import { User } from "firebase/auth";
+import { SerializedUser } from "../auth/useAuth";
 
-export const saveAuthToLocalStorage = (
-  authData:
-    | {
-        id: string;
-        email: string;
-        name: string;
-      }
-    | User
-) => {
+export const saveAuthToLocalStorage = (authData: SerializedUser) => {
   try {
     const serializedData = JSON.stringify(authData);
     localStorage.setItem("authData", serializedData);

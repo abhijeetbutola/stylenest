@@ -1,11 +1,9 @@
 const signInWithGoogle = async () => {
   try {
-    const { GoogleAuthProvider, signInWithPopup } = await import(
-      "firebase/auth"
-    );
     const { loadFirebaseAuth } = await import("../lazyFirebase");
 
-    const { auth } = await loadFirebaseAuth();
+    const { auth, GoogleAuthProvider, signInWithPopup } =
+      await loadFirebaseAuth();
 
     const googleProvider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, googleProvider);

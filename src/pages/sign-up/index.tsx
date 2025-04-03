@@ -6,7 +6,31 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Container from "../../components/container";
 import { CheckCircle2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signUpWithEmail } from "../../auth/authMethods/usernamePasswordAuth";
+
+const signupSchema = z
+  .object({
+    email: z.string().email("Invalid email format"),
+    password: z
+      .string()
+      .min(8, "Password must be atleast 8 characters long")
+      .regex(/[A-Z]/, "Password must contain an uppercase letter")
+      .regex(/[a-z]/, "Password must contain a lowercase letter")
+      .regex(/\d/, "Password must contain a number")
+      .regex(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        "Password must contain a special character"
+      ),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
+    terms: z.boolean(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
+  });
+
+type SignUpFormData = z.infer<typeof signupSchema>;
 
 function SignUp() {
   /*
@@ -22,28 +46,7 @@ function SignUp() {
         9. 
     */
 
-  const signupSchema = z
-    .object({
-      email: z.string().email("Invalid email format"),
-      password: z
-        .string()
-        .min(8, "Password must be atleast 8 characters long")
-        .regex(/[A-Z]/, "Password must contain an uppercase letter")
-        .regex(/[a-z]/, "Password must contain a lowercase letter")
-        .regex(/\d/, "Password must contain a number")
-        .regex(
-          /[!@#$%^&*(),.?":{}|<>]/,
-          "Password must contain a special character"
-        ),
-      confirmPassword: z.string().min(1, "Confirm password is required"),
-      terms: z.boolean(),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Passwords must match",
-      path: ["confirmPassword"],
-    });
-
-  type SignUpFormData = z.infer<typeof signupSchema>;
+  const navigate = useNavigate();
 
   const {
     register,
@@ -52,8 +55,15 @@ function SignUp() {
     formState: { errors },
   } = useForm<SignUpFormData>({ resolver: zodResolver(signupSchema) });
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log("Form Submitted: ", data);
+  const onSubmit = async (data: SignUpFormData) => {
+    try {
+      console.log("Form Submitted: ", data);
+      await signUpWithEmail(data.email, data.password);
+      alert("Sign-up successful! Please sign-in.");
+      navigate("/sign-in");
+    } catch (error) {
+      alert((error as Error).message);
+    }
   };
 
   const password = watch("password", "");

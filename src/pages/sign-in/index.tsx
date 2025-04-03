@@ -28,10 +28,18 @@ function SignIn() {
   useEffect(() => {
     if (user) {
       saveAuthToLocalStorage(user);
-      dispatch(login(user));
+
+      dispatch(
+        login({
+          id: user.uid,
+          email: user.email,
+          name: user.displayName,
+        })
+      );
+
       navigate(from, { replace: true });
     }
-  }, [user, dispatch, navigate, from]);
+  }, [dispatch, navigate, from, user]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -45,30 +53,35 @@ function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const email = formData.email;
-    const password = formData.password;
-    try {
-      const response = await fetch(
-        "https://www.greatfrontend.com/api/projects/challenges/auth/sign-in",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+    const { email, password } = formData;
 
-      if (response.ok) {
-        const userData = await response.json();
-        saveAuthToLocalStorage(userData);
-        dispatch(login(userData));
-        toast.success("Login successful!", {
-          className: "toast-class",
-          delay: 500,
-        });
-        navigate(from, { replace: true });
-      } else {
-        toast.error("Login failed!");
+    try {
+      const { loadFirebaseAuth } = await import("../../auth/lazyFirebase");
+      const { auth, signInWithEmailAndPassword } = await loadFirebaseAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      if (user) {
+        saveAuthToLocalStorage(user);
+
+        dispatch(
+          login({
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+          })
+        );
       }
+
+      toast.success("Login successful!", {
+        className: "toast-class",
+        delay: 500,
+      });
+      navigate(from, { replace: true });
     } catch (error) {
       console.error("Login error: ", error);
     } finally {
