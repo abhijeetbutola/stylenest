@@ -419,7 +419,7 @@ function Checkout() {
                 <div className="flex justify-between">
                   <p className="text-neutral-600 text-base">Coupon Discount</p>
                   <p className="text-neutral-900 text-lg font-semibold">
-                    ${totalAmount - afterDiscount}
+                    ${afterDiscount ? totalAmount - afterDiscount : 0.0}
                   </p>
                 </div>
               </div>
