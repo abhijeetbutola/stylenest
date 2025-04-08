@@ -35,7 +35,7 @@ function OrderSuccessPage() {
 
   return (
     <Container className="grid grid-cols-2 gap-8 p-24">
-      <div>
+      <div className="rounded-md overflow-hidden">
         <img
           src={orderSuccessImage}
           alt=""
@@ -44,54 +44,116 @@ function OrderSuccessPage() {
       </div>
       {orders && (
         <div className="flex flex-col gap-12">
-          <div>
-            <p>Your order is confirmed!</p>
-            <p>
+          <div className="flex flex-col gap-4">
+            <p className="text-neutral-900 font-semibold text-4xl">
+              Your order is confirmed!
+            </p>
+            <p className="text-neutral-600 text-base font-normal">
               Your order is now in the queue and is now being processed. We'll
               let you know when we ship it out!
             </p>
           </div>
           <div>
-            <p>Order number</p>
-            <p>{orders.order_id}</p>
+            <p className="font-normal text-neutral-600 text-base">
+              Order number
+            </p>
+            <p className="font-medium text-indigo-700 text-base">
+              {orders.order_id}
+            </p>
           </div>
           <div>
-            {orders.items.map((item, index) => (
-              <div key={index}>
-                <div className="rounded-lg overflow-hidden">
-                  <img
-                    src={item.unit.image_url}
-                    alt=""
-                    className="h-20 w-20 object-cover"
-                  />
-                </div>
-                <div>
-                  <p>{item.product.name}</p>
-                  <p></p>
-                </div>
+            <div className="flex flex-col lg:max-h-[700px] overflow-auto">
+              {orders.items.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <div className="flex gap-6">
+                      <div>
+                        <img
+                          src={item.unit.image_url}
+                          className="object-cover h-20 w-20 rounded-lg"
+                        />
+                      </div>
+                      <div className="flex-1 flex flex-col gap-2">
+                        <div className="font-medium text-xl text-neutral-900">
+                          {item.product.name}
+                        </div>
+                        <div className="font-medium text-base text-neutral-600">
+                          {item.unit.size ? (
+                            <span>
+                              {item.unit.color[0].toUpperCase() +
+                                item.unit.color.slice(1)}
+                              {item.unit.size !== "N/A" &&
+                                " · " + String(item.unit.size).toUpperCase()}
+                            </span>
+                          ) : (
+                            <span>
+                              {item.unit.color[0].toUpperCase() +
+                                item.unit.color.slice(1)}
+                            </span>
+                          )}
+                        </div>
+                        <div className="font-medium text-base text-neutral-600">
+                          Quantity: {item.quantity}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-lg text-neutral-900">
+                          ${item.unit.sale_price}
+                        </div>
+                        <div className="font-normal text-lg text-neutral-600">
+                          {item.unit.list_price > item.unit.sale_price ? (
+                            <s>${item.unit.list_price}</s>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {index + 1 < orders.items.length && (
+                      <hr className="border-t-2 border-neutral-300 border-dotted my-8" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <hr className="border-t-2 border-neutral-300 border-dotted my-8" />
+            <div className="flex flex-col gap-6">
+              <div className="flex justify-between">
+                <span className="text-base text-neutral-600">Subtotal</span>
+                <span className="font-semibold text-lg text-neutral-900">
+                  ${orders.summary.subtotal.toFixed(2)}
+                </span>
               </div>
-            ))}
-          </div>
-          <div>
-            <div>
-              <span>Subtotal</span>
-              <span>{orders.summary.subtotal}</span>
+              <div className="flex justify-between">
+                <span className="text-base text-neutral-600">Shipping</span>
+                <span className="font-semibold text-lg text-neutral-900">
+                  {orders.summary.shipping || "FREE"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <div className="flex gap-4 items-center">
+                  <span className="text-base text-neutral-600">
+                    Coupon discount
+                  </span>
+                  <span className="font-normal text-sm text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-2.5 py-1">
+                    {orders.summary.discount_code}
+                  </span>
+                </div>
+                <span className="font-semibold text-lg text-neutral-900">
+                  -${orders.summary.discount.toFixed(2)}
+                </span>
+              </div>
             </div>
-            <div>
-              <span>Shipping</span>
-              <span>{orders.summary.shipping}</span>
-            </div>
-            <div>
-              <span>Coupon discount</span>
-              <span>{orders.summary.discount_code}</span>
-              <span>{orders.summary.discount}</span>
+            <hr className="border-t-2 border-neutral-300 border-dotted my-8" />
+            <div className="flex justify-between">
+              <span className="text-neutral-900 font-normal text-base">
+                Total
+              </span>
+              <span className="font-semibold text-2xl text-neutral-900">
+                ${orders.summary.total.toFixed(2)}
+              </span>
             </div>
           </div>
-          <div>
-            <span>Total</span>
-            <span>{orders.summary.total}</span>
-          </div>
-          <div></div>
         </div>
       )}
     </Container>
