@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm, Controller, FieldErrors } from "react-hook-form";
 import Button from "../../components/button";
@@ -6,8 +6,9 @@ import Dropdown from "../../components/dropdown";
 import lockIcon from "../../assets/icons/lockordericon.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import DeliveryMethodCard from "../../components/delivery-method-card";
+import { setHasCheckedOut } from "../../redux/slices/cartSlice";
 
 const options = [
   "United States",
@@ -58,6 +59,9 @@ type DeliveryType = "standard" | "express";
 function Checkout() {
   const [deliveryType, setDeliveryType] = useState("standard");
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     control,
@@ -89,6 +93,8 @@ function Checkout() {
 
   const onSubmit = (data: FormFields) => {
     console.log(data);
+    dispatch(setHasCheckedOut(true));
+    navigate("/order-success-page");
   };
 
   const onError = (errors: FieldErrors) => {
@@ -347,7 +353,7 @@ function Checkout() {
             <div className="font-semibold text-xl text-neutral-900">
               Order Summary
             </div>
-            <div className="flex flex-col lg:h-[700px] overflow-auto">
+            <div className="flex flex-col lg:max-h-[700px] overflow-auto">
               {cartItems.map((item, index) => {
                 return (
                   <div key={index}>

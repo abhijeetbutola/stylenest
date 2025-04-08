@@ -24,6 +24,7 @@ export type CartState = {
   appliedCoupon: string | null;
   discount: number;
   afterDiscount: number;
+  hasCheckedOut: boolean;
 };
 
 export const COUPONS: Record<string, number> = {
@@ -41,6 +42,7 @@ const initialState: CartState = {
   appliedCoupon: null,
   discount: 0,
   afterDiscount: 0,
+  hasCheckedOut: false,
 };
 
 const cartSlice = createSlice({
@@ -171,6 +173,9 @@ const cartSlice = createSlice({
       state.discount = 0;
       state.afterDiscount = state.totalAmount;
     },
+    setHasCheckedOut: (state, action: PayloadAction<boolean>) => {
+      state.hasCheckedOut = action.payload;
+    },
   },
 });
 
@@ -181,6 +186,7 @@ export const {
   removeItems,
   applyCoupon,
   removeCoupon,
+  setHasCheckedOut,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

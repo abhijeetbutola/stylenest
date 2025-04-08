@@ -2,12 +2,26 @@ import Container from "../../components/container";
 import orderSuccessImage from "../../assets/ordersuccessimage.png";
 import { useEffect, useState } from "react";
 import { Order } from "./types";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import CopyToClipboard from "../../components/copy-on-click";
+import { useAppSelector } from "../../hooks";
 
 function OrderSuccessPage() {
   const [orders, setOrders] = useState<Order | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const hasCheckedOut = useAppSelector(
+    (state) => state.cartItems.hasCheckedOut
+  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!hasCheckedOut) navigate("/");
+  }, [hasCheckedOut, navigate]);
 
   useEffect(() => {
     setLoading(true);
@@ -30,16 +44,17 @@ function OrderSuccessPage() {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading data...</div>;
+  if (loading)
+    return <Container className="h-screen">Loading data...</Container>;
   if (error) return <div>{error}</div>;
 
   return (
-    <Container className="grid grid-cols-2 gap-8 p-24">
+    <Container className="grid lg:grid-cols-2 gap-8 py-16 px-4 lg:p-24">
       <div className="rounded-md overflow-hidden">
         <img
           src={orderSuccessImage}
           alt=""
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-[420px] lg:h-full"
         />
       </div>
       {orders && (
@@ -57,9 +72,12 @@ function OrderSuccessPage() {
             <p className="font-normal text-neutral-600 text-base">
               Order number
             </p>
-            <p className="font-medium text-indigo-700 text-base">
-              {orders.order_id}
-            </p>
+            <div className="flex gap-1.5">
+              <p className="font-medium text-indigo-700 text-base">
+                {orders.order_id}
+              </p>
+              <CopyToClipboard value={orders.order_id} />
+            </div>
           </div>
           <div>
             <div className="flex flex-col lg:max-h-[700px] overflow-auto">
@@ -145,7 +163,7 @@ function OrderSuccessPage() {
               </div>
             </div>
             <hr className="border-t-2 border-neutral-300 border-dotted my-8" />
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-neutral-900 font-normal text-base">
                 Total
               </span>
@@ -153,7 +171,43 @@ function OrderSuccessPage() {
                 ${orders.summary.total.toFixed(2)}
               </span>
             </div>
+            <div className="mt-8 grid md:grid-cols-2 gap-8">
+              <div className="flex flex-col gap-4 text-neutral-600 font-normal">
+                <p className="text-base">Shipping address</p>
+                <div className="text-sm">
+                  <p>{orders.shipping_details.phone}</p>
+                  <p>{orders.shipping_details.address.line1}</p>
+                  <p>{orders.shipping_details.address.line2 || ""}</p>
+                  <p>
+                    {orders.shipping_details.address.city},{" "}
+                    {orders.shipping_details.address.state},{" "}
+                    {orders.shipping_details.address.zip}
+                  </p>
+                  <p>{orders.shipping_details.address.country}</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 text-neutral-600 font-normal">
+                <p className="text-base">Payment</p>
+                <div className="flex gap-4 text-sm">
+                  <span>VISA</span>
+                  <div className="flex flex-col">
+                    <span>Ending with {orders.payment_method.last_4}</span>
+                    <span>
+                      Expires {String(orders.payment_method.exp_month)} /
+                      {String(orders.payment_method.exp_year).slice(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <Link
+            to={"/"}
+            className="flex justify-center items-center gap-1.5 rounded-[4px] w-full border border-neutral-200 bg-white hover:bg-neutral-100 transition-all shadow-md py-2.5"
+          >
+            Continue Shopping
+            <ArrowRight />
+          </Link>
         </div>
       )}
     </Container>
