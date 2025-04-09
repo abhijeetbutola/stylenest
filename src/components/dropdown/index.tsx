@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect, useRef } from "react";
 type DropdownProps = {
   data: string[]; // Array of options for the dropdown
   open: boolean; // State to indicate if the dropdown is open
-  setOpen: () => void; // Function to toggle the dropdown's open state
+  setOpen: (value: boolean) => void; // Function to toggle the dropdown's open state
   onChange: (selectedOption: string) => void; // Callback for when an option is selected
   type: "hover" | "click";
   selectedOption: string;
@@ -29,12 +29,13 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (type === "hover") return;
+
       if (
-        type === "click" &&
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setOpen();
+        setOpen(false);
       }
     };
 
@@ -55,21 +56,21 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   }, [dropdownContentRef, open]);
 
-  const handleHoverType = () => {
-    if (type === "hover") setOpen();
+  const handleHoverType = (value: boolean) => {
+    if (type === "hover") setOpen(value);
   };
 
-  const handleClickType = () => {
-    if (type === "click") setOpen();
+  const handleClickType = (value: boolean) => {
+    if (type === "click") setOpen(value);
   };
 
   return (
     <div
       ref={dropdownRef}
       className="relative cursor-pointer"
-      onMouseEnter={handleHoverType}
-      onMouseLeave={handleHoverType}
-      onClick={handleClickType}
+      onMouseEnter={() => handleHoverType(true)}
+      onMouseLeave={() => handleHoverType(false)}
+      onClick={() => handleClickType(true)}
     >
       <div
         className={`${titleClassName} flex justify-between items-center gap-1.5`}
@@ -88,9 +89,10 @@ const Dropdown: React.FC<DropdownProps> = ({
               ]
                 .filter(Boolean)
                 .join(" ")}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 onChange(opt);
-                setOpen();
+                handleClickType(false);
               }}
             >
               {opt}

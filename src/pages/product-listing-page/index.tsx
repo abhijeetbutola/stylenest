@@ -68,8 +68,8 @@ function ProductListingPage() {
     return sortOptions[selectedDropdownOption] || "";
   }, [selectedDropdownOption]);
 
-  const handleDropdownClick = () => {
-    setOpen(!open);
+  const handleDropdownClick = (value: boolean) => {
+    setOpen(value);
   };
 
   const handleDropdownValue = (opt: string) => {
@@ -163,7 +163,7 @@ function ProductListingPage() {
           <Dropdown
             data={Object.keys(sortOptions)}
             open={open}
-            setOpen={handleDropdownClick}
+            setOpen={(value) => handleDropdownClick(value)}
             onChange={handleDropdownValue}
             type="hover"
             selectedOption={selectedDropdownOption}

@@ -82,8 +82,8 @@ function Checkout() {
   } = useAppSelector((state) => state.cartItems);
   const [open, setOpen] = useState(false);
 
-  const handleDropdownClick = () => {
-    setOpen(!open);
+  const handleDropdownClick = (value: boolean) => {
+    setOpen(value);
   };
 
   const onDeliveryTypeChange = (type: DeliveryType) => {
@@ -146,7 +146,7 @@ function Checkout() {
                       <Dropdown
                         data={options}
                         open={open}
-                        setOpen={handleDropdownClick}
+                        setOpen={(value) => handleDropdownClick(value)}
                         onChange={field.onChange}
                         type="click"
                         selectedOption={field.value}
