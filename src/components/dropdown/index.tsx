@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 
 type DropdownProps = {
   data: string[]; // Array of options for the dropdown
@@ -24,6 +24,37 @@ const Dropdown: React.FC<DropdownProps> = ({
   titleClassName = "",
   optionsClassName = "",
 }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        type === "click" &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownRef, setOpen, type]);
+
+  useEffect(() => {
+    if (dropdownContentRef.current) {
+      const rect = dropdownContentRef.current.getBoundingClientRect();
+      if (rect.right > window.innerWidth) {
+        dropdownContentRef.current.style.left = "auto";
+        dropdownContentRef.current.style.right = "0";
+      }
+    }
+  }, [dropdownContentRef, open]);
+
   const handleHoverType = () => {
     if (type === "hover") setOpen();
   };
@@ -34,6 +65,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div
+      ref={dropdownRef}
       className="relative cursor-pointer"
       onMouseEnter={handleHoverType}
       onMouseLeave={handleHoverType}
@@ -46,7 +78,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         <div>{open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}</div>
       </div>
       {open && (
-        <div className={optionsClassName}>
+        <div ref={dropdownContentRef} className={optionsClassName}>
           {data.map((opt, index) => (
             <div
               key={index}

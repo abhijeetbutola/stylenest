@@ -68,17 +68,6 @@ function ProductListingPage() {
     return sortOptions[selectedDropdownOption] || "";
   }, [selectedDropdownOption]);
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (window.location.pathname === "/") {
-  //       dispatch(resetCollection());
-  //       dispatch(resetGender());
-  //       dispatch(resetColor());
-  //       dispatch(resetRating());
-  //     }
-  //   };
-  // }, [dispatch]);
-
   const handleDropdownClick = () => {
     setOpen(!open);
   };
