@@ -5,7 +5,8 @@ import { Order } from "./types";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import CopyToClipboard from "../../components/copy-on-click";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setHasCheckedOut } from "../../redux/slices/cartSlice";
 
 function OrderSuccessPage() {
   const [orders, setOrders] = useState<Order | null>(null);
@@ -16,12 +17,19 @@ function OrderSuccessPage() {
   const hasCheckedOut = useAppSelector(
     (state) => state.cartItems.hasCheckedOut
   );
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!hasCheckedOut) navigate("/");
   }, [hasCheckedOut, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setHasCheckedOut(false));
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     setLoading(true);

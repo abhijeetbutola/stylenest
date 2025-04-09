@@ -21,6 +21,7 @@ const preloadedCartState: CartState = loadStateFromLocalStorage() || {
   appliedCoupon: null,
   discount: 0,
   afterDiscount: 0,
+  hasCheckedOut: false,
 };
 
 const preloadedState = {
