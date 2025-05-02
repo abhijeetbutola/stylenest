@@ -33,12 +33,10 @@ type PaginationSchema = {
 
 function ProductListingPage() {
   const dispatch = useAppDispatch();
-  const selectedGenders = useAppSelector(
-    (state) => state.genders.selectedGenders
-  );
-  const selectedCollections = useAppSelector(
-    (state) => state.collections.selectedCollections
-  );
+  const { selectedGenders } = useAppSelector((state) => state.genders);
+  const { selectedCollections } = useAppSelector((state) => state.collections);
+  const { selectedColors } = useAppSelector((state) => state.colors);
+  const { selectedRatings } = useAppSelector((state) => state.ratings);
 
   const {
     data: fetchedProductsData,
@@ -76,12 +74,22 @@ function ProductListingPage() {
     setSelectedDropdownOption(opt);
   };
 
+  const filters = useMemo(
+    () => ({
+      genders: selectedGenders,
+      collections: selectedCollections,
+      colors: selectedColors,
+      ratings: selectedRatings,
+    }),
+    [selectedGenders, selectedCollections, selectedColors, selectedRatings]
+  );
+
   const handlePageNumber = (value: number) => {
     if (value > totalPages || value < 0) return;
 
     dispatch(
       fetchProducts({
-        collection: filters.collections[0],
+        collection: filters.collections,
         page: value,
         per_page: 9,
         sort: selectedSort.sort,
@@ -98,18 +106,10 @@ function ProductListingPage() {
       setPage(value);
   };
 
-  const filters = useMemo(
-    () => ({
-      genders: selectedGenders,
-      collections: selectedCollections,
-    }),
-    [selectedGenders, selectedCollections]
-  );
-
   useEffect(() => {
     dispatch(
       fetchProducts({
-        collection: filters.collections[0],
+        collection: filters.collections,
         page: 1,
         per_page: 9,
         sort: selectedSort.sort,

@@ -10,7 +10,6 @@ import Button from "../button";
 import expandIcon from "../../assets/icons/filtersectionexpandicon.svg";
 import contractIcon from "../../assets/icons/contracticon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchProducts } from "../../redux/slices/productsSlice";
 import { accObj as data } from "../../pages/product-listing-page/accordionItems";
 import { resetRating, toggleRating } from "../../redux/slices/ratingsSlice";
 
@@ -58,13 +57,10 @@ const FilterSection = () => {
   const handleColorClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const colorName = e.currentTarget.name;
     dispatch(toggleColor(colorName));
-    dispatch(fetchProducts({ page: 1, per_page: 9 }));
   };
 
   const handleRatingClick = (rating: number) => {
     dispatch(toggleRating(rating));
-
-    dispatch(fetchProducts({ page: 1, per_page: 9 }));
   };
 
   const handleAccordionClick = (value: number) => {

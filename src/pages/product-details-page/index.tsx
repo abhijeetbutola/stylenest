@@ -53,7 +53,7 @@ function ProductDetailsPage() {
     if (productDetails?.collection) {
       dispatch(
         fetchProducts({
-          collection: productDetails?.collection.collection_id,
+          collection: [productDetails?.collection.collection_id],
           per_page: 5,
           page: 1,
         })

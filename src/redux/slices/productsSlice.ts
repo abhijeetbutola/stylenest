@@ -66,7 +66,7 @@ type ProductsState = {
 };
 
 type FetchProductsParams = {
-  collection?: string;
+  collection?: string[];
   category?: string;
   page: number;
   per_page: number;

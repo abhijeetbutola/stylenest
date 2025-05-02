@@ -23,7 +23,7 @@ function LatestArrivals() {
     dispatch(resetColor());
     dispatch(resetGender());
     dispatch(resetRating());
-    dispatch(fetchProducts({ collection: "latest", page: 1, per_page: 8 }));
+    dispatch(fetchProducts({ collection: ["latest"], page: 1, per_page: 8 }));
   }, [dispatch]);
 
   return (

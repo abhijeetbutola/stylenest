@@ -35,7 +35,7 @@ function Footer() {
   const handleCollectionClick = (value: string) => {
     dispatch(
       fetchProducts({
-        collection: value,
+        collection: [value],
         page: 1,
         per_page: 9,
       })
