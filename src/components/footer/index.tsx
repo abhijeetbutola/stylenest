@@ -21,7 +21,7 @@ function Footer() {
   const handleCategoryClick = (value: string) => {
     dispatch(
       fetchProducts({
-        category: value,
+        category: [value],
         page: 1,
         per_page: 9,
       })
