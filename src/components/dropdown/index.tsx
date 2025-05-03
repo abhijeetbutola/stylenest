@@ -1,19 +1,19 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import React, { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
-type DropdownProps = {
-  data: string[]; // Array of options for the dropdown
+interface DropdownProps<T extends string> {
+  data: T[]; // Array of options for the dropdown
   open: boolean; // State to indicate if the dropdown is open
   setOpen: (value: boolean) => void; // Function to toggle the dropdown's open state
-  onChange: (selectedOption: string) => void; // Callback for when an option is selected
+  onChange: (selectedOption: T) => void; // Callback for when an option is selected
   type: "hover" | "click";
-  selectedOption: string;
+  selectedOption: T;
   children: ReactNode; // Content to display in the dropdown title
   titleClassName?: string; // Class name for the dropdown title
   optionsClassName?: string; // Class name for the dropdown options
-};
+}
 
-const Dropdown: React.FC<DropdownProps> = ({
+const Dropdown = <T extends string>({
   data,
   open,
   setOpen,
@@ -23,7 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   children,
   titleClassName = "",
   optionsClassName = "",
-}) => {
+}: DropdownProps<T>): JSX.Element => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownContentRef = useRef<HTMLDivElement>(null);
 

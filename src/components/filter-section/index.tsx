@@ -76,7 +76,7 @@ const FilterSection = () => {
   };
 
   return (
-    <div>
+    <div className="hidden lg:block w-[248px] pt-4 pr-4">
       <div className="flex flex-col gap-6">
         {data.map((item, index) => (
           <div key={index} className="flex flex-col gap-6">
