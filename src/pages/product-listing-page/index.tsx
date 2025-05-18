@@ -19,7 +19,9 @@ export default function ProductListingPage() {
   return (
     <Container className="flex gap-8 lg:p-24 max-lg:p-4">
       {/* sidebar */}
-      <FilterSection />
+      <div className="hidden lg:block shrink-0">
+        <FilterSection />
+      </div>
 
       <div className="flex-1 flex flex-col gap-8">
         <SortToolbar
