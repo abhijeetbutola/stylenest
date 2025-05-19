@@ -20,7 +20,9 @@ type DataType = {
 };
 
 const FilterSection = () => {
-  const [open, setOpen] = useState<number[]>([]);
+  const [open, setOpen] = useState<number[]>(
+    Array.from({ length: data.length }, (_, index) => index)
+  );
   const dispatch = useAppDispatch();
   const selectedCollections = useAppSelector(
     (state) => state.collections.selectedCollections
