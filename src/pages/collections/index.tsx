@@ -84,7 +84,7 @@ function Collections() {
             onClick={() => handleCollectionClick("urban")}
             className="relative flex-1 flex w-full rounded-lg overflow-hidden"
           >
-            <div className="flex">
+            <div className="w-full flex">
               <img
                 className="w-full object-cover hover:scale-110 transition-all"
                 src={collectionData?.[1]?.image_url}
@@ -106,7 +106,7 @@ function Collections() {
             onClick={() => handleCollectionClick("fresh")}
             className="relative flex-1 flex w-full rounded-lg overflow-hidden"
           >
-            <div className="flex">
+            <div className="w-full flex">
               <img
                 className="w-full object-cover hover:scale-110 transition-all"
                 src={collectionData?.[2]?.image_url}
